@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
+
+    <title>portfolio</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="united.css">
+</head>
+
+<body>
+    <div class="popup-bar" id="popupBar">
+        <div class="left">
+            <div class="portfolio", style="font-size: 20px;">PORTFOLIO</div>
+            <div class="name", style="font-size: 12px;">Shota Onotsuka</div>
+        </div>
+        <div class="right">
+            <button id="scrollTopButton">PAGE TOP</button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="whiteboad">
+            <div class="video-container">
+                <video autoplay muted loop class="background-video">
+                    <source src="videos/portfolio.mp4" type="video/mp4">
+                    ブラウザがサポートしていません．
+                </video>
+                <div class="overlay">
+                    <div class="col-md-12">
+                        <div style="text-align:center">
+                            <div class="flushleft">
+                                <div class="portfolio", style="font-size: 80px;">PORTFOLIO</div>
+                                <div class="name", style="font-size: 40px;">Shota Onotsuka</div>
+                                <div class="name", style="font-size: 20px;">Guraduate School of Informatics, Gunma University</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="plate">
+            <div class="column left">
+                <button class="button" onclick="scrollToSection('shokai')">
+                    <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon">
+                    <span class="button-text">自己紹介</span>
+                </button>
+                <button class="button" onclick="scrollToSection('shooting')">
+                    <img src="figs/product.png" alt="作品アイコン" class="button-icon">
+                    <span class="button-text">作品 ➀</span>
+                </button>
+            </div>
+            <div class="column middle">
+                <button class="button" onclick="scrollToSection('apipo')">
+                    <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon">
+                    <span class="button-text">アピール<br>ポイント</span>
+                </button>
+                <button class="button" onclick="scrollToSection('kenkyu')">
+                    <img src="figs/product.png" alt="作品アイコン" class="button-icon">
+                    <span class="button-text">作品 ➁</span>
+                </button>
+            </div>
+            <div class="column right">
+                <button class="button" onclick="scrollToSection('gengo')">
+                    <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon">
+                    <span class="button-text">扱った言語</span>
+                </button>
+                <button class="button" onclick="scrollToSection('heyakowashi')">
+                    <img src="figs/product.png" alt="作品アイコン" class="button-icon">
+                    <span class="button-text">作品 ➂</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="whiteboad">
+            <div class="starter-template">
+                <div class="row text-center">
+                    <h2 id="shokai">見かけによらず、個性的でチャーミング！！</h2>
+                </div>
+                <div class="row text-center">
+                    <div class="col-sm-4">
+                        <h2 class="color-talk"><span class="glyphicon glyphicon-volume-up icon-size"></span><br>しゃべる</h2>
+                        <p>コミュニケーション能力はともかく、<br>ひととのおしゃべりが大好き。<br>日本語を流暢に操ります。</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h2 class="color-wrench"><span class="glyphicon glyphicon-wrench icon-size"></span><br>つくる</h2>
+                        <p>優れたAIと豊富な先人たちの知識を使い、<br>世界的には貢献できない個人的プロジェクトを、<br>多数用意してございます。</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h2 class="color-heart"><span class="glyphicon glyphicon-heart icon-size"></span><br>いやす</h2>
+                        <p>就活で荒んだ、<br>みんなの心を和ませる、<br>癒し系ゆるキャラです。</p>
+                    </div>
+                </div>
+                <h2>好き嫌い<p></p>
+                </h2>
+                <div class="row text-center">
+                    <div class="col-sm-6">
+                    <h3>好き</h3>
+                    <ul>
+                        <li>食べること</li>
+                        <li>騒ぐこと</li>
+                        <li>ゲームをすること</li>
+                    </ul>
+                    </div>
+                    <div class="col-sm-6">
+                    <h3>嫌い</h3>
+                    <ul>
+                        <li>夜更かし</li>
+                        <li>水泳の授業</li>
+                    </ul>
+                    </div>
+                </div>
+                <hr>
+                <h2 id="apipo">アピールポイント</h2>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>好奇心旺盛</h3>
+                        <p>新しい技術や知識に対して、常に興味を持ち続けています。なんでも触れてみることで、新しい価値を発見することができると考えています。</p>
+                        <h3>集中力</h3>
+                        <p>一度取り組んだことは、最後までやり遂げたいです。長期的な目標を細かく立てることは苦手ですが、今日はここまでやる！という短期的な目標を常に持っています。</p>
+                    </div>
+                </div>
+                <hr>
+                <h2 id="sakuhin">これまでの作品</h2>
+                <div class="row">
+                </div>
+                <div id="shooting">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>Holo Shooting</h3>
+                            <p>【Holo Shooting】は、Microsoft 社が開発した MR デバイスである HoloLens2 を用い
+                            たシューティングゲームです．</p>
+                            <p>本作品は、HoloLens2 の特徴である空間認識機能を活かし，プレイヤーが実際の空
+                            間を舞台にしてゲームをプレイすることを可能にした対戦型ゲームです．</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <video controls width="480" src="videos/デモ動画①_解説ver.mp4" class="video-vw">
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div id="kenkyu">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>学部時代の卒業研究</h3>
+                            <p>「シングルショット画像からの3Dモデルの生成と3次元ボーン座標推定」と題しまして、生成 AI、モデル推定、画像認識に関連する研究を行っていました。</p>
+                            <p>本研究では、シングルショット画像からの3Dモデル生成技術の拡張として、ボーンの3次元座標を3次元復元アルゴリズムなどを用いて推定し、繊細な動きを持つアニメーションなどにも応用できるような3Dモデルの生成に資するシステムを試作しました。</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p></p>
+                            <img src="figs/model.PNG" width="240">
+                        </div>
+                        <div class="col-sm-3">
+                            <img width="400" src="figs/3d_born.gif" class="image-vw">
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div id="heyakowashi">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>部屋壊しゲーム</h3>
+                            <p>【部屋壊しゲーム】は，【Holo Shooting】と同様のデバイス用のアプリケーションです．</p>
+                            <p>群馬大学の文化祭で研究室内の仲間たちと出し物をしたくなり，巻き込んで開発したものです．技術研究も兼ねてだらだらと進めてしまったことと，屋外での出店ブースとして二つ目の出し物も並行して進めていたこともあり，準備不足の当日トラブルにより，体験会ではお披露目できなかったものです．</p>
+                            <p>ゲームの内容は，部屋にあるものを「壊す・斬る・貫く」といったアクションで壊し，それによって起きるイベントやスコア，それまでプレイした人のつぶやき風コメントを見て楽しんでもらうことを目的としたものです．</p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h2 id="gengo">さわった言語</h2>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>プログラミング言語</h3>
+                        <ul>
+                            <li>C</li>
+                            <li>C#</li>
+                            <li>Java</li>
+                            <li>python</li>
+                            <li>Kotlin</li>
+                        </ul>
+                    </div>
+                </div>
+                <p></p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="social-icons">
+                <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
+                    <img src="figs/google.png" alt="Google" class="social-icon">
+                </a>
+                <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
+                    <img src="figs/mail.png" alt="E-mail" class="social-icon">
+                </a>
+            </div>
+            <p class="footer-text" style="font-family: 'Edu AU VIC WA NT Pre';">PORTFOLIO</p>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+        // スクロール時のイベントを監視
+        window.addEventListener("scroll", () => {
+            const popupBar = document.getElementById("popupBar");
+            if (window.scrollY > 100) {
+                // スクロールが一定量を超えたらポップアップバーを表示
+                popupBar.style.top = "0";
+            } else {
+                // スクロール位置が戻ったら隠す
+                popupBar.style.top = "-70px";
+            }
+        });
+
+        // トップへ戻るボタンのクリックイベント
+        document.getElementById("scrollTopButton").addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        });
+    </script>
+    <script>
+        // スクロール関数
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const offset = 100; // 上に追加する余白の高さ（px）
+                const elementPosition = section.getBoundingClientRect().top + window.pageYOffset; // 要素の位置を取得
+                const offsetPosition = elementPosition - offset; // 余白を引いたスクロール位置
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth' // スムーズスクロール
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
