@@ -4,201 +4,421 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>portfolio</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="united.css">
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
+
+<style>
+    body {
+        zoom: 1;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        background-image: url('figs\\background.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    * {
+        box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
+        outline: 1px solid red;
+    }
+</style>
 
 <body>
     <div class="popup-bar" id="popupBar">
         <div class="left">
-            <div class="portfolio", style="font-size: 20px;">PORTFOLIO</div>
-            <div class="name", style="font-size: 12px;">Shota Onotsuka</div>
+            <div class="edu" style="font-size: 5vw;">PORTFOLIO</div>
+            <div class="josefin-sans" style="font-size: 3vw;">Shota Onotsuka</div>
         </div>
         <div class="right">
             <button id="scrollTopButton">PAGE TOP</button>
         </div>
     </div>
-    <div class="content">
-        <div class="whiteboad">
-            <div class="video-container">
-                <video autoplay muted loop class="background-video">
-                    <source src="videos/portfolio.mp4" type="video/mp4">
-                    ブラウザがサポートしていません．
-                </video>
-                <div class="overlay">
-                    <div class="col-md-12">
+    <div class="zoom-responsive" id="zoom-content">
+        <div class="content">
+            <div class="whiteboad">
+                <div class="video-container">
+                    <video autoplay muted loop class="background-media">
+                        <source src="videos/portfolio.mp4" type="video/mp4">
+                        ブラウザがサポートしていません．
+                    </video>
+                    <div class="overlay">
                         <div style="text-align:center">
                             <div class="flushleft">
-                                <div class="portfolio", style="font-size: 80px;">PORTFOLIO</div>
-                                <div class="name", style="font-size: 40px;">Shota Onotsuka</div>
-                                <div class="name", style="font-size: 20px;">Guraduate School of Informatics, Gunma University</div>
+                                <div class="sentence" size="x-large">
+                                    <div class="edu">PORTFOLIO</div>
+                                </div>
+                                <div class="sentence" size="large">
+                                    <div class="josefin-sans">Shota Onotsuka</div>
+                                </div>
+                                <div class="sentence" size="small">
+                                    <div class="josefin-sans">Guraduate School of Informatics, Gunma University</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="plate">
-            <div class="column left">
-                <button class="button" onclick="scrollToSection('shokai')">
-                    <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon">
-                    <span class="button-text">自己紹介</span>
-                </button>
-                <button class="button" onclick="scrollToSection('shooting')">
-                    <img src="figs/product.png" alt="作品アイコン" class="button-icon">
-                    <span class="button-text">作品 ➀</span>
-                </button>
+            <div class="whiteboad">
+                <div class="cut">
+                    <div class="double-underline"> SUMMARY </div>
+                </div>
             </div>
-            <div class="column middle">
-                <button class="button" onclick="scrollToSection('apipo')">
-                    <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon">
-                    <span class="button-text">アピール<br>ポイント</span>
-                </button>
-                <button class="button" onclick="scrollToSection('kenkyu')">
-                    <img src="figs/product.png" alt="作品アイコン" class="button-icon">
-                    <span class="button-text">作品 ➁</span>
-                </button>
-            </div>
-            <div class="column right">
-                <button class="button" onclick="scrollToSection('gengo')">
-                    <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon">
-                    <span class="button-text">扱った言語</span>
-                </button>
-                <button class="button" onclick="scrollToSection('heyakowashi')">
-                    <img src="figs/product.png" alt="作品アイコン" class="button-icon">
-                    <span class="button-text">作品 ➂</span>
-                </button>
-            </div>
-        </div>
 
-        <div class="whiteboad">
-            <div class="starter-template">
-                <div class="row text-center">
-                    <h2 id="shokai">見かけによらず、個性的でチャーミング！！</h2>
+            <div class="plate">
+                <div class="column left">
+                    <button class="button" onclick="scrollToSection('shokai')">
+                        <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon">
+                        <span class="button-text">
+                            <div class="japanese">自己紹介</div>
+                            <div class="english">INTRODUCTION</div>
+                        </span>
+                    </button>
                 </div>
-                <div class="row text-center">
-                    <div class="col-sm-4">
-                        <h2 class="color-talk"><span class="glyphicon glyphicon-volume-up icon-size"></span><br>しゃべる</h2>
-                        <p>コミュニケーション能力はともかく、<br>ひととのおしゃべりが大好き。<br>日本語を流暢に操ります。</p>
-                    </div>
-                    <div class="col-sm-4">
-                        <h2 class="color-wrench"><span class="glyphicon glyphicon-wrench icon-size"></span><br>つくる</h2>
-                        <p>優れたAIと豊富な先人たちの知識を使い、<br>世界的には貢献できない個人的プロジェクトを、<br>多数用意してございます。</p>
-                    </div>
-                    <div class="col-sm-4">
-                        <h2 class="color-heart"><span class="glyphicon glyphicon-heart icon-size"></span><br>いやす</h2>
-                        <p>就活で荒んだ、<br>みんなの心を和ませる、<br>癒し系ゆるキャラです。</p>
+                <div class="column middle">
+                    <button class="button" onclick="scrollToSection('apipo')">
+                        <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon">
+                        <span class="button-text">
+                            <div class="name">
+                                <div class="japanese">アピールポイント</div>
+                                <div class="english">STRENGTH</div>
+                            </div>
+                        </span>
+                    </button>
+                </div>
+                <div class="column right">
+                    <button class="button" onclick="scrollToSection('gengo')">
+                        <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon">
+                        <span class="button-text">
+                            <div class="name">
+                                <div class="japanese">扱った言語</div>
+                                <div class="english">PROGRAMMING LANGUAGES</div>
+                            </div>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="plate">
+                <div class="column left">
+                    <button class="button" onclick="scrollToSection('shooting')">
+                        <img src="figs/product.png" alt="作品アイコン" class="button-icon">
+                        <span class="button-text">
+                            <div class="japanese">制作物</div>
+                            <div class="english">WORK 1</div>
+                        </span>
+                    </button>
+                </div>
+                <div class="column middle">
+                    <button class="button" onclick="scrollToSection('kenkyu')">
+                        <img src="figs/product.png" alt="作品アイコン" class="button-icon">
+                        <span class="button-text">
+                            <div class="name">
+                                <div class="japanese">制作物</div>
+                                <div class="english">WORK 2</div>
+                            </div>
+                        </span>
+                    </button>
+                </div>
+                <div class="column right">
+                    <button class="button" onclick="scrollToSection('heyakowashi')">
+                        <img src="figs/product.png" alt="作品アイコン" class="button-icon">
+                        <span class="button-text">
+                            <div class="name">
+                                <div class="japanese">制作物</div>
+                                <div class="english">WORK 3</div>
+                            </div>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="whiteboad">
+                <div class="cut">
+                    <div class="double-underline"> CONTENT </div>
+                </div>
+            </div>
+
+            <div id="shokai">
+                <div class="plate">
+                    <div class="image-container" aspect="710x973">
+                        <img src="figs/self1.png" alt="自己紹介" class="background-media">
+                        <svg class="wave-svg wave-container" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                            <path class="wave-path" d="" fill="white"></path>
+                        </svg>                              
+                        <div class="overlay-half" data-height="0.6" data-top="0.42" data-angle="-1.5deg" boxwidth="60%">
+
+                            <div class="sentence" style="color: black; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                                <div class="kaisei-opti">
+                                    経歴
+                                </div>
+                            </div>
+                            <div class="sentence" size="small" style="color: black;">
+                                <div class="zen-kurenaido" style="font-weight: bold;">
+                                    <div class="column-box-frame">
+                                        <item>小中学校での硬筆やフェルトペン習字，毛筆で，ほぼ毎回展覧会進出してました！</item>
+                                        <item>"図こう"が得意で表彰されました！</item>
+                                        <item>茶道裏千家初級許状もってます！</item>
+                                        <item>FPSゲーム APEX での vtuber とのカジュアル大会にでてました！</item>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sentence" style="color: black; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                                <div class="kaisei-opti">
+                                    幼少期からモノ作りが大好き
+                                </div>
+                            </div>
+                            <div class="sentence" size="small" style="color: black;">
+                                <div class="zen-kurenaido" style="font-weight: bold;">
+                                    <div class="column-box-frame">
+                                        <item>両親の仕事や趣味の影響で段ボールや端材が身近に多く，工作をよくやっていました．</item>
+                                        <item>ユニット折り紙や，複雑な設計図折り紙をやっていました．</item>
+                                        <item>トランスフォーマーの完全変形する玩具を，LEGO で，再現して遊んだりしていました．</>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <h2>好き嫌い<p></p>
-                </h2>
-                <div class="row text-center">
-                    <div class="col-sm-6">
-                    <h3>好き</h3>
-                    <ul>
-                        <li>食べること</li>
-                        <li>騒ぐこと</li>
-                        <li>ゲームをすること</li>
-                    </ul>
-                    </div>
-                    <div class="col-sm-6">
-                    <h3>嫌い</h3>
-                    <ul>
-                        <li>夜更かし</li>
-                        <li>水泳の授業</li>
-                    </ul>
+            </div>
+
+            <div id="apipo">
+                <div class="whiteboad">
+                    <div class="container">
+                        <div class="col">
+                        </div>
+
+                        <div class="col-6">
+                            <div class="container">
+                                <div class="space" size="small">
+                                    <div class="vertical">
+                                        <div class="sentence" style="color: black;">
+                                            <div class="kaisei-opti" style="font-weight: bold;">
+                                                <div class="no-break">見かけによらず，<br>個性的で<br>チャーミング</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-vertical">
+                                <div class="sentence-04" style="color: black;">
+                                    <div class="kaisei-opti">
+                                        好奇心
+                                    </div>
+                                </div>
+                                <div class="sentence-03" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>新しい技術・知識・体験に，常に興味を持ち続けています．</item>
+                                            <item>なんでも触れてみることで，新しい価値を発見することができると考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sentence-04" style="color: black;">
+                                    <div class="kaisei-opti">
+                                        完遂力
+                                    </div>
+                                </div>
+                                <div class="sentence-03" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>一度取り組んだことは，最後までやり遂げます．</item>
+                                            <item>課題に対する解決力や，達成感を得られると考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sentence-04" style="color: black;">
+                                    <div class="kaisei-opti">
+                                        応用力
+                                    </div>
+                                </div>
+                                <div class="sentence-03" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>インプットアウトプットを大切にしています．</item>
+                                            <item>仕事をするにも，遊ぶにも，人とのコミュニケーションにおいてでも，この力が最も大切であると考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sentence-04" style="color: black;">
+                                    <div class="kaisei-opti">
+                                        集中力
+                                    </div>
+                                </div>
+                                <div class="sentence-03" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>気づいたら夜になる程，何かに夢中になれます．</item>
+                                            <item>完遂力が継戦能力なら，応用力は基礎攻撃力であり，集中力は攻撃頻度のようなものだと考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="margin-box" size="medium">
+                                <div class="container-vertical">
+                                    <div class="space" size="small"></div>
+                                    <div class="left-side" >
+                                        <img src="figs/me1.png" alt="自画">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-box" size="medium">
+                                <div class="container-right">
+                                    <div class="right-side" >
+                                        <div class="rotate-right-5">
+                                            <img src="figs/me2.jpg" alt="自画">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <h2 id="apipo">アピールポイント</h2>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3>好奇心旺盛</h3>
-                        <p>新しい技術や知識に対して、常に興味を持ち続けています。なんでも触れてみることで、新しい価値を発見することができると考えています。</p>
-                        <h3>集中力</h3>
-                        <p>一度取り組んだことは、最後までやり遂げたいです。長期的な目標を細かく立てることは苦手ですが、今日はここまでやる！という短期的な目標を常に持っています。</p>
+            </div>
+            <svg class="wave-svg reverse-wave-container" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path class="wave-path" d="" fill="blue"></path>
+            </svg>
+
+            <div class="whiteboad">
+                <div class="starter-template">
+                    <div class="row text-center">
+                        <h2 id="shokai">見かけによらず、個性的でチャーミング！！</h2>
                     </div>
-                </div>
-                <hr>
-                <h2 id="sakuhin">これまでの作品</h2>
-                <div class="row">
-                </div>
-                <div id="shooting">
-                    <div class="row">
+                    <div class="row text-center">
+                        <div class="col-sm-4">
+                            <h2 class="color-talk"><span class="glyphicon glyphicon-volume-up icon-size"></span><br>しゃべる</h2>
+                            <p>コミュニケーション能力はともかく、<br>ひととのおしゃべりが大好き。<br>日本語を流暢に操ります。</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <h2 class="color-wrench"><span class="glyphicon glyphicon-wrench icon-size"></span><br>つくる</h2>
+                            <p>優れたAIと豊富な先人たちの知識を使い、<br>世界的には貢献できない個人的プロジェクトを、<br>多数用意してございます。</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <h2 class="color-heart"><span class="glyphicon glyphicon-heart icon-size"></span><br>いやす</h2>
+                            <p>就活で荒んだ、<br>みんなの心を和ませる、<br>癒し系ゆるキャラです。</p>
+                        </div>
+                    </div>
+                    <h2>好き嫌い<p></p>
+                    </h2>
+                    <div class="row text-center">
                         <div class="col-sm-6">
-                            <h3>Holo Shooting</h3>
-                            <p>【Holo Shooting】は、Microsoft 社が開発した MR デバイスである HoloLens2 を用い
-                            たシューティングゲームです．</p>
-                            <p>本作品は、HoloLens2 の特徴である空間認識機能を活かし，プレイヤーが実際の空
-                            間を舞台にしてゲームをプレイすることを可能にした対戦型ゲームです．</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <video controls width="480" src="videos/デモ動画①_解説ver.mp4" class="video-vw">
-                        </div>
-                    </div>
-                </div>
-                <p></p>
-                <div id="kenkyu">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h3>学部時代の卒業研究</h3>
-                            <p>「シングルショット画像からの3Dモデルの生成と3次元ボーン座標推定」と題しまして、生成 AI、モデル推定、画像認識に関連する研究を行っていました。</p>
-                            <p>本研究では、シングルショット画像からの3Dモデル生成技術の拡張として、ボーンの3次元座標を3次元復元アルゴリズムなどを用いて推定し、繊細な動きを持つアニメーションなどにも応用できるような3Dモデルの生成に資するシステムを試作しました。</p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p></p>
-                            <img src="figs/model.PNG" width="240">
-                        </div>
-                        <div class="col-sm-3">
-                            <img width="400" src="figs/3d_born.gif" class="image-vw">
-                        </div>
-                    </div>
-                </div>
-                <p></p>
-                <div id="heyakowashi">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h3>部屋壊しゲーム</h3>
-                            <p>【部屋壊しゲーム】は，【Holo Shooting】と同様のデバイス用のアプリケーションです．</p>
-                            <p>群馬大学の文化祭で研究室内の仲間たちと出し物をしたくなり，巻き込んで開発したものです．技術研究も兼ねてだらだらと進めてしまったことと，屋外での出店ブースとして二つ目の出し物も並行して進めていたこともあり，準備不足の当日トラブルにより，体験会ではお披露目できなかったものです．</p>
-                            <p>ゲームの内容は，部屋にあるものを「壊す・斬る・貫く」といったアクションで壊し，それによって起きるイベントやスコア，それまでプレイした人のつぶやき風コメントを見て楽しんでもらうことを目的としたものです．</p>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <h2 id="gengo">さわった言語</h2>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3>プログラミング言語</h3>
+                        <h3>好き</h3>
                         <ul>
-                            <li>C</li>
-                            <li>C#</li>
-                            <li>Java</li>
-                            <li>python</li>
-                            <li>Kotlin</li>
+                            <li>食べること</li>
+                            <li>騒ぐこと</li>
+                            <li>ゲームをすること</li>
                         </ul>
+                        </div>
+                        <div class="col-sm-6">
+                        <h3>嫌い</h3>
+                        <ul>
+                            <li>夜更かし</li>
+                            <li>水泳の授業</li>
+                        </ul>
+                        </div>
                     </div>
+                    <hr>
+                    <h2 id="apipo">アピールポイント</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>好奇心旺盛</h3>
+                            <p>新しい技術や知識に対して、常に興味を持ち続けています。なんでも触れてみることで、新しい価値を発見することができると考えています。</p>
+                            <h3>集中力</h3>
+                            <p>一度取り組んだことは、最後までやり遂げたいです。長期的な目標を細かく立てることは苦手ですが、今日はここまでやる！という短期的な目標を常に持っています。</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2 id="sakuhin">これまでの作品</h2>
+                    <div class="row">
+                    </div>
+                    <div id="shooting">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>Holo Shooting</h3>
+                                <p>【Holo Shooting】は、Microsoft 社が開発した MR デバイスである HoloLens2 を用い
+                                たシューティングゲームです．</p>
+                                <p>本作品は、HoloLens2 の特徴である空間認識機能を活かし，プレイヤーが実際の空
+                                間を舞台にしてゲームをプレイすることを可能にした対戦型ゲームです．</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <video controls width="480" src="videos/デモ動画①_解説ver.mp4" class="video-vw">
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div id="kenkyu">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>学部時代の卒業研究</h3>
+                                <p>「シングルショット画像からの3Dモデルの生成と3次元ボーン座標推定」と題しまして、生成 AI、モデル推定、画像認識に関連する研究を行っていました。</p>
+                                <p>本研究では、シングルショット画像からの3Dモデル生成技術の拡張として、ボーンの3次元座標を3次元復元アルゴリズムなどを用いて推定し、繊細な動きを持つアニメーションなどにも応用できるような3Dモデルの生成に資するシステムを試作しました。</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p></p>
+                                <img src="figs/model.PNG" width="240">
+                            </div>
+                            <div class="col-sm-3">
+                                <img width="400" src="figs/3d_born.gif" class="image-vw">
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div id="heyakowashi">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>部屋壊しゲーム</h3>
+                                <p>【部屋壊しゲーム】は，【Holo Shooting】と同様のデバイス用のアプリケーションです．</p>
+                                <p>群馬大学の文化祭で研究室内の仲間たちと出し物をしたくなり，巻き込んで開発したものです．技術研究も兼ねてだらだらと進めてしまったことと，屋外での出店ブースとして二つ目の出し物も並行して進めていたこともあり，準備不足の当日トラブルにより，体験会ではお披露目できなかったものです．</p>
+                                <p>ゲームの内容は，部屋にあるものを「壊す・斬る・貫く」といったアクションで壊し，それによって起きるイベントやスコア，それまでプレイした人のつぶやき風コメントを見て楽しんでもらうことを目的としたものです．</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2 id="gengo">さわった言語</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>プログラミング言語</h3>
+                            <ul>
+                                <li>C</li>
+                                <li>C#</li>
+                                <li>Java</li>
+                                <li>python</li>
+                                <li>Kotlin</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p></p>
                 </div>
-                <p></p>
             </div>
-        </div>
-        <div class="footer">
-            <div class="social-icons">
-                <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
-                    <img src="figs/google.png" alt="Google" class="social-icon">
-                </a>
-                <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
-                    <img src="figs/mail.png" alt="E-mail" class="social-icon">
-                </a>
+            <div class="footer">
+                <div class="social-icons">
+                    <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
+                        <img src="figs/google.png" alt="Google" class="social-icon">
+                    </a>
+                    <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
+                        <img src="figs/mail.png" alt="E-mail" class="social-icon">
+                    </a>
+                </div>
+                <p class="footer-text" style="font-family: 'Edu AU VIC WA NT Pre';">PORTFOLIO</p>
             </div>
-            <p class="footer-text" style="font-family: 'Edu AU VIC WA NT Pre';">PORTFOLIO</p>
         </div>
     </div>
     <!-- /.container -->
@@ -206,6 +426,58 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script>
+        const scale = window.devicePixelRatio;
+        document.querySelector('.popup-bar').style.fontSize = `${18 / scale}px`;  // 例: フォントサイズをデバイスピクセル比に応じて調整
+
+        // ズームレベルの変更を監視
+        (function () {
+            function updateZoomFactor() {
+                const zoomFactor = 1 / window.devicePixelRatio; // 現在のズームレベルを計算
+                document.documentElement.style.setProperty('--zoom-factor', zoomFactor);
+            }
+
+            // 初期化
+            updateZoomFactor();
+
+            // ズーム変更を監視
+            window.addEventListener('resize', updateZoomFactor);
+        })();
+
+        // デバイスピクセル比によるズームレベルの変更を監視
+        (function () {
+            const zoomContent = document.getElementById("zoom-content");
+            let previousDevicePixelRatio = window.devicePixelRatio;
+
+            function updateZoomScale() {
+                const currentDevicePixelRatio = window.devicePixelRatio;
+                const scaleFactor = 1 / currentDevicePixelRatio;
+
+                // スケールを適用
+                zoomContent.style.transform = `scale(${scaleFactor})`;
+
+                // 現在のズームレベルを保持
+                previousDevicePixelRatio = currentDevicePixelRatio;
+            }
+
+            // 初期スケール設定
+            updateZoomScale();
+
+            // ズーム変更を定期的にチェック
+            setInterval(() => {
+                if (previousDevicePixelRatio !== window.devicePixelRatio) {
+                    updateZoomScale();
+                }
+            }, 200);
+        })();
+
+        window.addEventListener("resize", () => {
+            const zoomContent = document.getElementById("zoom-content");
+            const scaleFactor = 1 / window.devicePixelRatio;
+
+            // スケールを適用
+            zoomContent.style.transform = `scale(${scaleFactor})`;
+        });
+
         // スクロール時のイベントを監視
         window.addEventListener("scroll", () => {
             const popupBar = document.getElementById("popupBar");
@@ -214,7 +486,7 @@
                 popupBar.style.top = "0";
             } else {
                 // スクロール位置が戻ったら隠す
-                popupBar.style.top = "-70px";
+                popupBar.style.top = "-10vw";
             }
         });
 
@@ -225,8 +497,7 @@
                 behavior: "smooth",
             });
         });
-    </script>
-    <script>
+
         // スクロール関数
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
@@ -241,6 +512,105 @@
                 });
             }
         }
+
+        // 画像のオーバーレイを動的に設定する関数
+        (function() {
+            function updateOverlayHalf() {
+                document.querySelectorAll('.image-container').forEach(container => {
+                    // aspect 属性の処理（画像比率の設定）
+                    const aspect = container.getAttribute('aspect');
+                    if (aspect) {
+                        const [width, height] = aspect.split('x').map(Number); // "710x973" を分割
+                        const aspectRatio = (height / width) * 100; // 比率を計算
+                        container.style.paddingTop = `${aspectRatio}%`; // 比率を padding-top に設定
+                    }
+
+                    // overlay-half の動的設定
+                    const overlayHalf = container.querySelector('.overlay-half');
+                    if (overlayHalf) {
+                        const imageHeight = container.offsetHeight; // container の高さを取得
+
+                        // data-height と data-top の値を取得
+                        const heightRatio = parseFloat(overlayHalf.dataset.height) || 0.8; // デフォルト値 0.8
+                        const topRatio = parseFloat(overlayHalf.dataset.top) || 0.4; // デフォルト値 0.4
+                        const boxWidth = overlayHalf.getAttribute('boxwidth') || "60%"; // デフォルト値 "60%"
+                        const angle = overlayHalf.dataset.angle || "0deg"; // デフォルト値 "0deg"
+
+                        // 高さ、幅、位置を画像の高さを基に計算
+                        overlayHalf.style.height = `${imageHeight * heightRatio}px`;
+                        overlayHalf.style.top = `${imageHeight * topRatio}px`;
+                        overlayHalf.style.width = boxWidth; // 幅の設定
+                        overlayHalf.style.transform = `translate(-50%, 0) rotate(${angle})`; // 角度の設定
+                    }
+                });
+            }
+
+            window.addEventListener('load', updateOverlayHalf);
+            window.addEventListener('resize', updateOverlayHalf);
+        })();
+
+        // ウィンドウリサイズ時にSVGを更新する関数
+        (function() {
+            function updateAllWaves() {
+                const waveSvgs = document.querySelectorAll('.wave-svg'); // すべてのSVGを取得
+                const wavePaths = document.querySelectorAll('.wave-path'); // すべてのパスを取得
+
+                waveSvgs.forEach((waveSvg, index) => {
+                    const wavePath = wavePaths[index]; // 対応するパスを取得
+
+                    const frequency = 1 / 12; // 波の周波数
+                    const svgWidth = window.innerWidth; // ウィンドウ幅を取得
+                    const svgHeight = window.innerWidth / 3; // SVGの高さを動的に設定
+
+                    // 新しいカーブを計算
+                    const newPath = `
+                        M0,${svgHeight * 0.2}
+                        C${svgWidth * frequency * 1},${svgHeight * 0} ${svgWidth * frequency * 2},${svgHeight * 0.4} ${svgWidth * frequency * 3},${svgHeight * 0.2}
+                        C${svgWidth * frequency * 4},${svgHeight * 0} ${svgWidth * frequency * 5},${svgHeight * 0.4} ${svgWidth * frequency * 6},${svgHeight * 0.2}
+                        C${svgWidth * frequency * 7},${svgHeight * 0} ${svgWidth * frequency * 8},${svgHeight * 0.4} ${svgWidth * frequency * 9},${svgHeight * 0.2}
+                        C${svgWidth * frequency * 10},${svgHeight * 0} ${svgWidth * frequency * 11},${svgHeight * 0.4} ${svgWidth * frequency * 12},${svgHeight * 0.2}
+                        L${svgWidth},${svgHeight} L0,${svgHeight} Z
+                    `;
+
+                    // d 属性を更新
+                    wavePath.setAttribute('d', newPath);
+
+                    // SVGのviewBoxとサイズを更新
+                    waveSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
+                    waveSvg.style.width = `${svgWidth}px`;
+                    waveSvg.style.height = `${svgHeight}px`;
+                });
+            }
+
+            updateAllWaves();
+            window.addEventListener('resize', updateAllWaves);
+        })();
+
+        // フォントサイズを動的に変更する関数
+        (function() {
+            function updateFontSize() {
+                const maxWidth = window.innerWidth; // ビューポートの幅
+                const minWidth = 320; // フォントサイズを調整し始める最小幅
+                const minFontSize = 10; // 最小フォントサイズ
+                const scaleFactor = 0.03125; // 増加率を調整する係数
+
+                // ビューポート幅が400px以上であればフォントサイズを増加させる
+                let calculatedFontSize = minFontSize;
+
+                if (maxWidth > minWidth) {
+                    // フォントサイズを (幅 - 320) * scaleFactor に比例して増加
+                    calculatedFontSize = minFontSize + (maxWidth - minWidth) * scaleFactor;
+                }
+
+                // --font-size-title に計算されたフォントサイズを設定
+                document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
+            }
+
+            // ページ読み込み時とリサイズ時にフォントサイズを更新
+            window.addEventListener('load', updateFontSize);
+            window.addEventListener('resize', updateFontSize);
+        })();
+
     </script>
 </body>
 
