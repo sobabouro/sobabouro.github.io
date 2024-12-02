@@ -105,48 +105,74 @@
         const containerWidth = container.clientWidth;
         const containerHeight = container.clientHeight;
         const aspectRatio = containerWidth / containerHeight;
-
-        // アスペクト比の縦横関係を判定する
+    
         const isPortrait = aspectRatio >= 1;
-
-        // 初期値
-        let optimalRows = 1, optimalCols = boxCount;
-        let minAspectDiff = Infinity;
-
-        // √n * √n が最大なので，片側だけ探索すればイイ
+    
+        // Calculate optimal columns and rows
         const sqrtN = Math.floor(Math.sqrt(boxCount));
-
+        let optimalCols = 1, optimalRows = boxCount, minAspectDiff = Infinity;
+    
         for (let q = sqrtN; q <= boxCount; q++) {
             const rows = isPortrait ? Math.ceil(boxCount / q) : q;
             const cols = isPortrait ? q : Math.ceil(boxCount / q);
     
-            // アスペクト比を計算
             const gridAspectRatio = cols / rows;
             const aspectDiff = Math.abs(gridAspectRatio - aspectRatio);
     
-            // \( n \% q > q / 2 \) の条件を確認
-            const remainder = boxCount % q;
-            if (remainder > 0 && remainder <= q / 2) {
-                continue; // 条件を満たさない場合スキップ
-            }
-    
-            // 最適な配置を選択
             if (aspectDiff < minAspectDiff) {
                 minAspectDiff = aspectDiff;
-                optimalRows = rows;
                 optimalCols = cols;
+                optimalRows = rows;
             }
         }
-
-        // グリッドレイアウトを設定
+    
+        const gridLineCount = optimalCols * 2 + 1; // グリッドライン数
+        const remainder = boxCount % optimalCols;
+    
         container.style.display = "grid";
+        container.style.gridTemplateColumns = `repeat(${gridLineCount - 1}, 1fr)`;
         container.style.gridTemplateRows = `repeat(${optimalRows}, 1fr)`;
-        container.style.gridTemplateColumns = `repeat(${optimalCols}, 1fr)`;
-
-        // スタイルを調整
-        container.style.alignItems = "center";
-        container.style.justifyItems = "center";
-    }
+    
+        // Create grid items
+        for (let i = 0; i < boxCount; i++) {
+            const col = Math.floor(i % optimalCols);
+            const row = Math.floor(i / optimalCols);
+    
+            const gridStartCol = col * 2;
+            const gridEndCol = gridStartCol + 2;
+            const gridStartRow = row;
+            const gridEndRow = row + 1;
+    
+            const gridItem = document.createElement("div");
+            gridItem.className = "grid-item";
+            gridItem.style.gridColumnStart = gridStartCol;
+            gridItem.style.gridColumnEnd = gridEndCol;
+            gridItem.style.gridRowStart = gridStartRow;
+            gridItem.style.gridRowEnd = gridEndRow;
+            container.appendChild(gridItem);
+        }
+    
+        // Handle empty spaces for the last row if necessary
+        if (remainder > 0) {
+            // Left empty space
+            const leftEmpty = document.createElement("div");
+            leftEmpty.className = "grid-left-empty";
+            leftEmpty.style.gridColumnStart = 0;
+            leftEmpty.style.gridColumnEnd = (gridLineCount - 1 - remainder * 2);
+            leftEmpty.style.gridRowStart = optimalRows - 1;
+            leftEmpty.style.gridRowEnd = optimalRows;
+            container.appendChild(leftEmpty);
+    
+            // Right empty space
+            const rightEmpty = document.createElement("div");
+            rightEmpty.className = "grid-right-empty";
+            rightEmpty.style.gridColumnStart = (gridLineCount - 1 - (remainder - 1) * 2);
+            rightEmpty.style.gridColumnEnd = gridLineCount - 1;
+            rightEmpty.style.gridRowStart = optimalRows - 1;
+            rightEmpty.style.gridRowEnd = optimalRows;
+            container.appendChild(rightEmpty);
+        }
+    }    
 
     // 画像のオーバーレイを更新する
     function updateOverlayHalf() {
