@@ -36,13 +36,13 @@
             calculatedFontSize = minFontSize + (maxWidth - minWidth) * scaleFactor;
         }
 
-        // --font-size-title に計算されたフォントサイズを設定
+        // フォントサイズを設定
         document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
 
         document.querySelectorAll('.sentence').forEach((el) => {
             const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
             if (!isNaN(fontSizeMultiplier)) {
-                el.style.fontSize = `${baseFontSize * fontSizeMultiplier}px`;
+                el.style.fontSize = `${calculatedFontSize * fontSizeMultiplier}px`;
             }
         });
     }
@@ -102,77 +102,75 @@
 
     // pythagoras-container のレイアウトを計算する
     function calculatePythagorasLayout(container, boxCount) {
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-        const aspectRatio = containerWidth / containerHeight;
+        const parentWidth = container.offsetWidth;
+        const parentHeight = container.offsetHeight;
+        const aspectRatio = parentWidth / parentHeight;
     
+        // 縦横の比率を確認
         const isPortrait = aspectRatio >= 1;
     
-        // Calculate optimal columns and rows
-        const sqrtN = Math.floor(Math.sqrt(boxCount));
-        let optimalCols = 1, optimalRows = boxCount, minAspectDiff = Infinity;
+        // 初期値
+        let optimalRows = 1, optimalCols = boxCount;
+        let minAspectDiff = Infinity;
     
+        // グリッドの探索
+        const sqrtN = Math.floor(Math.sqrt(boxCount));
+
         for (let q = sqrtN; q <= boxCount; q++) {
             const rows = isPortrait ? Math.ceil(boxCount / q) : q;
             const cols = isPortrait ? q : Math.ceil(boxCount / q);
-    
+
+            // アスペクト比
             const gridAspectRatio = cols / rows;
             const aspectDiff = Math.abs(gridAspectRatio - aspectRatio);
-    
+
+             // \( n \% q > q / 2 \) の条件を確認
+            const remainder = boxCount % q;
+            if (remainder > 0 && remainder <= q / 2) {
+                continue; // 条件を満たさない場合スキップ
+            }
+
+            // 最適な配置を選択
             if (aspectDiff < minAspectDiff) {
                 minAspectDiff = aspectDiff;
-                optimalCols = cols;
                 optimalRows = rows;
+                optimalCols = cols;
             }
         }
+
+        // グリッドのセルサイズを計算 (親要素の幅に基づく)
+        const cellWidthPercent = 100 / optimalCols; // 各セルの幅をパーセント単位で計算
+        const cellHeightPercent = 100 / optimalRows; // 高さをアスペクト比で調整
     
-        const gridLineCount = optimalCols * 2 + 1; // グリッドライン数
-        const remainder = boxCount % optimalCols;
-    
+        // グリッドスタイルを設定
         container.style.display = "grid";
-        container.style.gridTemplateColumns = `repeat(${gridLineCount - 1}, 1fr)`;
-        container.style.gridTemplateRows = `repeat(${optimalRows}, 1fr)`;
-    
-        // Create grid items
-        for (let i = 0; i < boxCount; i++) {
-            const col = Math.floor(i % optimalCols);
-            const row = Math.floor(i / optimalCols);
-    
-            const gridStartCol = col * 2;
-            const gridEndCol = gridStartCol + 2;
-            const gridStartRow = row;
-            const gridEndRow = row + 1;
-    
-            const gridItem = document.createElement("div");
-            gridItem.className = "grid-item";
-            gridItem.style.gridColumnStart = gridStartCol;
-            gridItem.style.gridColumnEnd = gridEndCol;
-            gridItem.style.gridRowStart = gridStartRow;
-            gridItem.style.gridRowEnd = gridEndRow;
-            container.appendChild(gridItem);
-        }
-    
-        // Handle empty spaces for the last row if necessary
-        if (remainder > 0) {
-            // Left empty space
-            const leftEmpty = document.createElement("div");
-            leftEmpty.className = "grid-left-empty";
-            leftEmpty.style.gridColumnStart = 0;
-            leftEmpty.style.gridColumnEnd = (gridLineCount - 1 - remainder * 2);
-            leftEmpty.style.gridRowStart = optimalRows - 1;
-            leftEmpty.style.gridRowEnd = optimalRows;
-            container.appendChild(leftEmpty);
-    
-            // Right empty space
-            const rightEmpty = document.createElement("div");
-            rightEmpty.className = "grid-right-empty";
-            rightEmpty.style.gridColumnStart = (gridLineCount - 1 - (remainder - 1) * 2);
-            rightEmpty.style.gridColumnEnd = gridLineCount - 1;
-            rightEmpty.style.gridRowStart = optimalRows - 1;
-            rightEmpty.style.gridRowEnd = optimalRows;
-            container.appendChild(rightEmpty);
-        }
-    }    
+        container.style.gridTemplateColumns = `repeat(${optimalCols}, ${cellWidthPercent}%)`;
+        container.style.gridTemplateRows = `repeat(${optimalRows}, ${cellHeightPercent}%)`;
+        container.style.alignItems = "center";
+        container.style.justifyItems = "center";
+
+        // グリッドの行数と列数を取得（計算時に保存している optimalRows, optimalCols を使用）
+        const cellWidth = parentWidth / optimalCols;
+        const cellHeight = parentHeight / optimalRows;
+
+        const summaries = container.querySelectorAll('.summary-box');
+        summaries.forEach(summary => {
+            // summary-box のサイズを設定
+            const summarySize = Math.min(cellWidth, cellHeight);
+            summary.style.width = `${summarySize}px`;
+            summary.style.height = `${summarySize * 0.8}px`;
+        
+            // summary-box 内のボタンサイズを設定
+            const button = summary.querySelector('.button');
+            if (button) {
+                const summaryWidth = summary.offsetWidth;
+                const summaryHeight = summary.offsetHeight;
+                const buttonSize = Math.min(summaryWidth, summaryHeight);
+                button.style.width = `${buttonSize}px`;
+                button.style.height = `${buttonSize * 0.8}px`;
+            }
+        });
+    }
 
     // 画像のオーバーレイを更新する
     function updateOverlayHalf() {
