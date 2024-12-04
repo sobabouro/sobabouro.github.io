@@ -892,28 +892,6 @@ input[type="checkbox"] {
     box-shadow: 0 calc(var(--window-min-vp) * 0.01) 0 currentColor;
 }
 
-.summary-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: calc((var(--window-min-vp) / var(--square-similarity)) * 0.03 * 6);
-    width: calc((var(--window-min-vp) / var(--square-similarity)) * 0.03 * 5);
-    position: relative;
-    box-sizing: border-box;
-}
-
-.summary-icon {
-    height: 40%; /* 上部40% */
-    width: 100%;
-    background-color: lightblue;
-}
-
-.summary-text {
-    height: 60%; /* 下部60% */
-    width: 100%;
-    background-color: lightgray;
-}
-
 .pythagoras-container {
     display: grid;
     width: 100%;
@@ -921,6 +899,66 @@ input[type="checkbox"] {
     position: relative;
     box-sizing: border-box;
 }
+
+.summary-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    position: relative;
+    margin: 2%;
+    box-sizing: border-box;
+}
+
+.button {
+    width: 100%; /* column の幅に応じて調整 */
+    aspect-ratio: 5 / 4; /* 幅:高さ = 5:4 のアスペクト比を維持 */
+    letter-spacing: 5px;
+    border: none;
+    background-color: #298ed16c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.button-icon {
+    width: 50%; /* アイコンの最大幅 */
+    height: 40%; /* 高さを自動で調整 */
+    max-height: 50%; /* ボタンの50%に収める */
+    object-fit: contain; /* 画像のアスペクト比を保ちながら収める */
+    display: block; /* 表示をブロックにして中央に配置 */
+    margin: 0 auto; /* アイコンを中央に配置 */
+}
+
+.button-text {
+    text-align: center;
+    flex-grow: 1; /* テキスト部分も50%に設定 */
+    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--font-size-base) * 0.2);
+    margin: 0;
+    text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
+    word-wrap: break-word;
+}
+
+button:focus {
+    outline: none;
+}
+
+.button:hover {
+    background-color: #298ed1bd; /* ホバー時の背景色 */
+}
+
 
 .appeal-icon {
     width: 50%; /* アイコンの最大幅 */
@@ -1176,70 +1214,6 @@ input[type="checkbox"] {
     padding-bottom: 40px;
     padding-left: 10px;
     padding-right: 10px;
-}
-
-.button {
-    width: 100%; /* column の幅に応じて調整 */
-    min-width: 150px; /* 最小幅を150pxに設定 */
-    aspect-ratio: 5 / 4; /* 幅:高さ = 5:4 のアスペクト比を維持 */
-    letter-spacing: 5px;
-    border: none;
-    background-color: #298ed16c;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    box-sizing: border-box;
-}
-
-.button-icon {
-    width: 50%; /* アイコンの最大幅 */
-    height: auto; /* 高さを自動で調整 */
-    max-height: 50%; /* ボタンの50%に収める */
-    object-fit: contain; /* 画像のアスペクト比を保ちながら収める */
-    display: block; /* 表示をブロックにして中央に配置 */
-    margin: 0 auto; /* アイコンを中央に配置 */
-}
-
-.button-text {
-    font-family: 'Kiwi Maru', sans-serif;
-    text-align: center;
-    flex-grow: 1; /* テキスト部分も50%に設定 */
-    line-height: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
-    word-wrap: break-word;
-}
-
-.button-text .japanese {
-    font-family: 'Kiwi Maru', sans-serif;
-    font-size: 16px;
-    letter-spacing: 2px;
-    margin-bottom: 5px;
-    margin: 10px;
-}
-
-.button-text .english {
-    font-family: 'Josefin Sans', serif;
-    font-size: clamp(16px, 4vw, 24px);
-    margin: 0 10px;
-}
-
-button:focus {
-    outline: none;
-}
-
-.button:hover {
-    background-color: #298ed1bd; /* ホバー時の背景色 */
 }
 
 .flush-top {
