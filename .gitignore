@@ -1,0 +1,18 @@
+# Node.js 関連
+node_modules/         # 依存関係のフォルダ
+
+# ログファイル
+*.log                 # すべてのログファイルを無視
+npm-debug.log*        # npm エラーのログ
+yarn-debug.log*       # yarn エラーのログ
+yarn-error.log*       # yarn エラーのログ
+
+# システムファイル
+.DS_Store             # macOS の不要なファイル
+Thumbs.db             # Windows のサムネイルキャッシュ
+
+# IDE/エディタ関連
+.vscode/              # Visual Studio Code の設定フォルダ
+.idea/                # IntelliJ IDEA の設定フォルダ
+*.swp                 # Vim のスワップファイル
+*.sublime-*           # Sublime Text の一時ファイル
