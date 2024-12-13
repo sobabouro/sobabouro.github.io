@@ -1,11 +1,17 @@
-@import url("variables");
-@import url("reset");
-@import url("layouts/base");
-@import url("layouts/grid");
-@import url("layouts/spacing");
-@import url("components/header");
-@import url("components/footer");
-@import url("components/cta");
-@import url("components/image_decorations");
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 9 | @use 'components/image_decorations';
+ *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   styles\main.scss 9:1  root stylesheet */
 
-/*# sourceMappingURL=main.css.map */
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 9 \2502  @use 'components/image_decorations';\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles\\main.scss 9:1  root stylesheet";
+}
