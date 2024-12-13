@@ -1,5 +1,5 @@
 # Node.js 関連
-node_modules/         # 依存関係のフォルダ
+node_modules/
 
 # Windows のサムネイル
 Thumbs.db
