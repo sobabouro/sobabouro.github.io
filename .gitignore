@@ -1,6 +1,36 @@
 # Node.js 関連
 node_modules/         # 依存関係のフォルダ
 
+# Windows のサムネイル
+Thumbs.db
+
+# Visual Studio の作業ディレクトリ
+.vs/
+.vs2022/
+.vs2019/
+.vs2017/
+
+# Visual Studio のビルド成果物
+bin/
+obj/
+
+# 一時ファイル
+# .NET Core ビルド
+.project.lock.json
+.project.fragment.lock.json
+
+# ログファイル
+*.log
+
+# Visual Studio でのユーザー設定
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# デバッグビルド
+_Debug/
+
 # ログファイル
 *.log                 # すべてのログファイルを無視
 npm-debug.log*        # npm エラーのログ
@@ -16,3 +46,6 @@ Thumbs.db             # Windows のサムネイルキャッシュ
 .idea/                # IntelliJ IDEA の設定フォルダ
 *.swp                 # Vim のスワップファイル
 *.sublime-*           # Sublime Text の一時ファイル
+
+# BFG Repo-Cleaner の JAR ファイルを無視する
+bfg-*.jar
