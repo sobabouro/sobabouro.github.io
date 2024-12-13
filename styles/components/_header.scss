@@ -1,0 +1,70 @@
+/**
+ * @file _header.scss
+ * @desc portfolio のヘッダー部分
+ */
+
+.popup-bar {
+    position: fixed;
+    top: calc(var(--popup-bar-height) * var(--window-min-vp) * -1);
+    left: 0;
+    width: 100%;
+    height: calc(var(--popup-bar-height) * var(--window-min-vp));
+    background-color: var(--color-bar);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: top 0.3s ease;
+    z-index: 1000;
+    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
+    padding: 0;
+}
+
+.popup-bar .left {
+    flex: 0 0 auto;
+    text-align: left;
+    padding-left: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+}
+
+.popup-bar .left .title {
+    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
+    font-family: 'Edu AU VIC WA NT Pre', sans-serif;
+    padding: calc(0.1 * var(--popup-bar-height));
+}
+
+.popup-bar .left .subtitle {
+    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+    font-family: 'Josefin-Sans', sans-serif;
+}
+
+.popup-bar .right {
+    flex: 0 0 auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 右端のボタンスタイル */
+.popup-bar .right button {
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-bar);
+    color: white;
+    border: none;
+    padding: 0 calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+    cursor: pointer;
+    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+    font-weight: thin;
+    font-family: 'khand', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.popup-bar .right button:focus {
+    outline: none;
+}
+
+.popup-bar .right button:hover {
+    background-color: var(--color-hover); /* ホバー時の背景色 */
+}

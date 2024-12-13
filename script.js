@@ -173,32 +173,45 @@
     }
 
     // 画像のオーバーレイを更新する
-    function updateOverlayHalf() {
+    function updateImgContainer() {
+        const zoomFactor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--zoom-factor"));
+        // const newHeight = `calc(${defaultHeight} * ${zoomFactor / 100})`;
+
         document.querySelectorAll('.image-container').forEach(container => {
-            // aspect 属性の処理（画像比率の設定）
             const aspect = container.getAttribute('aspect');
+
             if (aspect) {
-                const [width, height] = aspect.split('x').map(Number); // "710x973" を分割
-                const aspectRatio = (height / width) * 100; // 比率を計算
-                container.style.paddingTop = `${aspectRatio}%`; // 比率を padding-top に設定
+                const [width, height] = aspect.split('x').map(Number);
+                const aspectRatio = (height / width) * 100;
+                container.style.paddingTop = `${height}px`;
             }
 
-            // overlay-half の動的設定
+            const img = container.querySelector('img');
+            if (img) {
+                img.style.width = img.offsetWidth * zoomFactor / 100;
+                img.style.height = img.offsetHeight * zoomFactor / 100;
+            }
+
+            const bgmedia = container.querySelector('.background-media');
             const overlayHalf = container.querySelector('.overlay-half');
-            if (overlayHalf) {
-                const imageHeight = container.offsetHeight; // container の高さを取得
+            if (bgmedia && overlayHalf) {
+                const imageHeight = bgmedia.offsetHeight;
+                const imageWidth = bgmedia.offsetWidth;
+                console.log(" imageWidth: ", imageWidth, " imageHeight: ", imageHeight);
 
                 // data-height と data-top の値を取得
-                const heightRatio = parseFloat(overlayHalf.dataset.height) || 0.8; // デフォルト値 0.8
-                const topRatio = parseFloat(overlayHalf.dataset.top) || 0.4; // デフォルト値 0.4
-                const boxWidth = overlayHalf.getAttribute('boxwidth') || "60%"; // デフォルト値 "60%"
-                const angle = overlayHalf.dataset.angle || "0deg"; // デフォルト値 "0deg"
+                const heightRatio = parseFloat(overlayHalf.dataset.height) || 0.8;
+                const widthRatio = parseFloat(overlayHalf.dataset.width) || 0.6;
+                const topRatio = parseFloat(overlayHalf.dataset.top) || 0.4;
+                const angle = overlayHalf.dataset.angle || "0deg";
+
+                console.log(" heightRatio: ", heightRatio, " widthRatio: ", widthRatio, " topRatio: ", topRatio, " angle: ", angle);
 
                 // 高さ、幅、位置を画像の高さを基に計算
                 overlayHalf.style.height = `${imageHeight * heightRatio}px`;
+                overlayHalf.style.width = `${imageWidth * widthRatio}px`;
                 overlayHalf.style.top = `${imageHeight * topRatio}px`;
-                overlayHalf.style.width = boxWidth; // 幅の設定
-                overlayHalf.style.transform = `translate(-50%, 0) rotate(${angle})`; // 角度の設定
+                overlayHalf.style.transform = `translate(-50%, 0) rotate(${angle})`;
             }
         });
     }
@@ -245,7 +258,7 @@
             updateFontSize();
             updateZoomBoxes();
             updatePythagoras();
-            updateOverlayHalf();
+            updateImgContainer();
             updateAllWaves();
         }, 200);
     }

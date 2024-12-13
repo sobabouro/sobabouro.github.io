@@ -1,0 +1,42 @@
+/**
+ * @file _spacing.scss
+ * @desc margin, padding, gap, break 関連
+ */
+
+.margin-box[size="small"] {
+    display: flex;
+    margin: 1vw;
+}
+
+.margin-box[size="medium"] {
+    display: flex;
+    margin: 2vw;
+}
+
+.margin-box[size="large"] {
+    display: flex;
+    margin: 3vw;
+}
+
+.padding-box[size="small"] {
+    display: flex;
+    padding: 1vw;
+}
+
+.padding-box[size="medium"] {
+    display: flex;
+    padding: 2vw;
+}
+
+.padding-box[size="large"] {
+    display: flex;
+    padding: 3vw;
+}
+
+.space {
+    margin: var(--font-size-base);
+}
+
+.no-break {
+    white-space: nowrap;
+}

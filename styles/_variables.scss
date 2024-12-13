@@ -1,0 +1,138 @@
+/**
+ * @file _variables.scss
+ * @desc 変数定義，フォントの設定
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kaisei+HarunoUmi&family=Kaisei+Opti&family=Kaisei+Tokumin&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Kaku+Gothic+New&family=Zen+Kurenaido&display=swap');
+
+:root {
+    --zoom-factor: 1;
+    --zoom-limit: 1.5;
+
+    --window-min-px: 1;
+    --window-min-vp: 1;
+    --square-similarity: 1;
+
+    --object-minimum-width: 25vw;
+    --object-minimum-height: 25vh;
+    --object-maximum-width: 200vw;
+    --object-maximum-height: 200vh;
+
+    --popup-bar-height: 0.1;
+
+    --color-bar: #1c286b;
+    --color-hover: #0056b3;
+
+    --font-size-base: 16px;
+
+    --overlay-height: 50%;
+    --overlay-angle: 0deg;
+}
+
+.kaisei-opti {
+    font-family: "Kaisei Opti", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.yuji-boku {
+    font-family: "Yuji Boku", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.zen-kurenaido {
+    font-family: "Zen Kurenaido", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.yuji-mai {
+    font-family: "Yuji Mai", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.zen-kaku-gothic {
+    font-family: "Zen Kaku Gothic New", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.raleway {
+    font-family: "Raleway", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.pathway-gothic {
+    font-family: "Pathway Gothic One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.noto-sans-jp {
+    font-family: "Noto Sans JP", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.kiwi-maru {
+    font-family: "Kiwi Maru", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.khand-light {
+    font-family: "Khand", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.khand-regular {
+    font-family: "Khand", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.khand-medium {
+    font-family: "Khand", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.khand-semibold {
+    font-family: "Khand", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.khand-bold {
+    font-family: "Khand", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.josefin-sans {
+    font-family: "Josefin Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.dotgothic16{
+    font-family: "DotGothic16", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.edu {
+    font-family: "Edu AU VIC WA NT Pre", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
