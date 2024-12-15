@@ -26,6 +26,7 @@
         const maxWidth = window.innerWidth; // ビューポートの幅
         const minWidth = 320; // フォントサイズを調整し始める最小幅
         const minFontSize = 10; // 最小フォントサイズ
+        const maxFontSize = 30; // 最大フォントサイズ
         const scaleFactor = 0.03125; // 増加率を調整する係数
 
         // ビューポート幅が400px以上であればフォントサイズを増加させる
@@ -33,7 +34,7 @@
 
         if (maxWidth > minWidth) {
             // フォントサイズを (幅 - 320) * scaleFactor に比例して増加
-            calculatedFontSize = minFontSize + (maxWidth - minWidth) * scaleFactor;
+            calculatedFontSize = Math.min(maxFontSize, minFontSize + (maxWidth - minWidth) * scaleFactor);
         }
 
         // フォントサイズを設定
@@ -139,8 +140,8 @@
         }
 
         // グリッドのセルサイズを計算 (親要素の幅に基づく)
-        const cellWidthPercent = 100 / optimalCols; // 各セルの幅をパーセント単位で計算
-        const cellHeightPercent = 100 / optimalRows; // 高さをアスペクト比で調整
+        const cellWidthPercent = 100 / optimalCols;
+        const cellHeightPercent = 100 / optimalRows;
     
         // グリッドスタイルを設定
         container.style.display = "grid";
@@ -156,9 +157,14 @@
         const summaries = container.querySelectorAll('.summary-box');
         summaries.forEach(summary => {
             // summary-box のサイズを設定
-            const summarySize = Math.min(cellWidth, cellHeight);
-            summary.style.width = `${summarySize}px`;
-            summary.style.height = `${summarySize * 0.8}px`;
+            if (cellWidth < cellHeight) {
+                summary.style.width = `${cellWidth}px`;
+                summary.style.height = `${cellWidth * 0.8}px`;
+            }
+            else {
+                summary.style.width = `${cellHeight * 1.25}px`;
+                summary.style.height = `${cellHeight}px`;
+            }
         
             // summary-box 内のボタンサイズを設定
             const button = summary.querySelector('.button');
@@ -168,6 +174,12 @@
                 const buttonSize = Math.min(summaryWidth, summaryHeight);
                 button.style.width = `${buttonSize}px`;
                 button.style.height = `${buttonSize * 0.8}px`;
+
+                const mainText = button.querySelector('.text-main');
+                const subText = button.querySelector('.text-sub');
+                console.log("mainText: ", mainText, " subText: ", subText);
+                if (mainText) mainText.style.fontSize = `${summaryWidth * 0.1}px`;
+                if (subText) subText.style.fontSize = `${summaryWidth * 0.05}px`;
             }
         });
     }
@@ -182,8 +194,14 @@
 
             if (aspect) {
                 const [width, height] = aspect.split('x').map(Number);
-                const aspectRatio = (height / width) * 100;
-                container.style.paddingTop = `${height}px`;
+                const aspectRatio = height / width;
+                const containerWidth = container.offsetWidth;
+                if (containerWidth < width) {
+                    container.style.paddingTop = `${containerWidth * aspectRatio}px`;
+                }
+                else {
+                    container.style.paddingTop = `${height}px`;
+                }
             }
 
             const img = container.querySelector('img');
@@ -294,6 +312,7 @@ window.addEventListener("scroll", () => {
     const menuButton = document.getElementById('menuButton');
     const menuText = menuButton.querySelector('.menu-text');
     const drawer = document.querySelector('.drawer');
+    const backdrop = document.querySelector('.backdrop');
 
     menuButton.addEventListener('click', () => {
         const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
@@ -303,6 +322,14 @@ window.addEventListener("scroll", () => {
 
         // テキストの切り替え
         menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
+    });
+
+    // バックドロップクリックでドロワーを閉じる
+    backdrop.addEventListener('click', () => {
+        document.documentElement.classList.remove('is-drawerActive');
+        drawer.classList.remove('is-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuText.textContent = 'MENU';
     });
 
     // トップへ戻るボタンのクリックイベント

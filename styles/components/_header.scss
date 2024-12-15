@@ -9,7 +9,9 @@
     left: 0;
     width: 100%;
     height: calc(var(--popup-bar-height) * var(--window-min-vp));
-    background-color: var(--color-bar);
+    background: 
+    linear-gradient(to right,rgba(0, 0, 99, 0.9), rgba(0, 40, 218, 0.9)),
+    linear-gradient(to bottom, rgba(0, 255, 0, 1), rgb(255, 255, 1));
     color: white;
     display: flex;
     justify-content: space-between;
@@ -56,7 +58,7 @@
     justify-content: center;
     height: 100%;
     width: auto;
-    background-color: var(--color-bar);
+    background-color: rgba(0, 0, 0, 0);
     color: white;
     border: none;
     padding: 0 calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
@@ -76,11 +78,10 @@
 }
 
 .menu-text {
+    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+    top: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
     position: absolute;
-    bottom: -30px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
+    color: white;
 }
 
 .circle {
@@ -95,9 +96,10 @@
 }
 
 .line {
+    display: block;
     position: relative;
-    width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
-    height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.015);
+    width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+    height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.03);
     background-color: #fff;
     border-radius: 99rem;
     transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
@@ -106,20 +108,21 @@
 .line::before,
 .line::after {
     content: "";
+    right: 0;
     position: absolute;
-    width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
-    height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.015);
+    width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+    height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.03);
     background-color: #fff;
     border-radius: 99rem;
     transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .line::before {
-    top: calc(var(--popup-bar-height) * var(--window-min-vp))vh;
+    top: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.1);
 }
 
 .line::after {
-    bottom: calc(var(--popup-bar-height) * var(--window-min-vp))vh;
+    bottom: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.1);
 }
 
 .is-drawerActive .circle {
@@ -140,13 +143,34 @@
     transform: rotate(-45deg);
 }
 
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+}
+
+.is-drawerActive .backdrop {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .drawer {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 300px;
+    right: -80vw;
+    width: 80vw;
+    max-width: 400px;
     height: 100%;
-    background-color: #333;
+    background: 
+    linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5)),
+    radial-gradient(circle, #ff0000, #0000ff);
     color: white;
     display: flex;
     align-items: center;

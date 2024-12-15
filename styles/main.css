@@ -14,7 +14,7 @@
   --object-minimum-height: 25vh;
   --object-maximum-width: 200vw;
   --object-maximum-height: 200vh;
-  --popup-bar-height: 0.1;
+  --popup-bar-height: 0.08;
   --color-bar: #1c286b;
   --color-hover: #0056b3;
   --font-size-base: 16px;
@@ -979,7 +979,7 @@ input[type=checkbox] {
   left: 0;
   width: 100%;
   height: calc(var(--popup-bar-height) * var(--window-min-vp));
-  background-color: var(--color-bar);
+  background: linear-gradient(to right, rgba(0, 0, 99, 0.9), rgba(0, 40, 218, 0.9)), linear-gradient(to bottom, rgb(0, 255, 0), rgb(255, 255, 1));
   color: white;
   display: flex;
   justify-content: space-between;
@@ -1011,6 +1011,8 @@ input[type=checkbox] {
 
 .popup-bar .right {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -1018,11 +1020,13 @@ input[type=checkbox] {
 
 /* 右端のボタンスタイル */
 .popup-bar .right button {
-  display: block;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   width: auto;
-  background-color: var(--color-bar);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   border: none;
   padding: 0 calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
@@ -1041,16 +1045,11 @@ input[type=checkbox] {
   background-color: var(--color-hover); /* ホバー時の背景色 */
 }
 
-.popup-bar .right button + button {
-  margin-left: 5px;
-}
-
 .menu-text {
+  font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+  top: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
   position: absolute;
-  bottom: -30px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
+  color: white;
 }
 
 .circle {
@@ -1065,9 +1064,10 @@ input[type=checkbox] {
 }
 
 .line {
+  display: block;
   position: relative;
-  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
-  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.015);
+  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.03);
   background-color: #fff;
   border-radius: 99rem;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
@@ -1076,20 +1076,21 @@ input[type=checkbox] {
 .line::before,
 .line::after {
   content: "";
+  right: 0;
   position: absolute;
-  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
-  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.015);
+  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.03);
   background-color: #fff;
   border-radius: 99rem;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .line::before {
-  top: calc(var(--popup-bar-height) * var(--window-min-vp)) vh;
+  top: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.1);
 }
 
 .line::after {
-  bottom: calc(var(--popup-bar-height) * var(--window-min-vp)) vh;
+  bottom: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.1);
 }
 
 .is-drawerActive .circle {
@@ -1110,13 +1111,32 @@ input[type=checkbox] {
   transform: rotate(-45deg);
 }
 
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+.is-drawerActive .backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .drawer {
   position: fixed;
   top: 0;
-  right: -300px;
-  width: 300px;
+  right: -80vw;
+  width: 80vw;
+  max-width: 400px;
   height: 100%;
-  background-color: #333;
+  background: linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5)), radial-gradient(circle, #ff0000, #0000ff);
   color: white;
   display: flex;
   align-items: center;
@@ -1178,6 +1198,7 @@ input[type=checkbox] {
 .summary-box {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   aspect-ratio: 5/4;
   position: relative;
@@ -1186,21 +1207,21 @@ input[type=checkbox] {
 }
 
 .button {
-  width: 100%; /* column の幅に応じて調整 */
-  aspect-ratio: 5/4; /* 幅:高さ = 5:4 のアスペクト比を維持 */
+  width: 100%;
+  aspect-ratio: 5/4;
   letter-spacing: 5px;
   border: none;
   background-color: rgba(41, 142, 209, 0.4235294118);
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
   box-sizing: border-box;
+  padding: 0;
 }
 
 .button-icon {
@@ -1214,16 +1235,24 @@ input[type=checkbox] {
 
 .button-text {
   text-align: center;
-  flex-grow: 1; /* テキスト部分も50%に設定 */
-  line-height: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: calc(var(--font-size-base) * 0.2);
+  gap: calc(var(--font-size-base) * 0.3);
+  padding: 0;
   margin: 0;
   text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
   word-wrap: break-word;
+}
+
+.button-text .text-main {
+  line-height: 1.2;
+}
+
+.button-text .text-sub {
+  line-height: 1;
 }
 
 button:focus {

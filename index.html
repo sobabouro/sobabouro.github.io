@@ -30,6 +30,7 @@
 </style>
 
 <body>
+    <div class="backdrop"></div>
     <div class="drawer">
         <ul>
             <li><a href="#section1">Section 1</a></li>
@@ -44,12 +45,13 @@
             <div class="subtitle">Shota Onotsuka</div>
         </div>
         <div class="right">
-            <button id="scrollTopButton">PAGE TOP</button>
+            <button id="scrollTopButton">
+                <span>PAGE TOP</span>
+            </button>
             <button id="menuButton" aria-expanded="false">
                 <div class="circle">
                     <div class="line"></div>
                 </div>
-                <span class="menu-text">MENU</span>
             </button>
         </div>
     </div>
@@ -92,11 +94,11 @@
                             <button class="button" onclick="scrollToSection('shokai')">
                                 <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon">
                                 <span class="button-text">
-                                    <div class="sentence" data-font-size="0.4">
+                                    <div class="text-sub">
                                         <div class="kiwi-maru">自己紹介</div>
                                     </div>
-                                    <div class="sentence" data-font-size="0.5">
-                                        <div class="josefin-sans">INTRODUCTION</div>
+                                    <div class="text-main">
+                                        <div class="josefin-sans">INTRO</div>
                                     </div>
                                 </span>
                             </button>
@@ -105,14 +107,14 @@
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('apipo')">
                                 <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon">
-                                <span class="button-text">
-                                    <div class="sentence" data-font-size="0.4">
+                                <div class="button-text">
+                                    <div class="text-sub">
                                         <div class="kiwi-maru">アピールポイント</div>
                                     </div>
-                                    <div class="sentence" data-font-size="0.5">
+                                    <div class="text-main">
                                         <div class="josefin-sans">STRENGTH</div>
                                     </div>
-                                </span>
+                                </div>
                             </button>
                         </div>
 
@@ -120,11 +122,11 @@
                             <button class="button" onclick="scrollToSection('gengo')">
                                 <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon">
                                 <span class="button-text">
-                                    <div class="sentence" data-font-size="0.4">
-                                        <div class="kiwi-maru">扱った言語</div>
+                                    <div class="text-sub">
+                                        <div class="kiwi-maru">言語＆技術</div>
                                     </div>
-                                    <div class="sentence" data-font-size="0.5">
-                                        <div class="josefin-sans">PROGRAMMING LANGUAGES</div>
+                                    <div class="text-main">
+                                        <div class="josefin-sans">SKILL</div>
                                     </div>
                                 </span>
                             </button>
@@ -134,11 +136,11 @@
                             <button class="button" onclick="scrollToSection('shooting')">
                                 <img src="figs/product.png" alt="作品アイコン" class="button-icon">
                                 <span class="button-text">
-                                    <div class="sentence" data-font-size="0.4">
+                                    <div class="text-sub">
                                         <div class="kiwi-maru">制作物</div>
                                     </div>
-                                    <div class="sentence" data-font-size="0.5">
-                                        <div class="josefin-sans">WORK 1</div>
+                                    <div class="text-main">
+                                        <div class="josefin-sans">WORK 2</div>
                                     </div>
                                 </span>
                             </button>
@@ -148,10 +150,10 @@
                             <button class="button" onclick="scrollToSection('kenkyu')">
                                 <img src="figs/product.png" alt="作品アイコン" class="button-icon">
                                 <span class="button-text">
-                                    <div class="sentence" data-font-size="0.4">
+                                    <div class="text-sub">
                                         <div class="kiwi-maru">制作物</div>
                                     </div>
-                                    <div class="sentence" data-font-size="0.5">
+                                    <div class="text-main">
                                         <div class="josefin-sans">WORK 2</div>
                                     </div>
                                 </span>
@@ -162,10 +164,10 @@
                             <button class="button" onclick="scrollToSection('heyakowashi')">
                                 <img src="figs/product.png" alt="作品アイコン" class="button-icon">
                                 <span class="button-text">
-                                    <div class="sentence" data-font-size="0.4">
+                                    <div class="text-sub">
                                         <div class="kiwi-maru">制作物</div>
                                     </div>
-                                    <div class="sentence" data-font-size="0.5">
+                                    <div class="text-main">
                                         <div class="josefin-sans">WORK 3</div>
                                     </div>
                                 </span>
