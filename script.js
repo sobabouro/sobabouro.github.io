@@ -205,8 +205,6 @@
                 const topRatio = parseFloat(overlayHalf.dataset.top) || 0.4;
                 const angle = overlayHalf.dataset.angle || "0deg";
 
-                console.log(" heightRatio: ", heightRatio, " widthRatio: ", widthRatio, " topRatio: ", topRatio, " angle: ", angle);
-
                 // 高さ、幅、位置を画像の高さを基に計算
                 overlayHalf.style.height = `${imageHeight * heightRatio}px`;
                 overlayHalf.style.width = `${imageWidth * widthRatio}px`;
@@ -290,13 +288,31 @@ window.addEventListener("scroll", () => {
     }
 });
 
-// トップへ戻るボタンのクリックイベント
-document.getElementById("scrollTopButton").addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth",
+// ヘッダー関連
+(function () {
+    // メニューボタン
+    const menuButton = document.getElementById('menuButton');
+    const menuText = menuButton.querySelector('.menu-text');
+    const drawer = document.querySelector('.drawer');
+
+    menuButton.addEventListener('click', () => {
+        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', !isExpanded);
+        document.documentElement.classList.toggle('is-drawerActive');
+        drawer.classList.toggle('is-open');
+
+        // テキストの切り替え
+        menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
     });
-});
+
+    // トップへ戻るボタンのクリックイベント
+    document.getElementById("scrollTopButton").addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    });
+})();
 
 // スクロールをスムーズにする
 function scrollToSection(sectionId) {

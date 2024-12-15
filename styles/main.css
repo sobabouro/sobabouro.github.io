@@ -1018,8 +1018,10 @@ input[type=checkbox] {
 
 /* 右端のボタンスタイル */
 .popup-bar .right button {
+  display: block;
+  position: relative;
   height: 100%;
-  width: 100%;
+  width: auto;
   background-color: var(--color-bar);
   color: white;
   border: none;
@@ -1037,6 +1039,95 @@ input[type=checkbox] {
 
 .popup-bar .right button:hover {
   background-color: var(--color-hover); /* ホバー時の背景色 */
+}
+
+.popup-bar .right button + button {
+  margin-left: 5px;
+}
+
+.menu-text {
+  position: absolute;
+  bottom: -30px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.circle {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+  border-radius: 50%;
+}
+
+.line {
+  position: relative;
+  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
+  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.015);
+  background-color: #fff;
+  border-radius: 99rem;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.line::before,
+.line::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.15);
+  height: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.015);
+  background-color: #fff;
+  border-radius: 99rem;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.line::before {
+  top: calc(var(--popup-bar-height) * var(--window-min-vp)) vh;
+}
+
+.line::after {
+  bottom: calc(var(--popup-bar-height) * var(--window-min-vp)) vh;
+}
+
+.is-drawerActive .circle {
+  background: transparent;
+}
+
+.is-drawerActive .line {
+  background-color: transparent;
+}
+
+.is-drawerActive .line::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.is-drawerActive .line::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.drawer.is-open {
+  right: 0;
 }
 
 /**
@@ -1231,3 +1322,5 @@ button:focus {
   bottom: 6vw;
   left: -5px;
 }
+
+/*# sourceMappingURL=main.css.map */
