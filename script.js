@@ -228,6 +228,7 @@
                 overlayHalf.style.width = `${imageWidth * widthRatio}px`;
                 overlayHalf.style.top = `${imageHeight * topRatio}px`;
                 overlayHalf.style.transform = `translate(-50%, 0) rotate(${angle})`;
+                overlayHalf.style.fontSize = `${imageWidth * 0.02}px`;
             }
         });
     }
@@ -259,7 +260,7 @@
 
             // SVGのviewBoxとサイズを更新
             waveSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
-            waveSvg.style.width = `${svgWidth}px`;
+            waveSvg.style.width = `${svgWidth * 2}px`;
             waveSvg.style.height = `${svgHeight}px`;
         });
     }

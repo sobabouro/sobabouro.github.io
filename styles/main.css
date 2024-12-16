@@ -398,10 +398,7 @@ input[type=checkbox] {
 .container-lg,
 .container-xl {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: none;
-  box-sizing: border-box;
+  position: relative;
 }
 
 .container-vertical {
@@ -430,11 +427,44 @@ input[type=checkbox] {
   justify-content: space-between;
   width: 100%;
   background-color: rgba(14, 77, 114, 0.322);
+  z-index: 0;
 }
 
 .empty {
   background-color: rgba(0, 0, 0, 0);
   display: flex;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.z1 {
+  z-index: 1;
+}
+
+.z2 {
+  z-index: 2;
+}
+
+.z3 {
+  z-index: 3;
+}
+
+.z4 {
+  z-index: 4;
+}
+
+.z5 {
+  z-index: 5;
+}
+
+.z1000 {
+  z-index: 1000;
 }
 
 .starter-template {
@@ -1283,16 +1313,14 @@ button:focus {
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: contain;
-  z-index: 2;
 }
 
 .overlay {
-  position: absolute; /* 絶対位置で配置 */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* 動画全体に重なるように */
-  z-index: 3; /* 背景動画より前面に表示 */
+  height: 100%;
   color: white;
   text-align: center;
   padding: 20px;
@@ -1312,7 +1340,6 @@ button:focus {
   left: 50%;
   width: auto;
   transform: translate(-50%, 40%) rotate(var(--overlay-angle));
-  z-index: 3;
   color: white;
   text-align: center;
   transition: all 0.3s ease-in-out;
@@ -1327,29 +1354,25 @@ button:focus {
 }
 
 .wave-container {
-  position: absolute; /* 絶対配置 */
-  width: 100%; /* 幅を画像コンテナに合わせる */
-  height: auto; /* 波線ボックスの高さ */
+  position: absolute;
+  width: 100%;
+  height: auto;
   overflow: hidden;
-  z-index: 2;
-  transform: rotate(5deg); /* ボックス全体を回転 */
+  transform: rotate(5deg);
   transform-origin: center;
   position: relative;
-  bottom: 13vw;
+  bottom: 9vw;
   left: -1.5vw;
 }
 
 .reverse-wave-container {
-  position: absolute; /* 絶対配置 */
-  width: 100%; /* 幅を画像コンテナに合わせる */
-  height: auto; /* 波線ボックスの高さ */
+  position: absolute;
+  width: 100%;
+  height: auto;
   overflow: hidden;
-  z-index: -1;
   transform: rotate(185deg);
-  transform-origin: center; /* 回転の基点を左上に設定 */
-  position: relative;
-  bottom: 6vw;
-  left: -5px;
+  transform-origin: center;
+  top: -16vw;
 }
 
 /*# sourceMappingURL=main.css.map */
