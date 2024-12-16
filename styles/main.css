@@ -1021,24 +1021,20 @@ input[type=checkbox] {
   font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
   padding: 0;
 }
-
 .popup-bar .left {
   flex: 0 0 auto;
   text-align: left;
   padding-left: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
 }
-
 .popup-bar .left .title {
   font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
   font-family: "Edu AU VIC WA NT Pre", sans-serif;
   padding: calc(0.1 * var(--popup-bar-height));
 }
-
 .popup-bar .left .subtitle {
   font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
   font-family: "Josefin-Sans", sans-serif;
 }
-
 .popup-bar .right {
   flex: 0 0 auto;
   display: flex;
@@ -1047,8 +1043,6 @@ input[type=checkbox] {
   margin: 0;
   padding: 0;
 }
-
-/* 右端のボタンスタイル */
 .popup-bar .right button {
   position: relative;
   display: flex;
@@ -1066,13 +1060,11 @@ input[type=checkbox] {
   font-family: "khand", sans-serif;
   transition: background-color 0.3s;
 }
-
 .popup-bar .right button:focus {
   outline: none;
 }
-
 .popup-bar .right button:hover {
-  background-color: var(--color-hover); /* ホバー時の背景色 */
+  background-color: var(--color-hover);
 }
 
 .menu-text {
@@ -1153,7 +1145,6 @@ input[type=checkbox] {
   transition: opacity 0.3s ease;
   z-index: 998;
 }
-
 .is-drawerActive .backdrop {
   opacity: 1;
   pointer-events: auto;
@@ -1164,19 +1155,18 @@ input[type=checkbox] {
   top: 0;
   right: -80vw;
   width: 80vw;
-  max-width: 400px;
+  max-width: 600px;
   height: 100%;
-  background: linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5)), radial-gradient(circle, #ff0000, #0000ff);
+  background: linear-gradient(to top, rgb(45, 22, 172) 0%, rgb(160, 247, 255) 100%);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
   transition: right 0.3s ease;
   z-index: 999;
 }
-
-.drawer.is-open {
+.is-drawerActive .drawer {
+  opacity: 1;
   right: 0;
 }
 
@@ -1253,8 +1243,7 @@ input[type=checkbox] {
   box-sizing: border-box;
   padding: 0;
 }
-
-.button-icon {
+.button .button-icon {
   width: 50%; /* アイコンの最大幅 */
   height: 40%; /* 高さを自動で調整 */
   max-height: 50%; /* ボタンの50%に収める */
@@ -1262,8 +1251,7 @@ input[type=checkbox] {
   display: block; /* 表示をブロックにして中央に配置 */
   margin: 0 auto; /* アイコンを中央に配置 */
 }
-
-.button-text {
+.button .button-text {
   text-align: center;
   flex-grow: 1;
   display: flex;
@@ -1276,12 +1264,10 @@ input[type=checkbox] {
   text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
   word-wrap: break-word;
 }
-
-.button-text .text-main {
+.button .button-text .text-main {
   line-height: 1.2;
 }
-
-.button-text .text-sub {
+.button .button-text .text-sub {
   line-height: 1;
 }
 

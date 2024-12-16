@@ -38,37 +38,37 @@
     text-align: center;
     box-sizing: border-box;
     padding: 0;
-}
 
-.button-icon {
-    width: 50%; /* アイコンの最大幅 */
-    height: 40%; /* 高さを自動で調整 */
-    max-height: 50%; /* ボタンの50%に収める */
-    object-fit: contain; /* 画像のアスペクト比を保ちながら収める */
-    display: block; /* 表示をブロックにして中央に配置 */
-    margin: 0 auto; /* アイコンを中央に配置 */
-}
-
-.button-text {
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: calc(var(--font-size-base) * 0.3);
-    padding: 0;
-    margin: 0;
-    text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
-    word-wrap: break-word;
-}
-
-.button-text .text-main {
-    line-height: 1.2;
-}
-
-.button-text .text-sub {
-    line-height: 1;
+    .button-icon {
+        width: 50%; /* アイコンの最大幅 */
+        height: 40%; /* 高さを自動で調整 */
+        max-height: 50%; /* ボタンの50%に収める */
+        object-fit: contain; /* 画像のアスペクト比を保ちながら収める */
+        display: block; /* 表示をブロックにして中央に配置 */
+        margin: 0 auto; /* アイコンを中央に配置 */
+    }
+    
+    .button-text {
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: calc(var(--font-size-base) * 0.3);
+        padding: 0;
+        margin: 0;
+        text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
+        word-wrap: break-word;
+    
+        .text-main {
+            line-height: 1.2;
+        }
+    
+        .text-sub {
+            line-height: 1;
+        }
+    }
 }
 
 button:focus {

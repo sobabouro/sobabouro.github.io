@@ -22,59 +22,58 @@
     z-index: 1000;
     font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
     padding: 0;
-}
 
-.popup-bar .left {
-    flex: 0 0 auto;
-    text-align: left;
-    padding-left: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
-}
+    .left {
+        flex: 0 0 auto;
+        text-align: left;
+        padding-left: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
 
-.popup-bar .left .title {
-    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
-    font-family: 'Edu AU VIC WA NT Pre', sans-serif;
-    padding: calc(0.1 * var(--popup-bar-height));
-}
+        .title {
+            font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
+            font-family: 'Edu AU VIC WA NT Pre', sans-serif;
+            padding: calc(0.1 * var(--popup-bar-height));
+        }
 
-.popup-bar .left .subtitle {
-    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
-    font-family: 'Josefin-Sans', sans-serif;
-}
+        .subtitle {
+            font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+            font-family: 'Josefin-Sans', sans-serif;
+        }
+    }
 
-.popup-bar .right {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+    .right {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin: 0;
+        padding: 0;
 
-/* 右端のボタンスタイル */
-.popup-bar .right button {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: auto;
-    background-color: rgba(0, 0, 0, 0);
-    color: white;
-    border: none;
-    padding: 0 calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
-    cursor: pointer;
-    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
-    font-weight: thin;
-    font-family: 'khand', sans-serif;
-    transition: background-color 0.3s;
-}
+        button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: auto;
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            border: none;
+            padding: 0 calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
+            cursor: pointer;
+            font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.3);
+            font-weight: thin;
+            font-family: 'khand', sans-serif;
+            transition: background-color 0.3s;
+        }
 
-.popup-bar .right button:focus {
-    outline: none;
-}
+        button:focus {
+            outline: none;
+        }
 
-.popup-bar .right button:hover {
-    background-color: var(--color-hover); /* ホバー時の背景色 */
+        button:hover {
+            background-color: var(--color-hover);
+        }
+    }
 }
 
 .menu-text {
@@ -154,11 +153,11 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
     z-index: 998;
-}
 
-.is-drawerActive .backdrop {
-    opacity: 1;
-    pointer-events: auto;
+    .is-drawerActive & {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
 
 .drawer {
@@ -166,20 +165,19 @@
     top: 0;
     right: -80vw;
     width: 80vw;
-    max-width: 400px;
+    max-width: 600px;
     height: 100%;
     background: 
-    linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5)),
-    radial-gradient(circle, #ff0000, #0000ff);
+        linear-gradient(to top, rgb(45, 22, 172) 0%, rgb(160, 247, 255) 100%);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     transition: right 0.3s ease;
     z-index: 999;
-}
 
-.drawer.is-open {
-    right: 0;
+    .is-drawerActive & {
+        opacity: 1;
+        right: 0;
+    }
 }

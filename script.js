@@ -312,14 +312,14 @@ window.addEventListener("scroll", () => {
     // メニューボタン
     const menuButton = document.getElementById('menuButton');
     const menuText = menuButton.querySelector('.menu-text');
-    const drawer = document.querySelector('.drawer');
     const backdrop = document.querySelector('.backdrop');
 
     menuButton.addEventListener('click', () => {
         const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
         menuButton.setAttribute('aria-expanded', !isExpanded);
+
+        // 親要素のHTMLタグに `is-drawerActive` クラスをトグル
         document.documentElement.classList.toggle('is-drawerActive');
-        drawer.classList.toggle('is-open');
 
         // テキストの切り替え
         menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
@@ -327,8 +327,8 @@ window.addEventListener("scroll", () => {
 
     // バックドロップクリックでドロワーを閉じる
     backdrop.addEventListener('click', () => {
+        // 親要素からクラスを削除
         document.documentElement.classList.remove('is-drawerActive');
-        drawer.classList.remove('is-open');
         menuButton.setAttribute('aria-expanded', 'false');
         menuText.textContent = 'MENU';
     });
