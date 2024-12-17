@@ -508,6 +508,10 @@ input[type=checkbox] {
   text-align: right;
 }
 
+.flush-center {
+  text-align: center;
+}
+
 .align-left {
   width: 100%;
   height: 100%;
@@ -677,6 +681,46 @@ input[type=checkbox] {
   margin-bottom: 0;
 }
 
+.top-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.top-in.is-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bottom-in {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.bottom-in.is-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.right-in {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.right-in.is-animated {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.left-in {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.left-in.is-animated {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /**
  * @file _grid.scss
  * @desc 汎用性のありそうな，ボックスのセパレーター
@@ -787,6 +831,24 @@ input[type=checkbox] {
   display: flex;
   justify-content: space-between;
   overflow: hidden;
+}
+.col .left,
+.col .right {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+  max-width: 100px;
+  min-width: 30px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+}
+.col .middle {
+  flex: 1 1 auto;
+  max-width: none;
+  min-width: 100px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+  flex-grow: 1;
 }
 
 .column {
@@ -935,26 +997,6 @@ input[type=checkbox] {
   -ms-flex: 0 0 100%;
   flex: 0 0 100%;
   max-width: 100%;
-}
-
-.col .left,
-.col .right {
-  flex-grow: 0; /* 左右のボックスは広がらない */
-  flex-shrink: 0; /* 左右のボックスは縮小しない */
-  flex-basis: auto; /* 幅は固定、伸縮しない */
-  max-width: 100px; /* 最大幅 */
-  min-width: 30px; /* 最小幅 */
-  background-color: rgba(0, 0, 0, 0);
-  text-align: center;
-}
-
-.col .middle {
-  flex: 1 1 auto; /* 中央のカラムは可変 */
-  max-width: none;
-  min-width: 100px;
-  background-color: rgba(0, 0, 0, 0);
-  text-align: center;
-  flex-grow: 1;
 }
 
 /**
@@ -1308,16 +1350,13 @@ button:focus {
   width: 100%;
   height: 100%;
   color: white;
-  text-align: center;
   padding: 20px;
 }
-
 .overlay h1 {
-  font-size: 3rem; /* ヘッダーフォントサイズ */
+  font-size: 3rem;
 }
-
 .overlay p {
-  font-size: 1.5rem; /* 段落のフォントサイズ */
+  font-size: 1.5rem;
 }
 
 .overlay-half {
@@ -1327,16 +1366,13 @@ button:focus {
   width: auto;
   transform: translate(-50%, 40%) rotate(var(--overlay-angle));
   color: white;
-  text-align: center;
   transition: all 0.3s ease-in-out;
 }
-
 .overlay-half h1 {
-  font-size: 3rem; /* ヘッダーフォントサイズ */
+  font-size: 3rem;
 }
-
 .overlay-half p {
-  font-size: 1.5rem; /* 段落のフォントサイズ */
+  font-size: 1.5rem;
 }
 
 .wave-container {

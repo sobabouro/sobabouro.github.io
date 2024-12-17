@@ -289,23 +289,55 @@
 window.addEventListener("scroll", () => {
     const popupBar = document.getElementById("popupBar");
 
-    // CSS カスタムプロパティの値を取得
-    const popupBarHeight = parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height")
-    );
+    const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height"));
 
-    const windowMinVp = parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--window-min-vp")
-    );
+    const windowMinVp = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--window-min-vp"));
 
-    if (window.scrollY > 100) {
+    if (window.scrollY > 40) {
         // スクロールが一定量を超えたらポップアップバーを表示
         popupBar.style.top = "0";
     } else {
         // スクロール位置が戻ったら隠す
-        popupBar.style.top = `-${popupBarHeight * windowMinVp}vh`; // 計算した値を適用
+        popupBar.style.top = `-${popupBarHeight * windowMinVp}vh`;
     }
 });
+
+(function () {
+    const animatedElements = document.querySelectorAll('.top-in, .bottom-in, .right-in, .left-in');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 画面に入ったら 'is-animated' クラスを追加
+                entry.target.classList.add('is-animated');
+                // 1度アニメーションが実行されたら監視を停止
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        // 要素の10%が画面に表示されたら発火
+        threshold: 0.1,
+    });
+
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
+})();
+
+// スクロールをスムーズにする
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // 上に追加する余白の高さ（px）
+        const elementPosition = section.getBoundingClientRect().top + window.pageYOffset; // 要素の位置を取得
+        const offsetPosition = elementPosition - offset; // 余白を引いたスクロール位置
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth' // スムーズスクロール
+        });
+    }
+}
 
 // ヘッダー関連
 (function () {
@@ -341,18 +373,3 @@ window.addEventListener("scroll", () => {
         });
     });
 })();
-
-// スクロールをスムーズにする
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        const offset = 100; // 上に追加する余白の高さ（px）
-        const elementPosition = section.getBoundingClientRect().top + window.pageYOffset; // 要素の位置を取得
-        const offsetPosition = elementPosition - offset; // 余白を引いたスクロール位置
-        
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth' // スムーズスクロール
-        });
-    }
-}

@@ -109,6 +109,26 @@
     display: flex;
     justify-content: space-between;
     overflow: hidden;
+
+    .left,
+    .right {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+        max-width: 100px;
+        min-width: 30px;
+        background-color: rgba(0, 0, 0, 0);
+        text-align: center;
+    }
+
+    .middle {
+        flex: 1 1 auto;
+        max-width: none;
+        min-width: 100px;
+        background-color: rgba(0, 0, 0, 0);
+        text-align: center;
+        flex-grow: 1;
+    }
 }
 
 .column {
@@ -257,24 +277,4 @@
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%
-}
-
-.col .left,
-.col .right {
-    flex-grow: 0; /* 左右のボックスは広がらない */
-    flex-shrink: 0; /* 左右のボックスは縮小しない */
-    flex-basis: auto; /* 幅は固定、伸縮しない */
-    max-width: 100px; /* 最大幅 */
-    min-width: 30px; /* 最小幅 */
-    background-color: rgba(0, 0, 0, 0);
-    text-align: center;
-}
-
-.col .middle {
-    flex: 1 1 auto;  /* 中央のカラムは可変 */
-    max-width: none;
-    min-width: 100px;
-    background-color: rgba(0, 0, 0, 0);
-    text-align: center;
-    flex-grow: 1;
 }
