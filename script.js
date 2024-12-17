@@ -177,7 +177,6 @@
 
                 const mainText = button.querySelector('.text-main');
                 const subText = button.querySelector('.text-sub');
-                console.log("mainText: ", mainText, " subText: ", subText);
                 if (mainText) mainText.style.fontSize = `${summaryWidth * 0.1}px`;
                 if (subText) subText.style.fontSize = `${summaryWidth * 0.05}px`;
             }
@@ -215,7 +214,6 @@
             if (bgmedia && overlayHalf) {
                 const imageHeight = bgmedia.offsetHeight;
                 const imageWidth = bgmedia.offsetWidth;
-                console.log(" imageWidth: ", imageWidth, " imageHeight: ", imageHeight);
 
                 // data-height と data-top の値を取得
                 const heightRatio = parseFloat(overlayHalf.dataset.height) || 0.8;
@@ -302,26 +300,61 @@ window.addEventListener("scroll", () => {
     }
 });
 
+// フェードボックス関連
 (function () {
-    const animatedElements = document.querySelectorAll('.top-in, .bottom-in, .right-in, .left-in');
+    function textAnimate(ft) {
+        const textContent = ft.textContent.trim();
+        
+        // 元のテキストを空にして、文字を1つずつ<span>で囲んで追加
+        ft.innerHTML = textContent.split('').map(char => `<span>${char}</span>`).join('');
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // 画面に入ったら 'is-animated' クラスを追加
-                entry.target.classList.add('is-animated');
-                // 1度アニメーションが実行されたら監視を停止
-                observer.unobserve(entry.target);
-            }
+        const spans = ft.querySelectorAll('span'); // <span>要素をすべて取得
+        let delay = 0;
+
+        // 各文字に対して順番にアニメーションを適用
+        spans.forEach(span => {
+            setTimeout(() => {
+                span.classList.add('is-animated');
+            }, delay);
+            // 次の文字がアニメーションするタイミングをずらす
+            delay += 100;
         });
-    }, {
-        // 要素の10%が画面に表示されたら発火
-        threshold: 0.1,
-    });
+    }
 
-    animatedElements.forEach(element => {
-        observer.observe(element);
-    });
+    function initialize() {
+        const animatedElements = document.querySelectorAll('.top-in, .bottom-in, .right-in, .left-in, .top-fade-text, .right-fade-text');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delayTime = entry.target.dataset.delayTime || 0;
+
+                    setTimeout(() => {
+                        // 画面に入ったら 'is-animated' クラスを追加
+                        entry.target.classList.add('is-animated');
+
+                        // もし対象がテキスト要素の場合、textAnimateを呼び出して文字ごとのアニメーションを適用
+                        if (entry.target.classList.contains('top-fade-text') || entry.target.classList.contains('right-fade-text')) {
+                            textAnimate(entry.target);
+                        }
+                    }, delayTime);
+
+                    // 1度アニメーションが実行されたら監視を停止
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            // 要素の10%が画面に表示されたら発火
+            threshold: 0.1,
+        });
+
+        animatedElements.forEach(element => {
+            observer.observe(element); // 監視対象に追加
+        });
+    }
+
+    // ページ読み込み時に関数を呼び出す
+    document.addEventListener("DOMContentLoaded", initialize);
 })();
 
 // スクロールをスムーズにする
