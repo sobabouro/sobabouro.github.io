@@ -5,6 +5,57 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kaisei+HarunoUmi&family=Kaisei+Opti&family=Kaisei+Tokumin&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Kaku+Gothic+New&family=Zen+Kurenaido&display=swap');
 
+@font-face {
+    font-family: 'handwrite_japanese';
+    src: url('../myfonts/jap_alphabet_1.20241228.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'handwrite_japanese';
+    src: url('../myfonts/jap_omakekana_1.20241229.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'handwrite_japanese';
+    src: url('../myfonts/jap_hiragana_1.20241228.otf');
+    unicode-range: U+3041-3093;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'handwrite_japanese';
+    src: url('../myfonts/jap_katakana_1.20241228.otf');
+    unicode-range: U+30A1-30F3;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'handwrite';
+    src: url('../myfonts/handwrite_1.20241226.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'handwrite_title';
+    src: url('../myfonts/handwrite_title_1.20241227.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'handwrite_cursive';
+    src: url('../myfonts/handwrite_cursive_1.20241228.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 :root {
     --zoom-factor: 1;
     --zoom-limit: 1.5;
@@ -27,6 +78,22 @@
 
     --overlay-height: 50%;
     --overlay-angle: 0deg;
+}
+
+.s-japanese {
+    font-family: "handwrite_japanese";
+}
+
+.s-standard {
+    font-family: "handwrite", Josefin Sans, sans-serif;
+}
+
+.s-title {
+    font-family: "handwrite_title", Josefin Sans, sans-serif;
+}
+
+.s-cursive {
+    font-family: "handwrite_cursive", Josefin Sans, sans-serif;
 }
 
 .kaisei-opti {

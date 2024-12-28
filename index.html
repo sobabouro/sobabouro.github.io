@@ -17,7 +17,7 @@
         padding: 0;
         font-size: 16px;
         font-family: Arial, sans-serif;
-        background-image: url('figs\\background.jpg');
+        background-image: url('figs\\background.png');
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
@@ -25,7 +25,7 @@
 
     * {
         box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
-        outline: 1px solid red;
+        /* outline: 1px solid red; */
     }
 </style>
 
@@ -41,12 +41,18 @@
 
     <div class="popup-bar" id="popupBar">
         <div class="left">
-            <div class="title">PORTFOLIO</div>
-            <div class="subtitle">Shota Onotsuka</div>
+            <div class="title">
+                <div class="s-cursive" style="letter-spacing: -0.15em;"> PORTFOLIO </div>
+            </div>
+            <div class="subtitle">
+                <div class="s-standard"> Shota Onotsuka </div>
+            </div>
         </div>
         <div class="right">
             <button id="scrollTopButton">
-                <span>PAGE TOP</span>
+                <div class="s-standard">
+                    <span>PAGE TOP</span>
+                </div>
             </button>
             <button id="menuButton" aria-expanded="false">
                 <div class="circle">
@@ -64,22 +70,22 @@
                 </video>
                 <div class="overlay z1">
                     <div class="flushleft">
-                        <div class="sentence" data-font-size="2">
-                            <div class="edu">
+                        <div class="sentence" data-font-size="4">
+                            <div class="s-cursive" style="letter-spacing: -0.22em;">
                                 <div class="right-fade-text" data-delay-time="500">
                                     PORTFOLIO
                                 </div>
                             </div>
                         </div>
                         <div class="sentence">
-                            <div class="josefin-sans">
+                            <div class="s-standard">
                                 <div class="top-in" data-delay-time="1500">
                                     Shota Onotsuka
                                 </div>
                             </div>
                         </div>
                         <div class="sentence" data-font-size="0.8">
-                            <div class="josefin-sans">
+                            <div class="s-standard">
                                 <div class="top-in" data-delay-time="2000">
                                     Guraduate School of Informatics, Gunma University
                                 </div>
@@ -92,7 +98,7 @@
 
         <div class="whiteboad">
             <div class="cut">
-                <div class="double-underline"> SUMMARY </div>
+                <div class="double-underline">  SUMMARY </div>
             </div>
         </div>
 
@@ -108,7 +114,7 @@
                                         <div class="kiwi-maru">自己紹介</div>
                                     </div>
                                     <div class="text-main">
-                                        <div class="josefin-sans">INTRO</div>
+                                        <div class="s-standard">INTRO</div>
                                     </div>
                                 </span>
                             </button>
@@ -245,27 +251,32 @@
             <div class="whiteboad z2" id="apipo">
                 <div class="container">
                     <div class="col">
+                        <div class="s-japanese">
+                            あいうえお，をゎヴーう-ん。；：「ああ」
+                        </div>
                     </div>
 
                     <div class="col-6">
                         <div class="container">
-                            <div class="space">
-                                <div class="vertical">
-                                    <div class="sentence" style="color: black;">
-                                        <div class="kaisei-opti" style="font-weight: bold;">
-                                            <div class="no-break">見かけによらず，<br>個性的で<br>チャーミング</div>
+                            <div class="align-center">
+                                <div class="space">
+                                    <div class="vertical">
+                                        <div class="sentence" style="color: black;">
+                                            <div class="kaisei-opti" style="font-weight: bold;">
+                                                <div class="no-break">見かけによらず，<br>個性的で<br>チャーミング</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="container-vertical">
-                            <div class="sentence-04" style="color: black;">
+                            <div class="sentence" data-font-size="0.8" style="color: black;">
                                 <div class="kiwi-maru">
                                     好奇心
                                 </div>
                             </div>
-                            <div class="sentence-03" style="color: black;">
+                            <div class="sentence" data-font-size="0.6" style="color: black;">
                                 <div class="zen-kurenaido">
                                     <div class="column-box">
                                         <item>新しい技術・知識・体験に，常に興味を持ち続けています．</item>
@@ -274,12 +285,12 @@
                                 </div>
                             </div>
 
-                            <div class="sentence-04" style="color: black;">
+                            <div class="sentence" data-font-size="0.8" style="color: black;">
                                 <div class="kiwi-maru">
                                     完遂力
                                 </div>
                             </div>
-                            <div class="sentence-03" style="color: black;">
+                            <div class="sentence" data-font-size="0.6" style="color: black;">
                                 <div class="zen-kurenaido">
                                     <div class="column-box">
                                         <item>一度取り組んだことは，最後までやり遂げます．</item>
@@ -288,12 +299,12 @@
                                 </div>
                             </div>
 
-                            <div class="sentence-04" style="color: black;">
+                            <div class="sentence" data-font-size="0.8" style="color: black;">
                                 <div class="kiwi-maru">
                                     応用力
                                 </div>
                             </div>
-                            <div class="sentence-03" style="color: black;">
+                            <div class="sentence" data-font-size="0.6" style="color: black;">
                                 <div class="zen-kurenaido">
                                     <div class="column-box">
                                         <item>インプットアウトプットを大切にしています．</item>
@@ -302,12 +313,12 @@
                                 </div>
                             </div>
 
-                            <div class="sentence-04" style="color: black;">
+                            <div class="sentence" data-font-size="0.8" style="color: black;">
                                 <div class="kiwi-maru">
                                     集中力
                                 </div>
                             </div>
-                            <div class="sentence-03" style="color: black;">
+                            <div class="sentence" data-font-size="0.6" style="color: black;">
                                 <div class="zen-kurenaido">
                                     <div class="column-box">
                                         <item>気づいたら夜になる程，何かに夢中になれます．</item>
@@ -324,7 +335,7 @@
                             <div class="container-vertical">
                                 <div class="space"></div>
                                 <div class="left-side" >
-                                    <img src="figs/me1.png" alt="自画">
+                                    <img src="figs/self3.png" alt="自画">
                                 </div>
                             </div>
                         </div>
@@ -333,7 +344,7 @@
                             <div class="container-right">
                                 <div class="right-side" >
                                     <div class="rotate-right-5">
-                                        <img src="figs/me2.jpg" alt="自画">
+                                        <img src="figs/self4.jpg" alt="自画">
                                     </div>
                                 </div>
                             </div>
@@ -470,7 +481,9 @@
                     <img src="figs/mail.png" alt="E-mail" class="social-icon">
                 </a>
             </div>
-            <p class="footer-text" style="font-family: 'Edu AU VIC WA NT Pre';">PORTFOLIO</p>
+            <p class="footer-text">
+                <div class="s-cursive"> PORTFOLIO </div>
+            </p>
         </div>
     </div>
     <!-- /.container -->
