@@ -232,19 +232,21 @@
 .cut {
     background-color: rgba(0, 0, 0, 0);
     box-sizing: border-box;
-    padding-top: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.28);
-    padding-bottom: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.32);
+    padding-top: calc(var(--bar-font-size) * 0.28);
+    padding-bottom: calc(var(--bar-font-size) * 0.32);
     display: flex;
     align-items: center;
     justify-content: center;
+    border-top: var(--solid-line-weight) solid rgb(0, 0, 0);
+    border-bottom: var(--solid-line-weight) solid rgb(0, 0, 0);
 }
 
 .double-underline {
     background-color: rgba(0, 0, 0, 0);
-    /* padding-bottom: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.1); */
+    /* padding-bottom: calc(var(--bar-font-size) * 0.1); */
     position: relative;
-    letter-spacing: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.2);
-    font-size: calc(var(--popup-bar-height) * var(--window-min-vp) * 0.4);
+    letter-spacing: calc(var(--bar-font-size) * 0.2);
+    font-size: calc(var(--bar-font-size) * 0.4);
     font-family: 'Raleway', sans-serif;
     color: var(--color-bar);
 }

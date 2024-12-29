@@ -19,6 +19,11 @@
 
         document.documentElement.style.setProperty("--window-min-vp", `${minDimension}px`);
         document.documentElement.style.setProperty("--square-similarity", squareSimilarity);
+
+        const barHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height"));
+
+        document.documentElement.style.setProperty("--bar-font-size", `${barHeight * minDimension}px`);
+        document.documentElement.style.setProperty("--solid-line-weight", `${barHeight * minDimension * 0.08}px`);
     }
 
     // フォントサイズを動的に変更する
