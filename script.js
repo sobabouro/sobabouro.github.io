@@ -209,7 +209,7 @@
                 img.style.height = img.offsetHeight * zoomFactor / 100;
             }
 
-            const bgmedia = container.querySelector('.background-media');
+            const bgmedia = container.querySelector('.background-image');
             const overlayHalf = container.querySelector('.overlay-half');
             if (bgmedia && overlayHalf) {
                 const imageHeight = bgmedia.offsetHeight;

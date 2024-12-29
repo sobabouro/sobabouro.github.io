@@ -6,47 +6,37 @@
 @import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kaisei+HarunoUmi&family=Kaisei+Opti&family=Kaisei+Tokumin&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Kaku+Gothic+New&family=Zen+Kurenaido&display=swap");
 @font-face {
   font-family: "handwrite_japanese";
-  src: url("../myfonts/jap_alphabet_1.20241228.otf");
-  font-weight: 400;
-  font-style: normal;
+  src: url("../myfonts/jap_kanji_1_1.20241229.otf") format("opentype");
 }
 @font-face {
   font-family: "handwrite_japanese";
-  src: url("../myfonts/jap_omakekana_1.20241229.otf");
-  font-weight: 400;
-  font-style: normal;
+  src: url("../myfonts/jap_alphabet_1.20241228.otf") format("opentype");
 }
 @font-face {
   font-family: "handwrite_japanese";
-  src: url("../myfonts/jap_hiragana_1.20241228.otf");
+  src: url("../myfonts/jap_omakekana_1.20241229.otf") format("opentype");
+}
+@font-face {
+  font-family: "handwrite_japanese";
+  src: url("../myfonts/jap_hiragana_1.20241228.otf") format("opentype");
   unicode-range: U+3041-3093;
-  font-weight: 400;
-  font-style: normal;
 }
 @font-face {
   font-family: "handwrite_japanese";
-  src: url("../myfonts/jap_katakana_1.20241228.otf");
+  src: url("../myfonts/jap_katakana_1.20241228.otf") format("opentype");
   unicode-range: U+30A1-30F3;
-  font-weight: 400;
-  font-style: normal;
 }
 @font-face {
   font-family: "handwrite";
   src: url("../myfonts/handwrite_1.20241226.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
 }
 @font-face {
   font-family: "handwrite_title";
   src: url("../myfonts/handwrite_title_1.20241227.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
 }
 @font-face {
   font-family: "handwrite_cursive";
   src: url("../myfonts/handwrite_cursive_1.20241228.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
 }
 :root {
   --zoom-factor: 1;
@@ -68,18 +58,26 @@
 
 .s-japanese {
   font-family: "handwrite_japanese";
+  font-weight: 400;
+  font-style: normal;
 }
 
 .s-standard {
   font-family: "handwrite", Josefin Sans, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .s-title {
   font-family: "handwrite_title", Josefin Sans, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .s-cursive {
   font-family: "handwrite_cursive", Josefin Sans, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .kaisei-opti {
@@ -665,7 +663,6 @@ input[type=checkbox] {
 
 .image-container {
   position: relative;
-  z-index: 3;
   width: 100%;
   height: 0;
   overflow: hidden;
@@ -1442,12 +1439,24 @@ button:focus {
   transform: rotate(-5deg);
 }
 
-.background-media {
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+}
+
+.background-image {
   position: absolute;
   top: 50%;
   left: 50%;
   width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 100%;
   transform: translate(-50%, -50%);
   object-fit: contain;
 }
