@@ -231,7 +231,7 @@
                 overlayHalf.style.width = `${imageWidth * widthRatio}px`;
                 overlayHalf.style.top = `${imageHeight * topRatio}px`;
                 overlayHalf.style.transform = `translate(-50%, 0) rotate(${angle})`;
-                overlayHalf.style.fontSize = `${imageWidth * 0.02}px`;
+                overlayHalf.style.fontSize = `${imageWidth * 0.038}px`;
             }
         });
     }
@@ -273,7 +273,6 @@
             clearTimeout(timer); // 前回のタイマーをクリア
         }
         timer = setTimeout(function () {
-            console.log("Resize event triggered.");
             updateZoomFactor();
             updateFontSize();
             updateZoomBoxes();
@@ -298,9 +297,11 @@ window.addEventListener("scroll", () => {
 
     if (window.scrollY > 40) {
         // スクロールが一定量を超えたらポップアップバーを表示
+        document.documentElement.classList.add('is-barActive');
         popupBar.style.top = "0";
     } else {
         // スクロール位置が戻ったら隠す
+        document.documentElement.classList.remove('is-barActive');
         popupBar.style.top = `-${popupBarHeight * windowMinVp}vh`;
     }
 });
@@ -411,3 +412,26 @@ function scrollToSection(sectionId) {
         });
     });
 })();
+
+// マウスカーソル関連
+document.addEventListener('DOMContentLoaded', () => {
+    const mouseOverlay = document.querySelector('.mouse-overlay');
+
+    document.addEventListener('mousemove', (e) => {
+        const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-font-size"));
+        const x = e.clientX;
+        const y = e.clientY;
+        const size = 30; // 円の半径
+
+        // `clip-path` を動的に設定して円形を切り抜き
+        mouseOverlay.style.clipPath = `circle(${size}px at ${x}px ${y}px)`;
+        mouseOverlay.style.webkitClipPath = `circle(${size}px at ${x}px ${y}px)`;
+
+        if (y < popupBarHeight + size && document.documentElement.classList.contains('is-barActive')) {
+            mouseOverlay.style.zIndex = 10000;
+        }
+        else {
+            mouseOverlay.style.zIndex = 1000;
+        }
+    });
+});

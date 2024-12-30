@@ -13,6 +13,9 @@
 
 <style>
     body {
+        position: absolute;
+        z-index: 0;
+        width: 100%;
         margin: 0;
         padding: 0;
         font-size: 16px;
@@ -21,6 +24,8 @@
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
+        cursor: none;
+        overflow: hidden;
     }
 
     * {
@@ -30,6 +35,7 @@
 </style>
 
 <body>
+    <div class="mouse-overlay"></div>
     <div class="backdrop"></div>
     <div class="drawer">
         <ul>
@@ -40,7 +46,7 @@
     </div>
 
     <div class="popup-bar" id="popupBar">
-        <div class="left">
+        <div class="left z20s">
             <div class="title">
                 <div class="s-cursive" style="letter-spacing: -0.15em;"> PORTFOLIO </div>
             </div>
@@ -65,29 +71,29 @@
     <div class="content" id="topPage">
         <div class="whiteboad">
             <div class="video-container">
-                <video autoplay muted loop class="background-video z1">
+                <video autoplay muted loop class="background-video">
                     <source src="videos/portfolio.mp4" type="video/mp4">
                     ブラウザがサポートしていません．
                 </video>
-                <div class="overlay z1">
+                <div class="overlay">
                     <div class="flushleft">
                         <div class="sentence" data-font-size="4">
                             <div class="s-cursive" style="letter-spacing: -0.22em;">
-                                <div class="right-fade-text" data-delay-time="500">
+                                <div class="right-fade-text z2s" data-delay-time="500">
                                     PORTFOLIO
                                 </div>
                             </div>
                         </div>
                         <div class="sentence">
                             <div class="s-standard">
-                                <div class="top-in" data-delay-time="1500">
+                                <div class="top-in z2s" data-delay-time="1500">
                                     Shota Onotsuka
                                 </div>
                             </div>
                         </div>
                         <div class="sentence" data-font-size="0.8">
                             <div class="s-standard">
-                                <div class="top-in" data-delay-time="2000">
+                                <div class="top-in z2s" data-delay-time="2000">
                                     Guraduate School of Informatics, Gunma University
                                 </div>
                             </div>
@@ -98,8 +104,8 @@
         </div>
 
         <div class="whiteboad">
-            <div class="cut">
-                <div class="double-underline">  SUMMARY </div>
+            <div class="cut z2s">
+                <div class="double-underline"> SUMMARY </div>
             </div>
         </div>
 
@@ -109,13 +115,13 @@
                     <div class="pythagoras-container">
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('shokai')">
-                                <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon">
-                                <span class="button-text">
+                                <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon z2s">
+                                <span class="button-text z2s">
                                     <div class="text-sub">
                                         <div class="kiwi-maru">自己紹介</div>
                                     </div>
                                     <div class="text-main">
-                                        <div class="s-standard">INTRO</div>
+                                        <div class="josefin-sans">INTRO</div>
                                     </div>
                                 </span>
                             </button>
@@ -123,8 +129,8 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('apipo')">
-                                <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon">
-                                <div class="button-text">
+                                <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon z2s">
+                                <div class="button-text z2s">
                                     <div class="text-sub">
                                         <div class="kiwi-maru">アピールポイント</div>
                                     </div>
@@ -137,8 +143,8 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('gengo')">
-                                <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon">
-                                <span class="button-text">
+                                <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon z2s">
+                                <span class="button-text z2s">
                                     <div class="text-sub">
                                         <div class="kiwi-maru">言語＆技術</div>
                                     </div>
@@ -151,8 +157,8 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('shooting')">
-                                <img src="figs/product.png" alt="作品アイコン" class="button-icon">
-                                <span class="button-text">
+                                <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
+                                <span class="button-text z2s">
                                     <div class="text-sub">
                                         <div class="kiwi-maru">制作物</div>
                                     </div>
@@ -165,8 +171,8 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('kenkyu')">
-                                <img src="figs/product.png" alt="作品アイコン" class="button-icon">
-                                <span class="button-text">
+                                <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
+                                <span class="button-text z2s">
                                     <div class="text-sub">
                                         <div class="kiwi-maru">制作物</div>
                                     </div>
@@ -179,8 +185,8 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('heyakowashi')">
-                                <img src="figs/product.png" alt="作品アイコン" class="button-icon">
-                                <span class="button-text">
+                                <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
+                                <span class="button-text z2s">
                                     <div class="text-sub">
                                         <div class="kiwi-maru">制作物</div>
                                     </div>
@@ -204,7 +210,7 @@
         <div class="plate" id="shokai">
             <div class="image-container z1" aspect="710x973">
                 <svg class="wave-svg wave-container z3" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                    <path class="wave-path" d="" fill="white"></path>
+                    <path class="wave-path" d="" fill="#fcfcfc"></path>
                 </svg>
                 <div class="empty">
                     <img src="figs/self1.png" alt="自己紹介" class="background-image z1">                         
@@ -217,8 +223,8 @@
                             <div class="s-japanese" style="color: black;">
                                 <div class="column-box-frame">
                                     <item>2001年 5月 9日 生まれ</item>
-                                    <item>趣味：FPSゲーム、制作</item>
-                                    <item>資格：普通自動車免許、茶道裏千家初級許状</item>
+                                    <item>趣味:FPSゲーム、制作</item>
+                                    <item>資格:普通自動車免許、茶道裏千家初級許状</item>
                                 </div>
                             </div>
 
@@ -244,15 +250,13 @@
             <div class="whiteboad z2" id="apipo">
                 <div class="container">
                     <div class="col">
-                        <div class="s-japanese">
-                            あいうえお，をゎヴーう-ん。；：「ああ」ヮ
-                        </div>
+                        
                     </div>
 
                     <div class="col-6">
                         <div class="container">
                             <div class="align-center">
-                                <div class="space">
+                                <div class="space-vertical">
                                     <div class="vertical">
                                         <div class="sentence" style="color: black;">
                                             <div class="kaisei-opti" style="font-weight: bold;">
@@ -263,7 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container-vertical">
+                        <div class="container-vertical" style="line-height: 2;">
                             <div class="sentence" data-font-size="0.8" style="color: black;">
                                 <div class="kiwi-maru">
                                     好奇心
@@ -301,7 +305,7 @@
                                 <div class="zen-kurenaido">
                                     <div class="column-box">
                                         <item>インプットアウトプットを大切にしています．</item>
-                                        <item>仕事をするにも，遊ぶにも，人とのコミュニケーションにおいてでも，この力が最も大切であると考えています．</item>
+                                        <item>仕事をするにも，遊ぶにも，コミュニケーションにおいても，この力が最も大切であると考えています．</item>
                                     </div>
                                 </div>
                             </div>
@@ -326,9 +330,29 @@
                     <div class="col">
                         <div class="margin-box" size="medium">
                             <div class="container-vertical">
-                                <div class="space"></div>
+                                <div class="space-vertical"></div>
                                 <div class="left-side" >
-                                    <img src="figs/self3.png" alt="自画">
+                                    <img src="figs/self3.png" alt="自画" style="width: 70%;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="margin-box" size="medium">
+                            <div class="container-right">
+                                <div class="left-side" >
+                                    <div class="rotate-left-5" >
+                                        <img src="figs/self2.jpg" alt="自画">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="margin-box" size="medium">
+                            <div class="container-vertical">
+                                <div class="left-side">
+                                    <div class="rotate-right-5">
+                                        <img src="figs/self5.jpg" alt="自画">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +361,7 @@
                             <div class="container-right">
                                 <div class="right-side" >
                                     <div class="rotate-right-5">
-                                        <img src="figs/self4.jpg" alt="自画">
+                                        <img src="figs/self4.jpg" alt="自画" style="width: 70%;">
                                     </div>
                                 </div>
                             </div>
@@ -349,7 +373,7 @@
 
             <div class="container-vertical">
                 <svg class="wave-svg reverse-wave-container z1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                    <path class="wave-path" d="" fill="white"></path>
+                    <path class="wave-path" d="" fill="#fcfcfc"></path>
                 </svg>
 
                 <div class="plate">

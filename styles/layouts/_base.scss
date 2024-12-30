@@ -10,6 +10,7 @@
 .container,
 .container-vertical, 
 .container-right,
+.container-left,
 .container-fluid,
 .container-sm,
 .container-md,
@@ -28,12 +29,17 @@
     justify-content: flex-start;
 }
 
+.container-left {
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
 .content {
     background-color: rgba(0, 0, 0, 0);
 }
 
 .whiteboad {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: var(--color-white);
     z-index: 2;
 }
 
@@ -45,7 +51,6 @@
     justify-content: space-between;
     width: 100%;
     background-color: rgba(14, 77, 114, 0.322);
-    z-index: 0;
 }
 
 .empty {
@@ -81,10 +86,17 @@
     z-index: 5;
 }
 
-.z1000 {
+.z1s {
     z-index: 1000;
 }
 
+.z2s {
+    z-index: 2000;
+}
+
+.z20s {
+    z-index: 20000;
+}
 
 .starter-template {
     padding: 40px 80px;
@@ -230,6 +242,7 @@
 }
 
 .cut {
+    position: relative;
     background-color: rgba(0, 0, 0, 0);
     box-sizing: border-box;
     padding-top: calc(var(--bar-font-size) * 0.28);
@@ -237,17 +250,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: var(--solid-line-weight) solid rgb(0, 0, 0);
-    border-bottom: var(--solid-line-weight) solid rgb(0, 0, 0);
+    letter-spacing: calc(var(--bar-font-size) * 0.1);
+    font-size: calc(var(--bar-font-size) * 0.4);
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: color var(--color-bar);
 }
 
 .double-underline {
     background-color: rgba(0, 0, 0, 0);
     /* padding-bottom: calc(var(--bar-font-size) * 0.1); */
     position: relative;
-    letter-spacing: calc(var(--bar-font-size) * 0.2);
-    font-size: calc(var(--bar-font-size) * 0.4);
-    font-family: 'Raleway', sans-serif;
     color: var(--color-bar);
 }
 
@@ -258,6 +270,7 @@
     bottom: 0;
     width: 100%;
     height: calc(var(--window-min-vp) * 0.003);
+    // height: calc(var(--solid-line-weight) * 0.8);
     background-color: currentColor;
     box-shadow: 0 calc(var(--window-min-vp) * 0.01) 0 currentColor;
 }
@@ -277,8 +290,9 @@
     margin: 0.5vw;
     padding: 1vw;
     box-sizing: border-box;
-    border: 2px solid white;
+    border: 2px solid var(--color-white);
     text-align: left;
+    line-height: 0.5;
 }
 
 .column-box p, 
@@ -286,9 +300,15 @@
     line-height: 1.2;
 }
 
-.column-box item, 
+.column-box item {
+    line-height: 1.5;
+    letter-spacing: 1px;
+    padding: 2%;
+    display: block;
+}
+
 .column-box-frame item {
-    line-height: 2;
+    line-height: 1.1;
     letter-spacing: 1px;
     display: block;
 }
