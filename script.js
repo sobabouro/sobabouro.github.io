@@ -1,3 +1,36 @@
+let lifeCount = 0;
+let isAnimating = false;
+
+// 画面ロード時のイベント
+window.addEventListener("load", () => {
+    const startScene = document.querySelector("start-scene");
+    const mainScene = document.querySelector("main-scene");
+
+    document.documentElement.classList.add("no-scroll");
+    document.body.classList.add("no-scroll");
+
+    // ページがロードされた後にスタートシーンをフェードイン
+    setTimeout(() => {
+        startScene.classList.add("fade-in");
+
+        // スタートシーン生存時間
+        setTimeout(() => {
+            // スタートシーンをフェードアウト
+            startScene.classList.add("fade-out");
+
+            // メインシーンをフェードイン
+            setTimeout(() => {
+                startScene.style.display = "none";
+                document.documentElement.classList.remove("no-scroll");
+                document.body.classList.remove("no-scroll");
+
+                window.scrollTo(0, 0);
+                mainScene.classList.add("active");
+            }, 1000);
+        }, 2000);
+    }, 500);
+});
+
 // ウィンドウの拡大率やサイズ変更が起きたときにもろもろを更新する
 (function () {
     let timer = null;
@@ -183,7 +216,7 @@
                 const mainText = button.querySelector('.text-main');
                 const subText = button.querySelector('.text-sub');
                 if (mainText) mainText.style.fontSize = `${summaryWidth * 0.1}px`;
-                if (subText) subText.style.fontSize = `${summaryWidth * 0.05}px`;
+                if (subText) subText.style.fontSize = `${summaryWidth * 0.06}px`;
             }
         });
     }
@@ -360,7 +393,9 @@ window.addEventListener("scroll", () => {
     }
 
     // ページ読み込み時に関数を呼び出す
-    document.addEventListener("DOMContentLoaded", initialize);
+    document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(initialize, 3000);
+    });
 })();
 
 // スクロールをスムーズにする
@@ -415,23 +450,277 @@ function scrollToSection(sectionId) {
 
 // マウスカーソル関連
 document.addEventListener('DOMContentLoaded', () => {
-    const mouseOverlay = document.querySelector('.mouse-overlay');
+    const delay = 3600;
 
-    document.addEventListener('mousemove', (e) => {
-        const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-font-size"));
-        const x = e.clientX;
-        const y = e.clientY;
-        const size = 30; // 円の半径
+    setTimeout(() => {
+        // カーソル要素を取得
+        const mouseOverlay = document.querySelector('.mouse-overlay');
 
-        // `clip-path` を動的に設定して円形を切り抜き
-        mouseOverlay.style.clipPath = `circle(${size}px at ${x}px ${y}px)`;
-        mouseOverlay.style.webkitClipPath = `circle(${size}px at ${x}px ${y}px)`;
+        // `[data-blocking-object]` を持つ要素を取得
+        const clickableElements = document.querySelectorAll('[data-blocking-object]');
 
-        if (y < popupBarHeight + size && document.documentElement.classList.contains('is-barActive')) {
-            mouseOverlay.style.zIndex = 10000;
+        document.addEventListener('mousemove', (e) => {
+            const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-font-size"));
+            const x = e.clientX;
+            const y = e.clientY;
+            const radius = 20; // 通常時の円の半径
+            let hoverSize = radius;
+
+            // `[data-blocking-object]` の要素を検出し、ホバー時にサイズを変える
+            clickableElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const scaling = element.getAttribute('data-blocking-object');
+                if (
+                    x >= rect.left &&
+                    x <= rect.right &&
+                    y >= rect.top &&
+                    y <= rect.bottom
+                ) {
+                    hoverSize = radius * scaling; // ホバー時にサイズを拡大
+                }
+            });
+
+            // `clip-path` を動的に設定
+            if (y < popupBarHeight + radius && document.documentElement.classList.contains('is-barActive')) {
+                const size = Math.max(y - popupBarHeight, radius / 5);
+
+                if (y < popupBarHeight + radius / 5) {
+                    mouseOverlay.style.zIndex = 10000;
+                } else {
+                    mouseOverlay.style.zIndex = 1000;
+                }
+                mouseOverlay.style.clipPath = `circle(${size}px at ${x}px ${y}px)`;
+                mouseOverlay.style.webkitClipPath = `circle(${size}px at ${x}px ${y}px)`;
+            } else {
+                mouseOverlay.style.zIndex = 1000;
+                mouseOverlay.style.clipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
+                mouseOverlay.style.webkitClipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
+            }
+        });
+    }, delay);
+});
+
+// 落ちものアニメーション管理
+document.addEventListener("DOMContentLoaded", () => {
+    const segments = ["segmentA", "segmentB", "segmentC"];
+    const animationDelayTime = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-delay-time"));
+
+    let currentSegmentIndex = 0;
+    let activeImages = []; // アニメーション中の画像を追跡するための配列
+    let isAnimating = false; // アニメーション進行中のフラグ
+
+    // アニメーションオブジェクトを生成する関数
+    function startAnimation(segmentId) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const segment = document.getElementById(segmentId);
+        const segmentWidth = segment.getBoundingClientRect().width;
+
+        const fallingObject = new FallingObject(segment, segmentWidth);
+
+        // FallingObject クラス内で生成した要素をセグメントに追加
+        segment.appendChild(fallingObject.container);
+        activeImages.push(fallingObject); // 進行中の画像を追跡
+
+        // オブジェクトが削除され次第，次のオブジェクトを生成する
+        fallingObject.container.addEventListener("animationend", () => {
+            segment.removeChild(fallingObject.container);
+            activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
+            isAnimating = false;
+
+            setTimeout(() => {
+                currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
+                startAnimation(segments[currentSegmentIndex]);
+            }, animationDelayTime);
+        });
+    }
+
+    function handleBarActiveChange() {
+        if (document.documentElement.classList.contains('is-barActive') && !document.documentElement.classList.contains('is-drawerActive') && activeImages.length < 2) {
+            console.log("activeImages length: ", activeImages.length);
+            // アニメーションを開始
+            startAnimation(segments[currentSegmentIndex])
+        // is-barActive が削除された場合
+        } else {
+            // 画像を即座に削除
+            activeImages.forEach(fallingObj => {
+                fallingObj.container.remove();
+            });
+            isAnimating = false;
+
+            activeImages = [];
         }
-        else {
-            mouseOverlay.style.zIndex = 1000;
-        }
+    }
+
+    // is-barActive クラスの変化を監視
+    const observer = new MutationObserver(() => {
+        handleBarActiveChange();
     });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+    });
+});
+
+// FallingObject クラス
+class FallingObject {
+    constructor(segment, segmentWidth) {
+        // アニメーション設定
+        const duration = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-duration"));
+        
+        // 画像フォルダ内の画像ファイルパス
+        const imagePaths = [
+            "./svgs/rocket.svg",
+            "./svgs/fire.svg",
+        ];
+
+        // ランダムな位置に配置
+        this.container = document.createElement("div");
+        this.container.classList.add("falling-object-container");
+        this.container.style.position = "absolute";
+        this.container.style.left = `${this.getRandomX(segment)}px`;
+        this.container.style.width = `${segmentWidth / 3}px`;
+
+        // 画像を作成
+        this.img = this.createImage(imagePaths);
+        this.container.appendChild(this.img);
+
+        // コライダーを作成
+        this.svg = this.createCollider();
+        this.container.appendChild(this.svg);
+
+        // アニメーションを設定
+        this.container.style.animation = `moveVertical ${duration}s linear`;
+
+        // CSSスタイルを動的に作成
+        this.addAnimationCSS();
+    }
+
+    // 正規分布に基づいてランダムなx座標を計算する関数
+    getRandomX(segment) {
+        const segmentWidth = segment.offsetWidth;
+        const sigma = segmentWidth / 6;  // 分散
+        const mu = segmentWidth / 2;     // 平均
+
+        const u1 = Math.random();
+        const u2 = Math.random();
+        const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+
+        const x = Math.round(mu + sigma * z);
+        return Math.max(0, Math.min(segmentWidth, x));
+    }
+
+    // 画像を作成
+    createImage(imagePaths) {
+        const img = document.createElement("img");
+        img.className = "falling-object";
+        img.src = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+        img.style.width = "100%";
+        return img;
+    }
+
+    // コライダーを作成
+    createCollider() {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.classList.add("collider");
+        svg.innerHTML = `<circle cx="50%" cy="50%" r="50%" fill="none"></circle>`;
+        svg.style.position = "absolute"; // 画像と同じ位置で配置
+        return svg;
+    }
+
+    // アニメーション用のCSSを追加
+    addAnimationCSS() {
+        const style = document.createElement("style");
+        style.innerHTML = `
+            .falling-object-container {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: auto;
+                height: auto;
+            }
+
+            .collider {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+            }
+
+            @keyframes moveVertical {
+                0% { top: -30%; }
+                100% { top: 130%; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // 衝突判定やその他の処理も追加可能
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 正規の範囲に基づいて衝突判定
+    function isColliding(parentElement, blockingObject) {
+        const parentRect = parentElement.getBoundingClientRect();
+        const blockingRect = blockingObject.getBoundingClientRect();
+
+        // 親要素のbottomとblockingObjectのtopを比較
+        return !(parentRect.bottom < blockingRect.top || parentRect.top > blockingRect.bottom);
+    }
+
+    // <g> 要素の表示・非表示とfillの変更
+    function toggleDisplayProperty(groupId) {
+        const group = document.getElementById(groupId);
+
+        if (group) {
+            if (group.style.display === 'none') {
+                group.style.display = 'block';
+            } else {
+                group.style.display = 'none';
+            }
+        }
+    }
+
+    const clickableElements = document.querySelectorAll('[data-blocking-object]');
+    // 衝突チェック
+    function checkCollisionAndAnimate() {
+        const svgElements = document.querySelectorAll('svg');
+
+        clickableElements.forEach(blockingObject => {
+            svgElements.forEach(svgElement => {
+                const svgId = svgElement.id;
+
+                if (!svgId || svgId === "life") return;
+
+                // 衝突判定
+                if (isColliding(svgElement, blockingObject)) {
+                    console.log(`Collision detected with SVG ID: ${svgId}`);
+                    if (svgId === "rocket" || svgId === "fire") {
+                        explodeCollider(svgElement);
+                    }
+                    console.log("LIFE:", lifeCount);
+
+                    if (lifeCount >= 10) {
+                        lifeCount = 0; // ライフカウントをリセット
+                    }
+                }
+            });
+        });
+    }
+
+    function explodeCollider(element) {
+        const groups = element.querySelectorAll('g');
+
+        groups.forEach(group => {
+            toggleDisplayProperty(group.id);
+        });
+    }
+
+    // 60 fps で、衝突をチェック
+    setInterval(checkCollisionAndAnimate, 16);
 });

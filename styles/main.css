@@ -5,6 +5,10 @@
  */
 @import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kaisei+HarunoUmi&family=Kaisei+Opti&family=Kaisei+Tokumin&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Kaku+Gothic+New&family=Zen+Kurenaido&display=swap");
 @font-face {
+  font-family: "Arcade-classic";
+  src: url("../myfonts/ARCADECLASSIC.TTF");
+}
+@font-face {
   font-family: "handwrite_japanese";
   src: url("../myfonts/jap_kanji_1_1.20241229.otf") format("opentype");
 }
@@ -57,6 +61,14 @@
   --font-size-base: 16px;
   --overlay-height: 50%;
   --overlay-angle: 0deg;
+  --animation-duration: 10s;
+  --animation-delay-time: 0;
+}
+
+.dot-game {
+  font-family: "Arcade-classic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .s-japanese {
@@ -176,7 +188,7 @@
   font-style: normal;
 }
 
-.dotgothic16 {
+.dot-gothic {
   font-family: "DotGothic16", serif;
   font-weight: 400;
   font-style: normal;
@@ -194,12 +206,14 @@
  * @desc スタイル初期化 
  */
 html {
-  overflow-x: hidden;
   width: 100%;
   font-size: 16px;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html .no-scroll {
+  overflow: hidden;
 }
 
 img, video, iframe, .container {
@@ -442,6 +456,46 @@ input[type=checkbox] {
   padding: 0;
 }
 
+start-scene {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  transform: scale(1);
+  opacity: 0;
+  transition: transform 1s ease, opacity 1s ease;
+}
+start-scene.fade-in {
+  opacity: 1;
+}
+start-scene.fade-out {
+  transform: scale(1.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+main-scene {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: inherit;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-play-state: paused;
+}
+main-scene.active {
+  animation-play-state: running;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /**
  * @file _base.scss
  * @desc 汎用性のありそうなボックスレイアウト
@@ -451,6 +505,7 @@ input[type=checkbox] {
 }
 
 .container,
+.container-centeredness,
 .container-vertical,
 .container-right,
 .container-left,
@@ -461,6 +516,15 @@ input[type=checkbox] {
 .container-xl {
   display: flex;
   position: relative;
+}
+
+.container-centeredness {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  place-items: center;
+  justify-content: center;
 }
 
 .container-vertical {
@@ -483,7 +547,6 @@ input[type=checkbox] {
 
 .whiteboad {
   background-color: var(--color-white);
-  z-index: 2;
 }
 
 .plate {
@@ -493,7 +556,7 @@ input[type=checkbox] {
   gap: 20px;
   justify-content: space-between;
   width: 100%;
-  background-color: rgba(14, 77, 114, 0.322);
+  background-color: rgba(14, 77, 114, 0);
 }
 
 .empty {
@@ -586,7 +649,7 @@ input[type=checkbox] {
   text-align: center;
 }
 
-.align-left {
+.justify-left {
   width: 100%;
   height: 100%;
   position: relative;
@@ -594,7 +657,15 @@ input[type=checkbox] {
   justify-content: flex-start;
 }
 
-.align-center {
+.justify-right {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.justify-center {
   width: 100%;
   height: 100%;
   position: relative;
@@ -602,12 +673,28 @@ input[type=checkbox] {
   justify-content: center;
 }
 
-.align-right {
+.align-top {
   width: 100%;
   height: 100%;
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.align-bottom {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.align-center {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .left-side {
@@ -678,7 +765,6 @@ input[type=checkbox] {
 }
 
 .image-container {
-  position: relative;
   width: 100%;
   height: 0;
   overflow: hidden;
@@ -694,8 +780,9 @@ input[type=checkbox] {
   align-items: center;
   justify-content: center;
   letter-spacing: calc(var(--bar-font-size) * 0.1);
-  font-size: calc(var(--bar-font-size) * 0.4);
-  font-family: "Josefin Sans", sans-serif;
+  font-size: calc(var(--bar-font-size) * 0.5);
+  font-family: "Arcade-classic", "DotGothic16", "Josefin Sans";
+  font-weight: 300;
   font-style: color var(--color-bar);
 }
 
@@ -867,8 +954,8 @@ input[type=checkbox] {
   background-size: cover;
   background-position: center;
   z-index: 1000;
+  filter: invert(0.2) saturate(7) contrast(1.5) brightness(7);
 }
-
 .mouse-overlay::before {
   content: "";
   position: absolute;
@@ -882,6 +969,30 @@ input[type=checkbox] {
   z-index: -1;
   border-radius: 50%;
   border: 1% solid rgb(0, 0, 0);
+}
+
+.game-field {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+.game-field .segment {
+  position: relative;
+  flex: 1;
+  overflow: visible;
+}
+
+.falling-object {
+  position: absolute;
+  width: 33.33%;
+  height: auto;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-timing-function: linear;
+  z-index: 1000;
 }
 
 /**
@@ -1266,9 +1377,9 @@ input[type=checkbox] {
   border: none;
   padding: 0 calc(var(--bar-font-size) * 0.2);
   cursor: pointer;
-  font-size: calc(var(--bar-font-size) * 0.3);
-  font-weight: thin;
-  font-family: "khand", sans-serif;
+  font-size: calc(var(--bar-font-size) * 0.4);
+  font-weight: 300;
+  font-family: "Arcade-classic", sans-serif;
   transition: background-color 0.3s;
 }
 .popup-bar .right button:focus {
@@ -1462,7 +1573,7 @@ input[type=checkbox] {
   transition: filter 0.3s ease;
 }
 .button .button-icon:hover {
-  filter: drop-shadow(0 0 5px #298ed1);
+  filter: drop-shadow(0px 0px 10px #1276b9);
 }
 .button .button-text {
   position: relative;
@@ -1480,12 +1591,14 @@ input[type=checkbox] {
   transition: filter 0.3s ease;
 }
 .button .button-text:hover {
-  filter: drop-shadow(0 0 5px #298ed1);
+  filter: drop-shadow(0px 0px 10px #1276b9);
 }
 .button .button-text .text-main {
+  font-family: "Arcade-classic", sans-serif;
   line-height: 1.2;
 }
 .button .button-text .text-sub {
+  font-family: "DotGothic16", sans-serif;
   line-height: 1;
 }
 .button:focus {

@@ -6,6 +6,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kaisei+HarunoUmi&family=Kaisei+Opti&family=Kaisei+Tokumin&family=Khand:wght@300;400;500;600;700&family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Pathway+Gothic+One&family=Raleway:ital,wght@0,100..900;1,100..900&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Kaku+Gothic+New&family=Zen+Kurenaido&display=swap');
 
 @font-face {
+    font-family: 'Arcade-classic';
+    src: url('../myfonts/ARCADECLASSIC.TTF');
+}
+
+@font-face {
     font-family: 'handwrite_japanese';
     src: url('../myfonts/jap_kanji_1_1.20241229.otf') format('opentype');
 }
@@ -72,6 +77,15 @@
 
     --overlay-height: 50%;
     --overlay-angle: 0deg;
+
+    --animation-duration: 10s;
+    --animation-delay-time: 0; //ms
+}
+
+.dot-game {
+    font-family: "Arcade-classic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .s-japanese {
@@ -193,7 +207,7 @@
     font-style: normal;
 }
 
-.dotgothic16{
+.dot-gothic {
     font-family: "DotGothic16", serif;
     font-weight: 400;
     font-style: normal;
