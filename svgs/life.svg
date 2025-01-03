@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<svg id="life" version="1.1" width="420" height="360" xmlns="http://www.w3.org/2000/svg">
+<svg id="life" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 360">
     <g id="left-side">
         <rect x="60" y="30" width="30" height="30" fill="#E91E63" />
         <rect x="90" y="30" width="30" height="30" fill="#E91E63" />

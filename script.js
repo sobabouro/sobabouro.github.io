@@ -90,34 +90,58 @@ let isAnimating = false;
         });
     }
 
-    // ブロック要素を監視する関数
-    function watchBlockObject() {
-        const elements = document.querySelectorAll('[data-block-object]');
-    
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // 要素が画面内に入ったとき
-                    entry.target.setAttribute('blockable', '');
-                } else {
-                    // 要素が画面外に出たとき
-                    entry.target.removeAttribute('blockable');
-                }
-            });
-        });
-    
-        // 各要素を監視対象に追加
-        elements.forEach(element => observer.observe(element));
-    }
-
     // game-field 管理
     function gameFieldAdministrator() {
         const segments = ["segmentA", "segmentB", "segmentC"];
         const animationDelayTime = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-delay-time"));
-
+    
         let currentSegmentIndex = 0;
         let activeImages = []; // アニメーション中の画像を追跡するための配列
         let isAnimating = false; // アニメーション進行中のフラグ
+
+        // 衝突判定を行う関数
+        function checkCollision(objectRect, targetRect) {
+            return !(
+                targetRect.bottom < objectRect.top ||
+                targetRect.top > objectRect.bottom ||
+                targetRect.right < objectRect.left ||
+                targetRect.left > objectRect.right
+            );
+        }
+
+        // ブロック要素を監視する関数
+        function watchBlockObject(segmentId) {
+            const segment = document.getElementById(segmentId);
+            const segmentRect = segment.getBoundingClientRect();
+            const segmentLeft = segmentRect.left;
+            const segmentRight = segmentRect.right;
+            
+            const elements = document.querySelectorAll('[data-block-object]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const elementRect = entry.target.getBoundingClientRect();
+                    const elementLeft = elementRect.left;
+                    const elementRight = elementRect.right;
+        
+                    // 要素がセグメントの領域内にいるかチェック
+                    const isInSegmentRange = elementRight > segmentLeft && elementLeft < segmentRight;
+                    
+                    if (entry.isIntersecting && isInSegmentRange) {
+                        // 要素が画面内に入り、かつセグメント領域内にある場合
+                        entry.target.setAttribute('collision-enabled', '');
+                    } else {
+                        // それ以外の場合
+                        entry.target.removeAttribute('collision-enabled');
+                    }
+                });
+            }, {
+                threshold: 0 // 要素が一部でも画面内に入ったら発火
+            });
+
+            // 各要素を監視対象に追加
+            elements.forEach(element => observer.observe(element));
+        }
 
         // アニメーションオブジェクトを生成する関数
         function startAnimation(segmentId) {
@@ -126,16 +150,54 @@ let isAnimating = false;
 
             const segment = document.getElementById(segmentId);
             const segmentWidth = segment.getBoundingClientRect().width;
-
             const fallingObject = new FallingObject(segment, segmentWidth);
 
             // FallingObject クラス内で生成した要素をセグメントに追加
             segment.appendChild(fallingObject.container);
             activeImages.push(fallingObject); // 進行中の画像を追跡
+            watchBlockObject(segmentId);
 
+            const collisionCheckInterval = setInterval(() => {
+                const objectRect = fallingObject.container.getBoundingClientRect();
+                const collisionTargets = document.querySelectorAll('[collision-enabled]');
+
+                collisionTargets.forEach(target => {
+                    const targetRect = target.getBoundingClientRect();
+                    if (checkCollision(objectRect, targetRect)) {
+                        console.log('Collision detected with:', target);
+
+                        // カスタムイベントを発火
+                        const collisionEvent = new CustomEvent('collision', {
+                            detail: {
+                                object: fallingObject,
+                                target: target,
+                            },
+                        });
+                        fallingObject.container.dispatchEvent(collisionEvent);
+
+                        clearInterval(collisionCheckInterval); // 衝突判定を停止
+                    }
+                });
+            }, 16); // 約60fps
+
+            // 衝突時のイベント
             fallingObject.container.addEventListener("collision", (event) => {
                 console.log("Collision detected with object:", event.detail);
-                // 衝突時の処理をここに記述
+                fallingObject.pauseAnimation();
+                fallingObject.toggleDisplay();
+
+                // 次のオブジェクトを生成する
+                setTimeout(() => {
+                    // フェードアウト後にオブジェクトを削除して次のアニメーションを開始
+                    segment.removeChild(fallingObject.container);
+                    activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
+                    isAnimating = false;
+    
+                    setTimeout(() => {
+                        currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
+                        startAnimation(segments[currentSegmentIndex]);
+                    }, animationDelayTime);
+                }, 2000);
             });
 
             // オブジェクトが削除され次第，次のオブジェクトを生成する
@@ -162,7 +224,7 @@ let isAnimating = false;
                     fallingObj.container.remove();
                 });
                 isAnimating = false;
-
+    
                 activeImages = [];
             }
         }
@@ -234,7 +296,6 @@ let isAnimating = false;
     function initialize() {
         makeCursor();
         gameFieldAdministrator();
-        watchBlockObject();
 
         setTimeout(function () {
             waveFadeIn();
@@ -635,8 +696,8 @@ class FallingObject {
         this.container.style.width = `${segmentWidth / 3}px`;
 
         // 画像を作成
-        this.img = this.createImage(imagePaths);
-        this.container.appendChild(this.img);
+        this.object = this.createImage(imagePaths);
+        this.container.appendChild(this.object);
 
         // コライダーを作成
         this.svg = this.createCollider();
@@ -647,41 +708,6 @@ class FallingObject {
 
         // CSSスタイルを動的に作成
         this.addAnimationCSS();
-
-        // 衝突検出を開始
-        this.startCollisionDetection(segment);
-    }
-
-    // 正規分布に基づいてランダムなx座標を計算する関数
-    getRandomX(segment) {
-        const segmentWidth = segment.offsetWidth;
-        const sigma = segmentWidth / 6;  // 分散
-        const mu = segmentWidth / 2;     // 平均
-
-        const u1 = Math.random();
-        const u2 = Math.random();
-        const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
-
-        const x = Math.round(mu + sigma * z);
-        return Math.max(0, Math.min(segmentWidth, x));
-    }
-
-    // 画像を作成
-    createImage(imagePaths) {
-        const img = document.createElement("img");
-        img.className = "falling-object";
-        img.src = imagePaths[Math.floor(Math.random() * imagePaths.length)];
-        img.style.width = "100%";
-        return img;
-    }
-
-    // コライダーを作成
-    createCollider() {
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.classList.add("collider");
-        svg.innerHTML = `<circle cx="50%" cy="50%" r="50%" fill="none"></circle>`;
-        svg.style.position = "absolute"; // 画像と同じ位置で配置
-        return svg;
     }
 
     // アニメーション用のCSSを追加
@@ -695,6 +721,8 @@ class FallingObject {
                 transform: translateX(-50%);
                 width: auto;
                 height: auto;
+                opacity: 1;
+                transition: opacity 1s ease-in-out;
             }
 
             .collider {
@@ -714,29 +742,83 @@ class FallingObject {
         document.head.appendChild(style);
     }
 
-    startCollisionDetection(segment) {
-        const checkCollisionInterval = setInterval(() => {
-            const segmentRect = segment.getBoundingClientRect();
-            const objectRect = this.container.getBoundingClientRect();
+    // 正規分布に基づいてランダムなx座標を計算する関数
+    getRandomX(segment) {
+        const segmentWidth = segment.offsetWidth;
+        const sigma = segmentWidth / 6;  // 分散
+        const mu = segmentWidth / 2;     // 平均
 
-            const isColliding =
-                !(segmentRect.bottom < objectRect.top || 
-                  segmentRect.top > objectRect.bottom || 
-                  segmentRect.right < objectRect.left || 
-                  segmentRect.left > objectRect.right);
+        const u1 = Math.random();
+        const u2 = Math.random();
+        const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
 
-            if (isColliding) {
-                // カスタムイベントを発火
-                const collisionEvent = new CustomEvent("collision", {
-                    detail: {
-                        object: this,
-                        segment: segment,
-                    },
-                });
-                this.container.dispatchEvent(collisionEvent);
+        const x = Math.round(mu + sigma * z);
+        return Math.max(0, Math.min(segmentWidth, x));
+    }
 
-                clearInterval(checkCollisionInterval); // 衝突判定を停止
+    // 画像を作成
+    createImage(imagePaths) {
+        const object = document.createElement("object");
+        object.className = "falling-object";
+        object.type = "image/svg+xml";
+        object.data = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+        object.style.width = "100%";
+        return object;
+    }
+
+    // コライダーを作成
+    createCollider() {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.classList.add("collider");
+        svg.innerHTML = `<circle cx="50%" cy="50%" r="50%" fill="none"></circle>`;
+        svg.style.position = "absolute"; // 画像と同じ位置で配置
+        return svg;
+    }
+
+    // display 属性の反転
+    toggleDisplay() {
+        // object タグ内の SVG を取得
+        const svgObject = this.container.querySelector('object');
+        console.log(svgObject);
+        if (!svgObject) {
+            console.error('SVG object not found!');
+            return;
+        }
+
+        svgObject.onload = () => {
+            console.log('SVG object loaded.');
+            const svgDocument = svgObject.contentDocument;
+            if (!svgDocument) {
+                console.error('SVG document not found!');
+                return;
             }
-        }, 16); // 約60fps
+
+            const explosionGroup = svgDocument.querySelector('#explosion');
+            const mainGroup = svgDocument.querySelector('#main');
+
+            // display 属性を反転させる
+            if (explosionGroup && mainGroup) {
+                const explosionDisplay = getComputedStyle(explosionGroup).display;
+                const mainDisplay = getComputedStyle(mainGroup).display;
+
+                // display 属性を反転
+                explosionGroup.style.display = explosionDisplay === 'none' ? 'block' : 'none';
+                mainGroup.style.display = mainDisplay === 'none' ? 'block' : 'none';
+            } else {
+                console.error('Required <g> elements not found in SVG.');
+            }
+        };
+    }
+
+    // アニメーションを停止して、現在位置に留める
+    pauseAnimation() {
+        // アニメーションをポーズ
+        this.container.style.animationPlayState = "paused";
+        // 現在の位置でとどめる
+        const currentTop = this.container.getBoundingClientRect().top;
+        this.container.style.top = `${currentTop}px`;
+
+        // フェードアウトアニメーション開始
+        this.container.style.opacity = 0;
     }
 }
