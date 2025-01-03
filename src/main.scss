@@ -1,11 +1,14 @@
 // インポートファイル
 @use 'variables';
 @use 'reset';
+
 @use 'layouts/base';
 @use 'layouts/anmlayer';
 @use 'layouts/grid';
 @use 'layouts/spacing';
-@use 'components/header';
-@use 'components/footer';
-@use 'components/cta';
-@use 'components/image_decorations';
+@use 'layouts/header';
+@use 'layouts/footer';
+@use 'layouts/cta';
+@use 'layouts/image_decorations';
+
+@use 'components/FallingObject/falling-object';
