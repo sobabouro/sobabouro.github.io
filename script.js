@@ -1,37 +1,250 @@
+
 let lifeCount = 0;
 let isAnimating = false;
 
-// 画面ロード時のイベント
-window.addEventListener("load", () => {
-    const startScene = document.querySelector("start-scene");
-    const mainScene = document.querySelector("main-scene");
+// 画面ロードイベント時にもろもろ実行する
+(function () {
+    function changeScene() {
+        const startScene = document.querySelector("start-scene");
+        const mainScene = document.querySelector("main-scene");
 
-    document.documentElement.classList.add("no-scroll");
-    document.body.classList.add("no-scroll");
+        document.documentElement.classList.add("no-scroll");
+        document.body.classList.add("no-scroll");
 
-    // ページがロードされた後にスタートシーンをフェードイン
-    setTimeout(() => {
-        startScene.classList.add("fade-in");
-
-        // スタートシーン生存時間
+        // ページがロードされた後にスタートシーンをフェードイン
         setTimeout(() => {
-            // スタートシーンをフェードアウト
-            startScene.classList.add("fade-out");
+            startScene.classList.add("fade-in");
 
-            // メインシーンをフェードイン
+            // スタートシーン生存時間
             setTimeout(() => {
-                startScene.style.display = "none";
-                document.documentElement.classList.remove("no-scroll");
-                document.body.classList.remove("no-scroll");
+                // スタートシーンをフェードアウト
+                startScene.classList.add("fade-out");
 
-                window.scrollTo(0, 0);
-                mainScene.classList.add("active");
-            }, 1000);
-        }, 2000);
-    }, 500);
-});
+                // メインシーンをフェードイン
+                setTimeout(() => {
+                    startScene.style.display = "none";
+                    document.documentElement.classList.remove("no-scroll");
+                    document.body.classList.remove("no-scroll");
 
-// ウィンドウの拡大率やサイズ変更が起きたときにもろもろを更新する
+                    window.scrollTo(0, 0);
+                    mainScene.classList.add("active");
+                }, 1000);
+            }, 2000);
+        }, 500);
+    }
+
+    function initialize() {
+        changeScene();
+    }
+
+    window.addEventListener("load", initialize);
+})();
+
+// ロードイベント後 DOM が生成されてからもろもろ実行する
+(function () {
+    // カーソルを作成する関数
+    function makeCursor() {
+        // カーソル要素を取得
+        const mouseOverlay = document.querySelector('.mouse-overlay');
+
+        // `[data-block-object]` を持つ要素を取得
+        const clickableElements = document.querySelectorAll('[data-block-object]');
+
+        document.addEventListener('mousemove', (e) => {
+            const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-font-size"));
+            const x = e.clientX;
+            const y = e.clientY;
+            const radius = 20; // 通常時の円の半径
+            let hoverSize = radius;
+
+            // `[data-block-object]` の要素を検出し、ホバー時にサイズを変える
+            clickableElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const scaling = element.getAttribute('data-block-object');
+                if (
+                    x >= rect.left &&
+                    x <= rect.right &&
+                    y >= rect.top &&
+                    y <= rect.bottom
+                ) {
+                    hoverSize = radius * scaling; // ホバー時にサイズを拡大
+                }
+            });
+
+            // `clip-path` を動的に設定
+            if (y < popupBarHeight + radius && document.documentElement.classList.contains('is-barActive')) {
+                const size = Math.max(y - popupBarHeight, radius / 5);
+
+                if (y < popupBarHeight + radius / 5) {
+                    mouseOverlay.style.zIndex = 10000;
+                } else {
+                    mouseOverlay.style.zIndex = 1000;
+                }
+                mouseOverlay.style.clipPath = `circle(${size}px at ${x}px ${y}px)`;
+                mouseOverlay.style.webkitClipPath = `circle(${size}px at ${x}px ${y}px)`;
+            } else {
+                mouseOverlay.style.zIndex = 1000;
+                mouseOverlay.style.clipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
+                mouseOverlay.style.webkitClipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
+            }
+        });
+    }
+
+    // ブロック要素を監視する関数
+    function watchBlockObject() {
+        const elements = document.querySelectorAll('[data-block-object]');
+    
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 要素が画面内に入ったとき
+                    entry.target.setAttribute('blockable', '');
+                } else {
+                    // 要素が画面外に出たとき
+                    entry.target.removeAttribute('blockable');
+                }
+            });
+        });
+    
+        // 各要素を監視対象に追加
+        elements.forEach(element => observer.observe(element));
+    }
+
+    // game-field 管理
+    function gameFieldAdministrator() {
+        const segments = ["segmentA", "segmentB", "segmentC"];
+        const animationDelayTime = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-delay-time"));
+
+        let currentSegmentIndex = 0;
+        let activeImages = []; // アニメーション中の画像を追跡するための配列
+        let isAnimating = false; // アニメーション進行中のフラグ
+
+        // アニメーションオブジェクトを生成する関数
+        function startAnimation(segmentId) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const segment = document.getElementById(segmentId);
+            const segmentWidth = segment.getBoundingClientRect().width;
+
+            const fallingObject = new FallingObject(segment, segmentWidth);
+
+            // FallingObject クラス内で生成した要素をセグメントに追加
+            segment.appendChild(fallingObject.container);
+            activeImages.push(fallingObject); // 進行中の画像を追跡
+
+            fallingObject.container.addEventListener("collision", (event) => {
+                console.log("Collision detected with object:", event.detail);
+                // 衝突時の処理をここに記述
+            });
+
+            // オブジェクトが削除され次第，次のオブジェクトを生成する
+            fallingObject.container.addEventListener("animationend", () => {
+                segment.removeChild(fallingObject.container);
+                activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
+                isAnimating = false;
+
+                setTimeout(() => {
+                    currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
+                    startAnimation(segments[currentSegmentIndex]);
+                }, animationDelayTime);
+            });
+        }
+
+        function handleBarActiveChange() {
+            if (document.documentElement.classList.contains('is-barActive') && !document.documentElement.classList.contains('is-drawerActive') && activeImages.length < 2) {
+                // アニメーションを開始
+                startAnimation(segments[currentSegmentIndex])
+            // is-barActive が削除された場合
+            } else {
+                // 画像を即座に削除
+                activeImages.forEach(fallingObj => {
+                    fallingObj.container.remove();
+                });
+                isAnimating = false;
+
+                activeImages = [];
+            }
+        }
+
+        // is-barActive クラスの変化を監視
+        const observer = new MutationObserver(() => {
+            handleBarActiveChange();
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class'],
+        });
+    }
+
+    // テキストを一文字ずつフェードインする関数
+    function waveFadeIn() {
+        // waveFadeIn() 補助関数
+        function textAnimate(ft) {
+            const textContent = ft.textContent.trim();
+            
+            // 元のテキストを空にして、文字を1つずつ<span>で囲んで追加
+            ft.innerHTML = textContent.split('').map(char => `<span>${char}</span>`).join('');
+
+            const spans = ft.querySelectorAll('span'); // <span>要素をすべて取得
+            let delay = 0;
+
+            // 各文字に対して順番にアニメーションを適用
+            spans.forEach(span => {
+                setTimeout(() => {
+                    span.classList.add('is-animated');
+                }, delay);
+                // 次の文字がアニメーションするタイミングをずらす
+                delay += 100;
+            });
+        }
+
+        const animatedElements = document.querySelectorAll('.top-in, .bottom-in, .right-in, .left-in, .top-fade-text, .right-fade-text');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delayTime = entry.target.dataset.delayTime || 0;
+
+                    setTimeout(() => {
+                        // 画面に入ったら 'is-animated' クラスを追加
+                        entry.target.classList.add('is-animated');
+
+                        // もし対象がテキスト要素の場合、textAnimateを呼び出して文字ごとのアニメーションを適用
+                        if (entry.target.classList.contains('top-fade-text') || entry.target.classList.contains('right-fade-text')) {
+                            textAnimate(entry.target);
+                        }
+                    }, delayTime);
+
+                    // 1度アニメーションが実行されたら監視を停止
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            // 要素の10%が画面に表示されたら発火
+            threshold: 0.1,
+        });
+
+        animatedElements.forEach(element => {
+            observer.observe(element); // 監視対象に追加
+        });
+    }
+
+    function initialize() {
+        makeCursor();
+        gameFieldAdministrator();
+        watchBlockObject();
+
+        setTimeout(function () {
+            waveFadeIn();
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", initialize);
+})();
+
+// ウィンドウの拡大率やサイズ変更イベント時にもろもろを更新する
 (function () {
     let timer = null;
 
@@ -320,100 +533,39 @@ window.addEventListener("load", () => {
     document.addEventListener("DOMContentLoaded", initialize);
 })();
 
-// スクロール時のイベント
-window.addEventListener("scroll", () => {
-    const popupBar = document.getElementById("popupBar");
-
-    const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height"));
-
-    const windowMinVp = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--window-min-vp"));
-
-    if (window.scrollY > 40) {
-        // スクロールが一定量を超えたらポップアップバーを表示
-        document.documentElement.classList.add('is-barActive');
-        popupBar.style.top = "0";
-    } else {
-        // スクロール位置が戻ったら隠す
-        document.documentElement.classList.remove('is-barActive');
-        popupBar.style.top = `-${popupBarHeight * windowMinVp}vh`;
-    }
-});
-
-// フェードボックス関連
+// スクロールイベント時にもろもろを更新する
 (function () {
-    function textAnimate(ft) {
-        const textContent = ft.textContent.trim();
-        
-        // 元のテキストを空にして、文字を1つずつ<span>で囲んで追加
-        ft.innerHTML = textContent.split('').map(char => `<span>${char}</span>`).join('');
+    // ポップアップバーの表示切り替え
+    function switchingPopupBar() {
+        const popupBar = document.getElementById("popupBar");
 
-        const spans = ft.querySelectorAll('span'); // <span>要素をすべて取得
-        let delay = 0;
+        const popupBarHeight = parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height")
+        );
 
-        // 各文字に対して順番にアニメーションを適用
-        spans.forEach(span => {
-            setTimeout(() => {
-                span.classList.add('is-animated');
-            }, delay);
-            // 次の文字がアニメーションするタイミングをずらす
-            delay += 100;
-        });
+        const windowMinVp = parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue("--window-min-vp")
+        );
+
+        if (window.scrollY > 40) {
+            // スクロールが一定量を超えたらポップアップバーを表示
+            document.documentElement.classList.add('is-barActive');
+            popupBar.style.top = "0";
+        } else {
+            // スクロール位置が戻ったら隠す
+            document.documentElement.classList.remove('is-barActive');
+            popupBar.style.top = `-${popupBarHeight * windowMinVp}vh`;
+        }
     }
 
     function initialize() {
-        const animatedElements = document.querySelectorAll('.top-in, .bottom-in, .right-in, .left-in, .top-fade-text, .right-fade-text');
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const delayTime = entry.target.dataset.delayTime || 0;
-
-                    setTimeout(() => {
-                        // 画面に入ったら 'is-animated' クラスを追加
-                        entry.target.classList.add('is-animated');
-
-                        // もし対象がテキスト要素の場合、textAnimateを呼び出して文字ごとのアニメーションを適用
-                        if (entry.target.classList.contains('top-fade-text') || entry.target.classList.contains('right-fade-text')) {
-                            textAnimate(entry.target);
-                        }
-                    }, delayTime);
-
-                    // 1度アニメーションが実行されたら監視を停止
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            // 要素の10%が画面に表示されたら発火
-            threshold: 0.1,
-        });
-
-        animatedElements.forEach(element => {
-            observer.observe(element); // 監視対象に追加
-        });
+        switchingPopupBar();
     }
 
-    // ページ読み込み時に関数を呼び出す
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(initialize, 3000);
-    });
+    window.addEventListener("scroll", initialize);
 })();
 
-// スクロールをスムーズにする
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        const offset = 100; // 上に追加する余白の高さ（px）
-        const elementPosition = section.getBoundingClientRect().top + window.pageYOffset; // 要素の位置を取得
-        const offsetPosition = elementPosition - offset; // 余白を引いたスクロール位置
-        
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth' // スムーズスクロール
-        });
-    }
-}
-
-// ヘッダー関連
+// メニューボタンのクリックイベント時にヘッダー関連を更新する
 (function () {
     // メニューボタン
     const menuButton = document.getElementById('menuButton');
@@ -448,121 +600,20 @@ function scrollToSection(sectionId) {
     });
 })();
 
-// マウスカーソル関連
-document.addEventListener('DOMContentLoaded', () => {
-    const delay = 3600;
-
-    setTimeout(() => {
-        // カーソル要素を取得
-        const mouseOverlay = document.querySelector('.mouse-overlay');
-
-        // `[data-blocking-object]` を持つ要素を取得
-        const clickableElements = document.querySelectorAll('[data-blocking-object]');
-
-        document.addEventListener('mousemove', (e) => {
-            const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-font-size"));
-            const x = e.clientX;
-            const y = e.clientY;
-            const radius = 20; // 通常時の円の半径
-            let hoverSize = radius;
-
-            // `[data-blocking-object]` の要素を検出し、ホバー時にサイズを変える
-            clickableElements.forEach(element => {
-                const rect = element.getBoundingClientRect();
-                const scaling = element.getAttribute('data-blocking-object');
-                if (
-                    x >= rect.left &&
-                    x <= rect.right &&
-                    y >= rect.top &&
-                    y <= rect.bottom
-                ) {
-                    hoverSize = radius * scaling; // ホバー時にサイズを拡大
-                }
-            });
-
-            // `clip-path` を動的に設定
-            if (y < popupBarHeight + radius && document.documentElement.classList.contains('is-barActive')) {
-                const size = Math.max(y - popupBarHeight, radius / 5);
-
-                if (y < popupBarHeight + radius / 5) {
-                    mouseOverlay.style.zIndex = 10000;
-                } else {
-                    mouseOverlay.style.zIndex = 1000;
-                }
-                mouseOverlay.style.clipPath = `circle(${size}px at ${x}px ${y}px)`;
-                mouseOverlay.style.webkitClipPath = `circle(${size}px at ${x}px ${y}px)`;
-            } else {
-                mouseOverlay.style.zIndex = 1000;
-                mouseOverlay.style.clipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
-                mouseOverlay.style.webkitClipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
-            }
-        });
-    }, delay);
-});
-
-// 落ちものアニメーション管理
-document.addEventListener("DOMContentLoaded", () => {
-    const segments = ["segmentA", "segmentB", "segmentC"];
-    const animationDelayTime = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-delay-time"));
-
-    let currentSegmentIndex = 0;
-    let activeImages = []; // アニメーション中の画像を追跡するための配列
-    let isAnimating = false; // アニメーション進行中のフラグ
-
-    // アニメーションオブジェクトを生成する関数
-    function startAnimation(segmentId) {
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const segment = document.getElementById(segmentId);
-        const segmentWidth = segment.getBoundingClientRect().width;
-
-        const fallingObject = new FallingObject(segment, segmentWidth);
-
-        // FallingObject クラス内で生成した要素をセグメントに追加
-        segment.appendChild(fallingObject.container);
-        activeImages.push(fallingObject); // 進行中の画像を追跡
-
-        // オブジェクトが削除され次第，次のオブジェクトを生成する
-        fallingObject.container.addEventListener("animationend", () => {
-            segment.removeChild(fallingObject.container);
-            activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
-            isAnimating = false;
-
-            setTimeout(() => {
-                currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
-                startAnimation(segments[currentSegmentIndex]);
-            }, animationDelayTime);
+// スクロールをスムーズにする
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // 上に追加する余白の高さ（px）
+        const elementPosition = section.getBoundingClientRect().top + window.pageYOffset; // 要素の位置を取得
+        const offsetPosition = elementPosition - offset; // 余白を引いたスクロール位置
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth' // スムーズスクロール
         });
     }
-
-    function handleBarActiveChange() {
-        if (document.documentElement.classList.contains('is-barActive') && !document.documentElement.classList.contains('is-drawerActive') && activeImages.length < 2) {
-            console.log("activeImages length: ", activeImages.length);
-            // アニメーションを開始
-            startAnimation(segments[currentSegmentIndex])
-        // is-barActive が削除された場合
-        } else {
-            // 画像を即座に削除
-            activeImages.forEach(fallingObj => {
-                fallingObj.container.remove();
-            });
-            isAnimating = false;
-
-            activeImages = [];
-        }
-    }
-
-    // is-barActive クラスの変化を監視
-    const observer = new MutationObserver(() => {
-        handleBarActiveChange();
-    });
-
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class'],
-    });
-});
+}
 
 // FallingObject クラス
 class FallingObject {
@@ -596,6 +647,9 @@ class FallingObject {
 
         // CSSスタイルを動的に作成
         this.addAnimationCSS();
+
+        // 衝突検出を開始
+        this.startCollisionDetection(segment);
     }
 
     // 正規分布に基づいてランダムなx座標を計算する関数
@@ -660,67 +714,29 @@ class FallingObject {
         document.head.appendChild(style);
     }
 
-    // 衝突判定やその他の処理も追加可能
-}
+    startCollisionDetection(segment) {
+        const checkCollisionInterval = setInterval(() => {
+            const segmentRect = segment.getBoundingClientRect();
+            const objectRect = this.container.getBoundingClientRect();
 
-document.addEventListener("DOMContentLoaded", () => {
-    // 正規の範囲に基づいて衝突判定
-    function isColliding(parentElement, blockingObject) {
-        const parentRect = parentElement.getBoundingClientRect();
-        const blockingRect = blockingObject.getBoundingClientRect();
+            const isColliding =
+                !(segmentRect.bottom < objectRect.top || 
+                  segmentRect.top > objectRect.bottom || 
+                  segmentRect.right < objectRect.left || 
+                  segmentRect.left > objectRect.right);
 
-        // 親要素のbottomとblockingObjectのtopを比較
-        return !(parentRect.bottom < blockingRect.top || parentRect.top > blockingRect.bottom);
-    }
+            if (isColliding) {
+                // カスタムイベントを発火
+                const collisionEvent = new CustomEvent("collision", {
+                    detail: {
+                        object: this,
+                        segment: segment,
+                    },
+                });
+                this.container.dispatchEvent(collisionEvent);
 
-    // <g> 要素の表示・非表示とfillの変更
-    function toggleDisplayProperty(groupId) {
-        const group = document.getElementById(groupId);
-
-        if (group) {
-            if (group.style.display === 'none') {
-                group.style.display = 'block';
-            } else {
-                group.style.display = 'none';
+                clearInterval(checkCollisionInterval); // 衝突判定を停止
             }
-        }
+        }, 16); // 約60fps
     }
-
-    const clickableElements = document.querySelectorAll('[data-blocking-object]');
-    // 衝突チェック
-    function checkCollisionAndAnimate() {
-        const svgElements = document.querySelectorAll('svg');
-
-        clickableElements.forEach(blockingObject => {
-            svgElements.forEach(svgElement => {
-                const svgId = svgElement.id;
-
-                if (!svgId || svgId === "life") return;
-
-                // 衝突判定
-                if (isColliding(svgElement, blockingObject)) {
-                    console.log(`Collision detected with SVG ID: ${svgId}`);
-                    if (svgId === "rocket" || svgId === "fire") {
-                        explodeCollider(svgElement);
-                    }
-                    console.log("LIFE:", lifeCount);
-
-                    if (lifeCount >= 10) {
-                        lifeCount = 0; // ライフカウントをリセット
-                    }
-                }
-            });
-        });
-    }
-
-    function explodeCollider(element) {
-        const groups = element.querySelectorAll('g');
-
-        groups.forEach(group => {
-            toggleDisplayProperty(group.id);
-        });
-    }
-
-    // 60 fps で、衝突をチェック
-    setInterval(checkCollisionAndAnimate, 16);
-});
+}

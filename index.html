@@ -34,7 +34,7 @@
 
     * {
         box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
-        outline: 1px solid red;
+        /* outline: 1px solid red; */
     }
 </style>
 
@@ -80,11 +80,10 @@
 
         <div class="popup-bar" id="popupBar">
             <div class="left z20s">
-                <div class="title">
-                    <div class="s-cursive" style="letter-spacing: -0.15em;"> PORTFOLIO </div>
-                </div>
-                <div class="subtitle">
-                    <div class="s-standard"> Shota Onotsuka </div>
+                <div class="life-container">
+                    <img id="life_1" class="life" src="svgs/life.svg">
+                    <img id="life_2" class="life" src="svgs/life.svg">
+                    <img id="life_3" class="life" src="svgs/life.svg">
                 </div>
             </div>
             <div class="right">
@@ -152,7 +151,7 @@
                     <div class="vertical-zoom-box" default-height="50vh">
                         <div class="pythagoras-container">
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('shokai')" data-blocking-object="2.5">
+                                <button class="button" onclick="scrollToSection('shokai')" data-block-object="2.5">
                                     <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 自己紹介 </div>
@@ -162,7 +161,7 @@
                             </div>
     
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('apipo')" data-blocking-object="2.5">
+                                <button class="button" onclick="scrollToSection('apipo')" data-block-object="2.5">
                                     <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon z2s">
                                     <div class="button-text z2s">
                                         <div class="text-sub"> アピールポイント </div>
@@ -172,7 +171,7 @@
                             </div>
     
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('gengo')" data-blocking-object="2.5">
+                                <button class="button" onclick="scrollToSection('gengo')" data-block-object="2.5">
                                     <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 言語＆技術 </div>
@@ -182,7 +181,7 @@
                             </div>
     
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('shooting')" data-blocking-object="2.5">
+                                <button class="button" onclick="scrollToSection('shooting')" data-block-object="2.5">
                                     <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 制作物 </div>
@@ -192,7 +191,7 @@
                             </div>
     
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('kenkyu')" data-blocking-object="2.5">
+                                <button class="button" onclick="scrollToSection('kenkyu')" data-block-object="2.5">
                                     <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 制作物 </div>
@@ -202,7 +201,7 @@
                             </div>
     
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('heyakowashi')" data-blocking-object="2.5">
+                                <button class="button" onclick="scrollToSection('heyakowashi')" data-block-object="2.5">
                                     <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 制作物 </div>
@@ -228,7 +227,7 @@
                     </svg>
                     <div class="empty">
                         <img src="figs/self1.png" alt="自己紹介" class="background-image" style="z-index: -1;">                         
-                        <div class="overlay-half z2s" data-height="0.6" data-width="0.6" data-top="0.42" data-angle="-1.5deg" data-blocking-object="3.5">
+                        <div class="overlay-half z2s" data-height="0.6" data-width="0.6" data-top="0.42" data-angle="-1.5deg" data-block-object="3.5">
                             <div class="flush-center">
     
                                 <div class="s-japanese" style="color: black; font-weight: bold;">
