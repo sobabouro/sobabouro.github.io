@@ -14,6 +14,7 @@ export class FallingObject {
         // 画像を作成
         this.object = this.createObject();
         this.container.appendChild(this.object);
+        this.objectName = this.object.id;
 
         // コライダーを作成
         this.svg = this.createCollider();
@@ -21,41 +22,6 @@ export class FallingObject {
 
         // アニメーションを設定
         this.container.style.animation = `moveVertical ${duration}s linear`;
-
-        // CSSスタイルを動的に作成
-        this.addAnimationCSS();
-    }
-
-    // アニメーション用のCSSを追加
-    addAnimationCSS() {
-        const style = document.createElement("style");
-        style.innerHTML = `
-            .falling-object-container {
-                position: absolute;
-                top: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 100%;
-                height: auto;
-                opacity: 1;
-                transition: opacity 1s ease-in-out;
-            }
-
-            .collider {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-            }
-
-            @keyframes moveVertical {
-                0% { top: -30%; }
-                100% { top: 130%; }
-            }
-        `;
-        document.head.appendChild(style);
     }
 
     // 正規分布に基づいてランダムなx座標を計算する関数
@@ -235,6 +201,156 @@ export class FallingObject {
                     <rect x="240" y="450" width="30" height="30" fill="#000000" />
                     <rect x="450" y="450" width="30" height="30" fill="#000000" />
                     <rect x="240" y="480" width="30" height="30" fill="#000000" />
+                </g>
+                <g id="under" display="none">
+                    <rect x="90" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="30" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="30" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="210" width="30" height="30" fill="#212121" />
+                    <rect x="180" y="210" width="30" height="30" fill="#212121" />
+                    <rect x="210" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="300" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="300" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="330" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="330" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="360" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="360" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="360" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="390" width="30" height="30" fill="#000000" />
                 </g>
                 <g id="main" transform="rotate(180, 255, 405)" display="block">
                     <rect x="210" y="0" width="30" height="30" fill="#000000" />
@@ -648,6 +764,156 @@ export class FallingObject {
                     <rect x="450" y="450" width="30" height="30" fill="#000000" />
                     <rect x="240" y="480" width="30" height="30" fill="#000000" />
                 </g>
+                <g id="under" display="none">
+                    <rect x="90" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="0" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="30" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="30" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="30" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="60" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="60" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="330" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="90" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="90" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="360" y="120" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="120" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="150" width="30" height="30" fill="#FF1F1F" />
+                    <rect x="180" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="150" width="30" height="30" fill="#FF1F1F" />
+                    <rect x="270" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="360" y="150" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="150" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="360" y="180" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="180" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="330" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="210" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="210" width="30" height="30" fill="#000000" />
+                    <rect x="0" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="60" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="240" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="330" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="240" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="390" y="240" width="30" height="30" fill="#000000" />
+                    <rect x="30" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="90" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="330" y="270" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="360" y="270" width="30" height="30" fill="#000000" />
+                    <rect x="60" y="300" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="120" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="150" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="180" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="270" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="300" y="300" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="330" y="300" width="30" height="30" fill="#000000" />
+                    <rect x="90" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="120" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="150" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="330" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="210" y="330" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="270" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="300" y="330" width="30" height="30" fill="#000000" />
+                    <rect x="180" y="360" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="360" width="30" height="30" fill="#FFFFFF" />
+                    <rect x="240" y="360" width="30" height="30" fill="#000000" />
+                    <rect x="210" y="390" width="30" height="30" fill="#000000" />
+                </g>
                 <g id="main" display="block">
                     <rect x="180" y="0" width="30" height="30" fill="#000000" />
                     <rect x="180" y="30" width="30" height="30" fill="#000000" />
@@ -796,6 +1062,7 @@ export class FallingObject {
 
         const container = document.createElement("div");
         container.innerHTML = svgs[Math.floor(Math.random() * svgs.length)];
+        // container.innerHTML = svgs[0];
         const svgElement = container.firstElementChild;
         svgElement.classList.add("falling-object");
         return svgElement;
@@ -811,7 +1078,7 @@ export class FallingObject {
     }
 
     // display 属性の反転
-    toggleDisplay() {
+    toggleDisplayExplosion() {
         const svgElement = this.container.querySelector('.falling-object');
         const explosionGroup = svgElement.querySelector('#explosion');
         const mainGroup = svgElement.querySelector('#main');
@@ -821,6 +1088,23 @@ export class FallingObject {
             const mainDisplay = getComputedStyle(mainGroup).display;
 
             explosionGroup.style.display = explosionDisplay === 'none' ? 'block' : 'none';
+            mainGroup.style.display = mainDisplay === 'none' ? 'block' : 'none';
+        } else {
+            console.error('Required <g> elements not found in SVG.');
+        }
+    }
+
+    // display 属性の反転
+    toggleDisplayGround() {
+        const svgElement = this.container.querySelector('.falling-object');
+        const groundGroup = svgElement.querySelector('#under');
+        const mainGroup = svgElement.querySelector('#main');
+
+        if (groundGroup && mainGroup) {
+            const groundDisplay = getComputedStyle(groundGroup).display;
+            const mainDisplay = getComputedStyle(mainGroup).display;
+
+            groundGroup.style.display = groundDisplay === 'none' ? 'block' : 'none';
             mainGroup.style.display = mainDisplay === 'none' ? 'block' : 'none';
         } else {
             console.error('Required <g> elements not found in SVG.');

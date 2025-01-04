@@ -1,6 +1,5 @@
-let lifeCount = 0;
-
 import { FallingObject } from "./components/FallingObject/FallingObject.js";
+import { HealthParameterObject } from "./components/HealthParameterObject/HealthParameterObject.js";
 
 // 画面ロードイベント時にもろもろ実行する
 (function () {
@@ -94,10 +93,24 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
     function gameFieldAdministrator() {
         const segments = ["segmentA", "segmentB", "segmentC"];
         const animationDelayTime = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-delay-time"));
-    
+
         let currentSegmentIndex = 0;
         let activeImages = []; // アニメーション中の画像を追跡するための配列
         let isAnimating = false; // アニメーション進行中のフラグ
+
+        // ブロックオブジェクトを取得
+        const blockObject = document.querySelectorAll('[data-block-object]');
+
+        // 体力オブジェクトを生成
+        const healthContainer = document.getElementsByClassName("health-container")[0];
+        const healthParameterObject = new HealthParameterObject();
+        healthParameterObject.resetHealth();
+        healthContainer.appendChild(healthParameterObject.container);
+
+        // マウスを監視する
+        mouseObserver();
+        // ポップアップバーを監視する
+        popupBarObserve(handleBarActiveChange);
 
         // 衝突判定を行う関数
         function checkCollision(objectRect, targetRect) {
@@ -115,10 +128,8 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
             const segmentRect = segment.getBoundingClientRect();
             const segmentLeft = segmentRect.left;
             const segmentRight = segmentRect.right;
-            
-            const elements = document.querySelectorAll('[data-block-object]');
-            
-            const observer = new IntersectionObserver((entries) => {
+
+            const blockObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const elementRect = entry.target.getBoundingClientRect();
                     const elementLeft = elementRect.left;
@@ -130,7 +141,8 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
                     if (entry.isIntersecting && isInSegmentRange) {
                         // 要素が画面内に入り、かつセグメント領域内にある場合
                         entry.target.setAttribute('collision-enabled', '');
-                    } else {
+                    }
+                    else {
                         // それ以外の場合
                         entry.target.removeAttribute('collision-enabled');
                     }
@@ -140,12 +152,13 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
             });
 
             // 各要素を監視対象に追加
-            elements.forEach(element => observer.observe(element));
+            blockObject.forEach(element => blockObserver.observe(element));
         }
 
         // アニメーションオブジェクトを生成する関数
         function startAnimation(segmentId) {
-            if (isAnimating) return;
+            // ゲーム開始条件を満たしてなければ中止
+            if (!document.documentElement.classList.contains('is-barActive') || document.documentElement.classList.contains('is-drawerActive') || isAnimating || activeImages.length > 0) return;
             isAnimating = true;
 
             const segment = document.getElementById(segmentId);
@@ -158,19 +171,19 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
             watchBlockObject(segmentId);
 
             const collisionCheckInterval = setInterval(() => {
-                const objectRect = fallingObject.container.getBoundingClientRect();
-                const collisionTargets = document.querySelectorAll('[collision-enabled]');
+                // コライダー取得
+                const objectRect = fallingObject.svg.getBoundingClientRect();
+                const collisionTargets = document.querySelectorAll('[collision-enabled]:not([mouse-through])');
 
                 collisionTargets.forEach(target => {
                     const targetRect = target.getBoundingClientRect();
                     if (checkCollision(objectRect, targetRect)) {
-                        console.log('Collision detected with:', target);
 
                         // カスタムイベントを発火
                         const collisionEvent = new CustomEvent('collision', {
                             detail: {
-                                object: fallingObject,
-                                target: target,
+                                object: fallingObject.objectName,
+                                target: target.className,
                             },
                         });
                         fallingObject.container.dispatchEvent(collisionEvent);
@@ -178,66 +191,206 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
                         clearInterval(collisionCheckInterval); // 衝突判定を停止
                     }
                 });
-            }, 16); // 約60fps
+            }, 30);
 
             // 衝突時のイベント
             fallingObject.container.addEventListener("collision", (event) => {
-                console.log("Collision detected with object:", event.detail);
-                fallingObject.pauseAnimation();
-                fallingObject.toggleDisplay();
-
-                // 次のオブジェクトを生成する
-                setTimeout(() => {
-                    // フェードアウト後にオブジェクトを削除して次のアニメーションを開始
-                    segment.removeChild(fallingObject.container);
-                    activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
-                    isAnimating = false;
-    
-                    setTimeout(() => {
-                        currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
-                        startAnimation(segments[currentSegmentIndex]);
-                    }, animationDelayTime);
-                }, 2000);
+                executeEvent(segment, fallingObject, healthParameterObject, event.detail);
             });
 
             // オブジェクトが削除され次第，次のオブジェクトを生成する
             fallingObject.container.addEventListener("animationend", () => {
-                segment.removeChild(fallingObject.container);
-                activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
-                isAnimating = false;
+                nextAnimation(segment, fallingObject);
+            });
+        }
 
+        // startAnimation() の補助関数
+        function nextAnimation(segment, fallingObject) {
+            if (segment.contains(fallingObject.container)) {
+                segment.removeChild(fallingObject.container);
+            }
+            activeImages = activeImages.filter(activeObj => activeObj !== fallingObject);
+            isAnimating = false;
+        
+            setTimeout(() => {
+                currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
+                startAnimation(segments[currentSegmentIndex]);
+            }, animationDelayTime);
+        }
+
+        function executeEvent(segment, fallingObject, healthParameterObject, eventDetail) {
+            // 共通の消滅処理
+            const handleDestruction = (delayTime) => {
+                // 消滅を待ってから次のオブジェクトを生成する
                 setTimeout(() => {
-                    currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
-                    startAnimation(segments[currentSegmentIndex]);
-                }, animationDelayTime);
+                    // フェードアウト後にオブジェクトを削除して次のアニメーションを開始
+                    nextAnimation(segment, fallingObject);
+                }, delayTime);
+            };
+
+            // ground オブジェクトの場合
+            if (eventDetail.target === "ground") {
+                if (eventDetail.object === "rocket") {
+                    fallingObject.pauseAnimation();
+                    fallingObject.toggleDisplayGround();
+                    handleDestruction(isHealed());
+                }
+                else if (eventDetail.object === "fire") {
+                    fallingObject.pauseAnimation();
+                    fallingObject.toggleDisplayGround();
+                    handleDestruction(isDamaged());
+                }
+            }
+            // その他のオブジェクト場合
+            else {
+                if (eventDetail.object === "rocket") {
+                    fallingObject.pauseAnimation();
+                    fallingObject.toggleDisplayExplosion();
+                    handleDestruction(isDamaged());
+                }
+                else if (eventDetail.object === "fire") {
+                    fallingObject.pauseAnimation();
+                    fallingObject.toggleDisplayExplosion();
+                    handleDestruction(2000);
+                }
+            }
+
+            // ダメージを与える
+            function isDamaged() {
+                let displayTime = 2000;
+                if (healthParameterObject.life == 1) {
+                    displayTime = 4000;
+                    healthParameterObject.decreaseHealth();
+                    // ゲームオーバーテキストを表示
+                    healthContainer.querySelector(".game-over").classList.add("is-gameOver");
+                    setTimeout(() => {
+                        healthContainer.querySelector(".game-over").classList.remove('is-gameOver');
+                        // 体力をリセット
+                        healthParameterObject.resetHealth();
+                    }, displayTime);
+                }
+                else {
+                    healthParameterObject.decreaseHealth();
+                }
+                console.log("damaged [Health]: " + healthParameterObject.life);
+                return displayTime;
+            }
+
+            // 体力を回復させる
+            function isHealed() {
+                healthParameterObject.increaseHealth();
+                console.log("healed [Health]: " + healthParameterObject.life);
+                return 2000;
+            }
+        }
+
+        // マウスイベントを監視する
+        function mouseObserver() {
+            // ホバー状態を保存するためのMap
+            const hoverState = new Map();
+
+            // MutationObserver で属性追加処理を監視
+            const collisionEnabledObserver = new MutationObserver((mutationsList) => {
+                mutationsList.forEach(mutation => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'collision-enabled') {
+                        const target = mutation.target;
+
+                        // collision-enabled が追加されたオブジェクトに対してマウスイベントを監視
+                        if (target.hasAttribute('collision-enabled')) {
+
+                            // マウスイベントの監視を開始
+                            if (!hoverState.has(target)) {
+                                // 初期状態として false を設定
+                                hoverState.set(target, false);
+
+                                // マウスが入ったとき
+                                target.addEventListener('mouseenter', () => {
+                                    hoverState.set(target, true);
+                                    target.setAttribute('mouse-through', '');
+                                });
+
+                                // マウスが離れたとき
+                                target.addEventListener('mouseleave', () => {
+                                    hoverState.set(target, false);
+                                    target.removeAttribute('mouse-through');
+                                });
+                            }
+                        }
+                        else {
+                            // collision-enabled が削除されたオブジェクトの監視を停止
+                            if (hoverState.has(target)) {
+                                hoverState.delete(target);
+
+                                // イベントリスナーを削除
+                                target.removeEventListener('mouseenter', () => {
+                                    hoverState.set(target, true);
+                                });
+                                target.removeEventListener('mouseleave', () => {
+                                    hoverState.set(target, false);
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 要素の属性変更を監視
+            const config = { attributes: true }; // attributes変更のみ監視
+            const elements = document.querySelectorAll('[data-block-object]'); // 最初に監視する要素を取得
+
+            // 各要素に対して監視を開始
+            elements.forEach(element => collisionEnabledObserver.observe(element, config));
+        }
+
+        // ポップアップバーの監視
+        function popupBarObserve(handleBarActiveChange) {
+            const barObserver = new MutationObserver((mutationsList) => {
+                mutationsList.forEach(mutation => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const target = mutation.target;
+                        const classList = target.classList;
+
+                        // クラスが追加された場合
+                        if (classList.contains('is-barActive') && !mutation.oldValue?.includes('is-barActive')) {
+                            handleBarActiveChange();
+                        }
+
+                        // クラスが削除された場合
+                        if (!classList.contains('is-barActive') && mutation.oldValue?.includes('is-barActive')) {
+                            handleBarActiveChange();
+                        }
+                    }
+                });
+            });
+
+            // 監視対象とオプションを設定
+            barObserver.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['class'],
+                attributeOldValue: true // 変更前の値を取得
             });
         }
 
         function handleBarActiveChange() {
-            if (document.documentElement.classList.contains('is-barActive') && !document.documentElement.classList.contains('is-drawerActive') && activeImages.length < 2) {
+            if (document.documentElement.classList.contains('is-barActive') && !document.documentElement.classList.contains('is-drawerActive') && activeImages.length == 0) {
+                // アニメーション初期化
+                activeImages.forEach(fallingObj => {
+                    fallingObj.container.remove();
+                });
+                activeImages = [];
                 // アニメーションを開始
                 startAnimation(segments[currentSegmentIndex])
             // is-barActive が削除された場合
-            } else {
+            } 
+            else {
                 // 画像を即座に削除
                 activeImages.forEach(fallingObj => {
                     fallingObj.container.remove();
                 });
                 isAnimating = false;
-    
                 activeImages = [];
             }
         }
-
-        // is-barActive クラスの変化を監視
-        const observer = new MutationObserver(() => {
-            handleBarActiveChange();
-        });
-
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class'],
-        });
     }
 
     // テキストを一文字ずつフェードインする関数
@@ -264,7 +417,7 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
 
         const animatedElements = document.querySelectorAll('.top-in, .bottom-in, .right-in, .left-in, .top-fade-text, .right-fade-text');
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        const waveTextObserver = new IntersectionObserver((entries, waveTextObserver) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const delayTime = entry.target.dataset.delayTime || 0;
@@ -280,7 +433,7 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
                     }, delayTime);
 
                     // 1度アニメーションが実行されたら監視を停止
-                    observer.unobserve(entry.target);
+                    waveTextObserver.unobserve(entry.target);
                 }
             });
         }, {
@@ -289,7 +442,7 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
         });
 
         animatedElements.forEach(element => {
-            observer.observe(element); // 監視対象に追加
+            waveTextObserver.observe(element); // 監視対象に追加
         });
     }
 
@@ -641,7 +794,7 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
         document.documentElement.classList.toggle('is-drawerActive');
 
         // テキストの切り替え
-        menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
+        // menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
     });
 
     // バックドロップクリックでドロワーを閉じる

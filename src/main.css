@@ -62,8 +62,9 @@
   --font-size-base: 16px;
   --overlay-height: 50%;
   --overlay-angle: 0deg;
-  --animation-duration: 10s;
-  --animation-delay-time: 0;
+  --animation-duration: 15s;
+  --animation-delay-time: 10;
+  --count-health-hearts: 3;
 }
 
 .dot-game {
@@ -859,6 +860,10 @@ main-scene.active {
   margin-bottom: 0;
 }
 
+/**
+ * @file _anmlayer.scss
+ * @desc アニメーション関連
+ */
 .top-in,
 .bottom-in,
 .right-in,
@@ -992,13 +997,13 @@ main-scene.active {
   flex: 1;
   overflow: visible;
 }
-
-.life-container {
+.game-field .ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-}
-.life-container .life {
-  width: var(--bar-font-size);
+  height: 10%;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 /**
@@ -1349,8 +1354,10 @@ main-scene.active {
 .popup-bar .left {
   position: relative;
   flex: 0 0 auto;
+  height: 100%;
+  width: auto;
+  flex-grow: 1;
   text-align: left;
-  padding-left: calc(var(--bar-font-size) * 0.2);
   background-color: rgba(0, 0, 0, 0);
 }
 .popup-bar .left .title {
@@ -1528,7 +1535,7 @@ main-scene.active {
 }
 
 /**
- * @file _summary.scss
+ * @file _cta.scss
  * @desc portfolio の基本的なUI部分
  */
 .pythagoras-container {
@@ -1704,6 +1711,10 @@ main-scene.active {
   top: -16vw;
 }
 
+/**
+ * @file _falling-object.scss
+ * @desc FallingObject クラス用のスタイル
+ */
 .falling-object-container {
   position: absolute;
   top: 0;
@@ -1742,6 +1753,105 @@ main-scene.active {
   }
   100% {
     top: 130%;
+  }
+}
+/**
+ * @file _health-parameter-object.scss
+ * @desc HealthParameterObject クラス用のスタイル
+ */
+.health-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.health-container .health {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.6s ease-out;
+}
+.health-container .health.is-dead {
+  opacity: 0;
+}
+.health-container .game-over {
+  display: absolute;
+  width: 100%;
+  height: 0;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+.health-container .game-over.is-gameOver {
+  opacity: 1;
+}
+@keyframes fallAndBounce {
+  0% {
+    transform: translateX(-50%) translateY(-20px);
+  }
+  30% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  55% {
+    transform: translateX(-50%) translateY(0);
+  }
+  70% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+  80% {
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/**
+ * @file _life-object.scss
+ * @desc LifeObject クラス用のスタイル
+ */
+.life {
+  width: auto;
+  height: 100%;
+  transition: transform 0.3s ease;
+  margin-right: var(--solid-line-weight);
+}
+.life.is-damaged {
+  animation: shake 0.6s ease-in-out;
+}
+.life.is-healed {
+  animation: expand 0.6s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes expand {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

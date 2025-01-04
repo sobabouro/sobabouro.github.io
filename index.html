@@ -80,10 +80,16 @@
 
         <div class="popup-bar" id="popupBar">
             <div class="left z20s">
-                <div class="life-container">
-                    <img id="life_1" class="life" src="svgs/life.svg">
-                    <img id="life_2" class="life" src="svgs/life.svg">
-                    <img id="life_3" class="life" src="svgs/life.svg">
+                <div class="health-container">
+                    <div class="game-over">
+                        <div class="container">
+                            <div class="sentence" data-font-size="2">
+                                <div class="dot-game" style="color: #ff1f1f;">
+                                    GAME OVER
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="right">
@@ -102,6 +108,7 @@
             <div class="segment" id="segmentA"></div>
             <div class="segment" id="segmentB"></div>
             <div class="segment" id="segmentC"></div>
+            <div class="ground" data-block-object="1"></div>
         </div>
 
         <div class="content" id="topPage">

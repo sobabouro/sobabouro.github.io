@@ -79,8 +79,9 @@
     --overlay-height: 50%;
     --overlay-angle: 0deg;
 
-    --animation-duration: 10s;
-    --animation-delay-time: 0; //ms
+    --animation-duration: 15s;
+    --animation-delay-time: 10; //ms
+    --count-health-hearts: 3;
 }
 
 .dot-game {
