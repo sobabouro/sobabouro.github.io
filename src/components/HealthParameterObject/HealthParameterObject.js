@@ -34,6 +34,7 @@ export class HealthParameterObject {
         const target = this.lifeInstances[Math.floor(this.life / 2)];
 
         target.decreaseLife();
+        // 体力が0になった時に死亡アニメーションを再生
         if (this.life == 0) {
             if (!this.container.classList.contains('is-dead')) {
                 this.container.classList.add('is-dead');
@@ -44,6 +45,9 @@ export class HealthParameterObject {
     //体力を回復する
     increaseHealth() {
         if (this.life >= this.lifeInstances.length * 2) {
+            // 体力が最大値に達している場合は回復アニメーションのみ再生
+            const tmp = this.lifeInstances[this.lifeInstances.length - 1];
+            tmp.increaseLife();
             return;
         }
 
@@ -51,6 +55,7 @@ export class HealthParameterObject {
         this.life++;
 
         target.increaseLife();
+        // 念のため死亡フラグを折っておく
         if (this.container.classList.contains('is-dead')) {
             this.container.classList.remove('is-dead');
         }

@@ -45,7 +45,6 @@
 :root {
   --zoom-factor: 1;
   --zoom-limit: 1.5;
-  --window-min-px: 1;
   --window-min-vp: 1;
   --square-similarity: 1;
   --object-minimum-width: 25vw;
@@ -59,9 +58,11 @@
   --color-hover: #0056b3;
   --color-white: #fcfcfc;
   --color-black: #2e2e2e;
+  --color-blue: #298ed16c;
   --font-size-base: 16px;
   --overlay-height: 50%;
   --overlay-angle: 0deg;
+  --frame-rate: 20;
   --animation-duration: 15s;
   --animation-delay-time: 10;
   --count-health-hearts: 3;
@@ -499,6 +500,152 @@ main-scene.active {
   }
 }
 /**
+ * @file _anmlayer.scss
+ * @desc アニメーション関連
+ */
+.top-in,
+.bottom-in,
+.right-in,
+.left-in {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.top-in.is-animated,
+.bottom-in.is-animated,
+.right-in.is-animated,
+.left-in.is-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.top-in {
+  transform: translateY(30px);
+}
+
+.bottom-in {
+  transform: translateY(-30px);
+}
+
+.right-in {
+  transform: translateX(30px);
+}
+
+.left-in {
+  transform: translateX(-30px);
+}
+
+.top-fade-text,
+.bottom-fade-text,
+.left-fade-text,
+.right-fade-text {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.top-fade-text.is-animated,
+.bottom-fade-text.is-animated,
+.left-fade-text.is-animated,
+.right-fade-text.is-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+.top-fade-text span,
+.bottom-fade-text span,
+.left-fade-text span,
+.right-fade-text span {
+  opacity: 0;
+  display: inline-block;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.top-fade-text span.is-animated,
+.bottom-fade-text span.is-animated,
+.left-fade-text span.is-animated,
+.right-fade-text span.is-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.top-fade-text {
+  transform: translateY(10px);
+}
+.top-fade-text span {
+  transform: translateY(10px);
+}
+
+.bottom-fade-text {
+  transform: translateY(-10px);
+}
+.bottom-fade-text span {
+  transform: translateY(-10px);
+}
+
+.right-fade-text {
+  transform: translateX(10px);
+}
+.right-fade-text span {
+  transform: translateX(10px);
+}
+
+.left-fade-text {
+  transform: translateX(-10px);
+}
+.left-fade-text span {
+  transform: translateX(-10px);
+}
+
+.mouse-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  clip-path: circle(0px at 0px 0px);
+  -webkit-clip-path: circle(0px at 0px 0px);
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  z-index: 1000;
+  filter: invert(0.2) saturate(7) contrast(1.5) brightness(10);
+}
+.mouse-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  border-radius: 50%;
+  border: 1% solid rgb(0, 0, 0);
+}
+
+.game-field {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.game-field .segment {
+  position: relative;
+  flex: 1;
+  overflow: visible;
+}
+.game-field .ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/**
  * @file _base.scss
  * @desc 汎用性のありそうなボックスレイアウト
  */
@@ -566,65 +713,8 @@ main-scene.active {
   display: flex;
 }
 
-.relative {
-  position: relative;
-}
-
-.absolute {
-  position: absolute;
-}
-
-.z01 {
-  z-index: -1;
-}
-
-.z0 {
-  z-index: 0;
-}
-
-.z1 {
-  z-index: 1;
-}
-
-.z2 {
-  z-index: 2;
-}
-
-.z3 {
-  z-index: 3;
-}
-
-.z4 {
-  z-index: 4;
-}
-
-.z5 {
-  z-index: 5;
-}
-
-.z1s {
-  z-index: 1000;
-}
-
-.z2s {
-  z-index: 2000;
-}
-
-.z20s {
-  z-index: 20000;
-}
-
-.starter-template {
-  padding: 40px 80px;
-  background-color: rgba(0, 0, 0, 0);
-}
-
 .toggles {
   margin: auto;
-}
-
-.icon-size {
-  font-size: 200%;
 }
 
 .video-vw {
@@ -637,6 +727,156 @@ main-scene.active {
   position: absolute;
   top: 0px;
   left: -50px;
+}
+
+.app-icon-plate {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(252, 252, 252, 0);
+}
+.app-icon-plate .back-plate {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: rgba(252, 252, 252, 0.3490196078);
+  visibility: visible;
+  opacity: 1;
+  transition: transform 0.3s linear;
+}
+.app-icon-plate .back-plate .title {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(var(--bar-font-size) * 1.5);
+  top: 0;
+  flex-direction: row;
+  border-radius: 10px 10px 0 0;
+  background-color: #298ed1;
+  color: var(--color-black);
+  font-size: calc(var(--bar-font-size) * 0.6);
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 800;
+}
+.app-icon-plate .back-plate .title .left {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: auto;
+  flex-grow: 1;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 100;
+}
+.app-icon-plate .back-plate .title .right {
+  flex: 0;
+  position: relative;
+  display: flex;
+  right: 0;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  margin: 0;
+  padding: 0 calc(var(--solid-line-weight) * 2);
+}
+.app-icon-plate .back-plate .title .right .button {
+  position: relative;
+  height: 100%;
+  width: calc(var(--bar-font-size) * 0.6);
+  justify-content: center;
+  z-index: 100;
+}
+.app-icon-plate .back-plate .title .right .button .minimize-line {
+  display: block;
+  position: relative;
+  width: calc(var(--bar-font-size) * 0.3);
+  height: calc(var(--bar-font-size) * 0.03);
+  background-color: var(--color-white);
+  border-radius: 99rem;
+  transition: all 0.3s ease;
+}
+.app-icon-plate .back-plate .title .right .button .close-line {
+  display: block;
+  position: relative;
+  width: calc(var(--bar-font-size) * 0.3);
+  height: calc(var(--bar-font-size) * 0.03);
+  transform: rotate(-45deg);
+  background-color: var(--color-white);
+  border-radius: 99rem;
+  transition: all 0.3s ease;
+}
+.app-icon-plate .back-plate .title .right .button .close-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(var(--bar-font-size) * 0.3);
+  height: calc(var(--bar-font-size) * 0.03);
+  background-color: var(--color-white);
+  border-radius: 99rem;
+  transform: rotate(90deg);
+}
+.app-icon-plate .back-plate .title .right .button:hover .minimize-line {
+  transform: scale(1.6);
+}
+.app-icon-plate .back-plate .title .right .button:hover .close-line {
+  transform: rotate(-45deg) scale(1.6);
+}
+.app-icon-plate .back-plate .app-icon-box {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: calc(var(--window-min-vp) / 8);
+  aspect-ratio: 1/1;
+  padding: 5%;
+  margin: 2%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15%;
+  box-sizing: border-box;
+  background-color: #fcfcfc;
+  background-size: contain;
+  z-index: 100;
+}
+.app-icon-plate .back-plate .app-icon-box .img {
+  max-width: calc(var(--window-min-vp) / 8);
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}
+.app-icon-plate .back-plate .app-icon-box .text {
+  position: absolute;
+  bottom: calc(var(--bar-font-size) * -0.2);
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--color-black);
+  font-size: var(--font-size-base);
+  font-family: "Arcade-classic", sans-serif;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.app-icon-plate .back-plate .app-icon-box:hover {
+  z-index: 200;
+}
+.app-icon-plate .back-plate .app-icon-box:hover .text {
+  opacity: 1;
+  transform: scale(1.5);
+  filter: drop-shadow(0px 0px 2px #daff07);
+  z-index: 2000;
+}
+.app-icon-plate .back-plate.is-minimized {
+  transform: translateY(50vh) scale(0.1);
+}
+.app-icon-plate .back-plate.is-hidden {
+  visibility: hidden;
+}
+.app-icon-plate .back-plate.is-closed {
+  animation: shake 0.5s ease-in-out;
 }
 
 .flush-top {
@@ -802,7 +1042,6 @@ main-scene.active {
   position: relative;
   color: var(--color-black);
 }
-
 .double-underline::after {
   content: "";
   position: absolute;
@@ -861,149 +1100,122 @@ main-scene.active {
 }
 
 /**
- * @file _anmlayer.scss
- * @desc アニメーション関連
+ * @file _cta.scss
+ * @desc portfolio の基本的なUI部分
  */
-.top-in,
-.bottom-in,
-.right-in,
-.left-in {
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.top-in.is-animated,
-.bottom-in.is-animated,
-.right-in.is-animated,
-.left-in.is-animated {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.top-in {
-  transform: translateY(30px);
-}
-
-.bottom-in {
-  transform: translateY(-30px);
-}
-
-.right-in {
-  transform: translateX(30px);
-}
-
-.left-in {
-  transform: translateX(-30px);
-}
-
-.top-fade-text,
-.bottom-fade-text,
-.left-fade-text,
-.right-fade-text {
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.top-fade-text.is-animated,
-.bottom-fade-text.is-animated,
-.left-fade-text.is-animated,
-.right-fade-text.is-animated {
-  opacity: 1;
-  transform: translateY(0);
-}
-.top-fade-text span,
-.bottom-fade-text span,
-.left-fade-text span,
-.right-fade-text span {
-  opacity: 0;
-  display: inline-block;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.top-fade-text span.is-animated,
-.bottom-fade-text span.is-animated,
-.left-fade-text span.is-animated,
-.right-fade-text span.is-animated {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.top-fade-text {
-  transform: translateY(10px);
-}
-.top-fade-text span {
-  transform: translateY(10px);
-}
-
-.bottom-fade-text {
-  transform: translateY(-10px);
-}
-.bottom-fade-text span {
-  transform: translateY(-10px);
-}
-
-.right-fade-text {
-  transform: translateX(10px);
-}
-.right-fade-text span {
-  transform: translateX(10px);
-}
-
-.left-fade-text {
-  transform: translateX(-10px);
-}
-.left-fade-text span {
-  transform: translateX(-10px);
-}
-
-.mouse-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  clip-path: circle(0px at 0px 0px);
-  -webkit-clip-path: circle(0px at 0px 0px);
-  background-image: inherit;
-  background-size: cover;
-  background-position: center;
-  z-index: 1000;
-  filter: invert(0.2) saturate(7) contrast(1.5) brightness(7);
-}
-.mouse-overlay::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.pythagoras-container {
+  display: grid;
   width: 100%;
   height: 100%;
-  background-image: inherit;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  border-radius: 50%;
-  border: 1% solid rgb(0, 0, 0);
+  position: relative;
+  box-sizing: border-box;
 }
 
-.game-field {
-  position: fixed;
+.summary-box {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  opacity: 0.9;
-}
-.game-field .segment {
+  max-width: 100%;
+  aspect-ratio: 5/4;
   position: relative;
-  flex: 1;
-  overflow: visible;
+  margin: 2%;
+  padding: 6%;
+  box-sizing: border-box;
 }
-.game-field .ground {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+
+.button {
   width: 100%;
-  height: 10%;
-  background-color: rgba(0, 0, 0, 0);
+  max-width: 100%;
+  aspect-ratio: 5/4;
+  letter-spacing: 5px;
+  border: none;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 2%;
+}
+.button .button-icon {
+  position: relative;
+  width: 50%;
+  height: 40%;
+  max-height: 50%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  transition: filter 0.3s ease;
+}
+.button .button-text {
+  position: relative;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--font-size-base) * 0.3);
+  padding: 0;
+  margin: 0;
+  text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
+  word-wrap: break-word;
+  transition: filter 0.3s ease;
+}
+.button .button-text .text-main {
+  font-family: "Arcade-classic", sans-serif;
+  line-height: 1.2;
+}
+.button .button-text .text-sub {
+  font-family: "DotGothic16", sans-serif;
+  line-height: 1;
+}
+.button:focus {
+  outline: none;
+}
+.button:hover {
+  background-color: rgba(41, 142, 209, 0.7411764706);
+}
+.button:hover .button-icon, .button:hover .button-text {
+  filter: drop-shadow(0px 0px 10px #daff07);
+}
+
+/**
+ * @file _footer.scss
+ * @desc portfolio のフッター部分
+ */
+.footer {
+  background-color: var(--color-bar);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center; /* アイコンを中央揃え */
+  gap: 15px; /* アイコン間の間隔 */
+  margin-bottom: 10px; /* テキストとの間隔 */
+}
+
+.social-icon {
+  width: 40px; /* アイコンの幅 */
+  height: 40px; /* アイコンの高さ */
+  transition: transform 0.3s ease; /* ホバー時のアニメーション */
+}
+
+.social-icon:hover {
+  transform: scale(1.2); /* ホバー時に少し大きくする */
+}
+
+.footer-text {
+  font-size: 14px; /* フッターテキストのサイズ */
+  margin: 0; /* テキストの余白をなくす */
 }
 
 /**
@@ -1285,52 +1497,6 @@ main-scene.active {
 }
 
 /**
- * @file _spacing.scss
- * @desc margin, padding, gap, break 関連
- */
-.margin-box[size=small] {
-  display: flex;
-  margin: 1vw;
-}
-
-.margin-box[size=medium] {
-  display: flex;
-  margin: 2vw;
-}
-
-.margin-box[size=large] {
-  display: flex;
-  margin: 3vw;
-}
-
-.padding-box[size=small] {
-  display: flex;
-  padding: 1vw;
-}
-
-.padding-box[size=medium] {
-  display: flex;
-  padding: 2vw;
-}
-
-.padding-box[size=large] {
-  display: flex;
-  padding: 3vw;
-}
-
-.space-vertical {
-  margin-top: var(--font-size-base);
-}
-
-.space-horizon {
-  margin-left: var(--font-size-base);
-}
-
-.no-break {
-  white-space: nowrap;
-}
-
-/**
  * @file _header.scss
  * @desc portfolio のヘッダー部分
  */
@@ -1427,7 +1593,7 @@ main-scene.active {
   position: relative;
   width: calc(var(--bar-font-size) * 0.3);
   height: calc(var(--bar-font-size) * 0.03);
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 99rem;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -1437,7 +1603,7 @@ main-scene.active {
   position: absolute;
   width: calc(var(--bar-font-size) * 0.3);
   height: calc(var(--bar-font-size) * 0.03);
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 99rem;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -1499,128 +1665,6 @@ main-scene.active {
 .is-drawerActive .drawer {
   opacity: 1;
   right: 0;
-}
-
-/**
- * @file _footer.scss
- * @desc portfolio のフッター部分
- */
-.footer {
-  background-color: var(--color-bar);
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center; /* アイコンを中央揃え */
-  gap: 15px; /* アイコン間の間隔 */
-  margin-bottom: 10px; /* テキストとの間隔 */
-}
-
-.social-icon {
-  width: 40px; /* アイコンの幅 */
-  height: 40px; /* アイコンの高さ */
-  transition: transform 0.3s ease; /* ホバー時のアニメーション */
-}
-
-.social-icon:hover {
-  transform: scale(1.2); /* ホバー時に少し大きくする */
-}
-
-.footer-text {
-  font-size: 14px; /* フッターテキストのサイズ */
-  margin: 0; /* テキストの余白をなくす */
-}
-
-/**
- * @file _cta.scss
- * @desc portfolio の基本的なUI部分
- */
-.pythagoras-container {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.summary-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 100%;
-  aspect-ratio: 5/4;
-  position: relative;
-  margin: 2%;
-  padding: 6%;
-  box-sizing: border-box;
-}
-
-.button {
-  width: 100%;
-  max-width: 100%;
-  aspect-ratio: 5/4;
-  letter-spacing: 5px;
-  border: none;
-  background-color: rgba(41, 142, 209, 0.4235294118);
-  color: var(--color-white);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  box-sizing: border-box;
-  padding: 2%;
-}
-.button .button-icon {
-  position: relative;
-  width: 50%;
-  height: 40%;
-  max-height: 50%;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  transition: filter 0.3s ease;
-}
-.button .button-icon:hover {
-  filter: drop-shadow(0px 0px 10px #1276b9);
-}
-.button .button-text {
-  position: relative;
-  text-align: center;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: calc(var(--font-size-base) * 0.3);
-  padding: 0;
-  margin: 0;
-  text-overflow: ellipsis; /* はみ出し部分に"..."を表示 */
-  word-wrap: break-word;
-  transition: filter 0.3s ease;
-}
-.button .button-text:hover {
-  filter: drop-shadow(0px 0px 10px #1276b9);
-}
-.button .button-text .text-main {
-  font-family: "Arcade-classic", sans-serif;
-  line-height: 1.2;
-}
-.button .button-text .text-sub {
-  font-family: "DotGothic16", sans-serif;
-  line-height: 1;
-}
-.button:focus {
-  outline: none;
-}
-.button:hover {
-  background-color: rgba(41, 142, 209, 0.7411764706);
 }
 
 /**
@@ -1712,6 +1756,181 @@ main-scene.active {
 }
 
 /**
+ * @file _keyframes.scss
+ * @desc キーフレーム関連
+ */
+@keyframes fallAndBounce {
+  0% {
+    transform: translateX(-50%) translateY(-20px);
+  }
+  30% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  55% {
+    transform: translateX(-50%) translateY(0);
+  }
+  70% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+  80% {
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes expand {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes moveVertical {
+  0% {
+    top: -30%;
+  }
+  100% {
+    top: 130%;
+  }
+}
+/**
+ * @file _layer_index.scss
+ * @desc z-index の追加削除の動的な管理をラクにしたい目的
+ */
+.z03 {
+  z-index: -3;
+}
+
+.z02 {
+  z-index: -2;
+}
+
+.z01 {
+  z-index: -1;
+}
+
+.z0 {
+  z-index: 0;
+}
+
+.z1 {
+  z-index: 1;
+}
+
+.z2 {
+  z-index: 2;
+}
+
+.z3 {
+  z-index: 3;
+}
+
+.z4 {
+  z-index: 4;
+}
+
+.z5 {
+  z-index: 5;
+}
+
+.z1h {
+  z-index: 100;
+}
+
+.z2h {
+  z-index: 200;
+}
+
+.z1s {
+  z-index: 1000;
+}
+
+.z2s {
+  z-index: 2000;
+}
+
+.z20s {
+  z-index: 20000;
+}
+
+/**
+ * @file _spacing.scss
+ * @desc margin, padding, gap, break 関連
+ */
+.margin-box[size=small] {
+  display: flex;
+  margin: 1vw;
+}
+
+.margin-box[size=medium] {
+  display: flex;
+  margin: 2vw;
+}
+
+.margin-box[size=large] {
+  display: flex;
+  margin: 3vw;
+}
+
+.padding-box[size=small] {
+  display: flex;
+  padding: 1vw;
+}
+
+.padding-box[size=medium] {
+  display: flex;
+  padding: 2vw;
+}
+
+.padding-box[size=large] {
+  display: flex;
+  padding: 3vw;
+}
+
+.padding-box {
+  width: 100%;
+  height: 100%;
+  padding: var(--font-size-base);
+}
+
+.space-vertical {
+  margin-top: var(--font-size-base);
+}
+
+.space-horizon {
+  margin-left: var(--font-size-base);
+}
+
+.no-break {
+  white-space: nowrap;
+}
+
+/**
  * @file _falling-object.scss
  * @desc FallingObject クラス用のスタイル
  */
@@ -1747,14 +1966,6 @@ main-scene.active {
   pointer-events: none;
 }
 
-@keyframes moveVertical {
-  0% {
-    top: -30%;
-  }
-  100% {
-    top: 130%;
-  }
-}
 /**
  * @file _health-parameter-object.scss
  * @desc HealthParameterObject クラス用のスタイル
@@ -1785,29 +1996,6 @@ main-scene.active {
 .health-container .game-over.is-gameOver {
   opacity: 1;
 }
-@keyframes fallAndBounce {
-  0% {
-    transform: translateX(-50%) translateY(-20px);
-  }
-  30% {
-    transform: translateX(-50%) translateY(0);
-  }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-  55% {
-    transform: translateX(-50%) translateY(0);
-  }
-  70% {
-    transform: translateX(-50%) translateY(-5px);
-  }
-  80% {
-    transform: translateX(-50%) translateY(0);
-  }
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-}
 
 /**
  * @file _life-object.scss
@@ -1824,35 +2012,6 @@ main-scene.active {
 }
 .life.is-healed {
   animation: expand 0.6s ease-in-out;
-}
-
-@keyframes shake {
-  0% {
-    transform: rotate(0);
-  }
-  25% {
-    transform: rotate(-10deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-  75% {
-    transform: rotate(-10deg);
-  }
-  100% {
-    transform: rotate(0);
-  }
-}
-@keyframes expand {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 /*# sourceMappingURL=main.css.map */

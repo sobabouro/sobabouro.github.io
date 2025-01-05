@@ -14,7 +14,6 @@
 <style>
     body {
         position: absolute;
-        z-index: 0;
         width: 100%;
         margin: 0;
         padding: 0;
@@ -26,6 +25,7 @@
         background-position: bottom;
         cursor: none;
         overflow-x: hidden;
+        z-index: -1;
 
         .no-scroll {
             overflow: hidden;
@@ -34,7 +34,7 @@
 
     * {
         box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
-        /* outline: 1px solid red; */
+        outline: 1px solid red;
     }
 </style>
 
@@ -104,7 +104,7 @@
             </div>
         </div>
 
-        <div class="game-field">
+        <div class="game-field z1h">
             <div class="segment" id="segmentA"></div>
             <div class="segment" id="segmentB"></div>
             <div class="segment" id="segmentC"></div>
@@ -178,7 +178,7 @@
                             </div>
     
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('gengo')" data-block-object="2.5">
+                                <button class="button" onclick="scrollToSection('skill')" data-block-object="2.5">
                                     <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 言語＆技術 </div>
@@ -229,14 +229,14 @@
             <!-- 自己紹介セクション -->
             <div class="plate" id="shokai">
                 <div class="image-container" aspect="710x973">
-                    <svg class="wave-svg wave-container z3" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <svg class="wave-svg wave-container z01" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                         <path class="wave-path" d="" fill="#fcfcfc"></path>
                     </svg>
                     <div class="empty">
-                        <img src="figs/self1.png" alt="自己紹介" class="background-image" style="z-index: -1;">                         
-                        <div class="overlay-half z2s" data-height="0.6" data-width="0.6" data-top="0.42" data-angle="-1.5deg" data-block-object="3.5">
+                        <img src="figs/self1.png" alt="自己紹介" class="background-image z02">                         
+                        <div class="overlay-half z2s" data-height="0.6" data-width="0.6" data-top="0.42" data-angle="-1.5deg" data-block-object="1">
                             <div class="flush-center">
-    
+
                                 <div class="s-japanese" style="color: black; font-weight: bold;">
                                     小野塚 昇大（おのつか しょうた）
                                 </div>
@@ -269,27 +269,27 @@
             <div class="container-vertical" id="apipo">
                 <div class="whiteboad">
                     <div class="container">
-                        <div class="col z1s">
+                        <div class="col z2s">
                             <div class="margin-box" size="medium">
                                 <div class="container-vertical">
                                     <div class="flush-center" >
-                                        <img src="figs/moji2.png" alt="筆" style="width: 60%;">
+                                        <img src="figs/moji2.png" alt="筆" style="width: 60%;" data-block-object="1">
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="margin-box" size="medium">
                                 <div class="container-vertical">
                                     <div class="flush-center" >
-                                        <img src="figs/moji4.png" alt="筆" style="width: 40%;">
+                                        <img src="figs/moji4.png" alt="筆" style="width: 40%;" data-block-object="1">
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="margin-box" size="medium">
                                 <div class="container-vertical">
                                     <div class="flush-center" >
-                                        <img src="figs/moji1.png" alt="筆" style="width: 60%;">
+                                        <img src="figs/moji1.png" alt="筆" style="width: 60%;" data-block-object="1">
                                     </div>
                                     <div class="space-vertical"></div>
                                     <div class="space-vertical"></div>
@@ -297,7 +297,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="col-6 z2s">
                             <div class="container">
                                 <div class="justify-center">
@@ -371,61 +371,208 @@
     
                             </div>
                         </div>
-    
-                        <div class="col z1s">
+
+                        <div class="col z2s">
                             <div class="margin-box" size="medium">
                                 <div class="container-vertical">
                                     <div class="space-vertical"></div>
                                     <div class="space-vertical"></div>
                                     <div class="space-vertical"></div>
                                     <div class="left-side" >
-                                        <img src="figs/self3.png" alt="自画" style="width: 70%;">
+                                        <img src="figs/self3.png" alt="自画" style="width: 70%;" data-block-object="1">
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="margin-box" size="medium">
                                 <div class="container-right">
                                     <div class="left-side" >
                                         <div class="rotate-left-5" >
-                                            <img src="figs/self2.jpg" alt="自画">
+                                            <img src="figs/self2.jpg" alt="自画" data-block-object="1">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="margin-box" size="medium">
                                 <div class="container-vertical">
                                     <div class="left-side">
                                         <div class="rotate-right-5">
-                                            <img src="figs/self5.jpg" alt="自画">
+                                            <img src="figs/self5.jpg" alt="自画" data-block-object="1">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="margin-box" size="medium">
                                 <div class="container-right">
                                     <div class="right-side" >
                                         <div class="rotate-right-5">
-                                            <img src="figs/self4.jpg" alt="自画" style="width: 70%;">
+                                            <img src="figs/self4.jpg" alt="自画" style="width: 70%;" data-block-object="1">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
-    
-                <div class="container-vertical">
-                    <svg class="wave-svg reverse-wave-container z1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+
+                <div class="container-vertical ">
+                    <svg class="wave-svg reverse-wave-container z01" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                         <path class="wave-path" d="" fill="#fcfcfc"></path>
                     </svg>
                 </div>
             </div>
             <!-- 言語＆技術セクション -->
-            <div class="plate" id="skill">
+            <div class="app-icon-plate" id="skill">
+                <div class="space-vertical"></div>
+                <div class="space-vertical"></div>
+                <div class="space-vertical"></div>
+                <div class="back-plate">
+                    <div class="vertical-zoom-box" default-height="50vh">
+                        <div class="title">
+                            <div class="left">  経験＆活用してきた言語やツール </div>
+                            <div class="right">
+                                <div class="button" id="minimize" onclick="animatedElement('minimize')" data-block-object="0.5">
+                                    <div class="minimize-line"></div>
+                                </div>
+                                <div class="button" id="close" onclick="animatedElement('close')" data-block-object="0.5">
+                                    <div class="close-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="padding-box">
+                            <div class="pythagoras-container">
+                                <!-- miro -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-miro.png" alt="">
+                                        <div class="text"> Miro </div>
+                                    </div>
+                                </div>
+                                <!-- github -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-github.png" alt="">
+                                        <div class="text">
+                                            GitHub
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- csharp -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-c-sharp.png" alt="">
+                                        <div class="text">
+                                            C#
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- python -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-python.png" alt="">
+                                        <div class="text">
+                                            Python
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- java -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-java.png" alt="">
+                                        <div class="text">
+                                            Java
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- javascript -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-javascript.png" alt="">
+                                        <div class="text">
+                                            JavaScript
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- R -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-R.png" alt="">
+                                        <div class="text">
+                                            R
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- kotlin -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-kotlin.png" alt="">
+                                        <div class="text">
+                                            Kotlin
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- opencv -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-opencv.png" alt="">
+                                        <div class="text">
+                                            OpenCV
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- arduino -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-arduino.png" alt="">
+                                        <div class="text">
+                                            Arduino
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- unity -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-unity.png" alt="">
+                                        <div class="text">
+                                            Unity
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- blender -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-blender.png" alt="">
+                                        <div class="text">
+                                            Blender
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- davinci -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-davinci.png" alt="">
+                                        <div class="text no-break">
+                                            DaVinci Resolve
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- gimp -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="figs/icon-gimp.png" alt="">
+                                        <div class="text">
+                                            GIMP
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="footer">

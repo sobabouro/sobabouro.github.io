@@ -17,8 +17,8 @@ export class FallingObject {
         this.objectName = this.object.id;
 
         // コライダーを作成
-        this.svg = this.createCollider();
-        this.container.appendChild(this.svg);
+        // this.svg = this.createCollider();
+        // this.container.appendChild(this.svg);
 
         // アニメーションを設定
         this.container.style.animation = `moveVertical ${duration}s linear`;
@@ -1072,7 +1072,7 @@ export class FallingObject {
     createCollider() {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.classList.add("collider");
-        svg.innerHTML = `<circle cx="50%" cy="50%" r="50%" fill="none"></circle>`;
+        svg.innerHTML = `<rect x="50%" y="50%" width="5px" height="5px" fill="none"></rect>`;
         svg.style.position = "absolute"; // 画像と同じ位置で配置
         return svg;
     }

@@ -2,14 +2,16 @@
 @use 'variables';
 @use 'reset';
 
-@use 'layouts/base';
 @use 'layouts/anmlayer';
-@use 'layouts/grid';
-@use 'layouts/spacing';
-@use 'layouts/header';
-@use 'layouts/footer';
+@use 'layouts/base';
 @use 'layouts/cta';
+@use 'layouts/footer';
+@use 'layouts/grid';
+@use 'layouts/header';
 @use 'layouts/image_decorations';
+@use 'layouts/keyframe';
+@use 'layouts/layer_index';
+@use 'layouts/spacing';
 
 @use 'components/FallingObject/falling-object';
 @use 'components/HealthParameterObject/health-parameter-object';

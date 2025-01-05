@@ -91,6 +91,7 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
 
     // game-field 管理
     function gameFieldAdministrator() {
+        const frameRate = 1000 / parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--frame-rate"));
         const segments = ["segmentA", "segmentB", "segmentC"];
         const animationDelayTime = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-delay-time"));
 
@@ -116,9 +117,9 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
         function checkCollision(objectRect, targetRect) {
             return !(
                 targetRect.bottom < objectRect.top ||
-                targetRect.top > objectRect.bottom ||
+                targetRect.left > objectRect.right ||
                 targetRect.right < objectRect.left ||
-                targetRect.left > objectRect.right
+                targetRect.top > objectRect.bottom
             );
         }
 
@@ -172,12 +173,18 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
 
             const collisionCheckInterval = setInterval(() => {
                 // コライダー取得
-                const objectRect = fallingObject.svg.getBoundingClientRect();
+                const objectRect = fallingObject.container.getBoundingClientRect();
+                const fallingObjectRect = {
+                    bottom: objectRect.y + objectRect.width,
+                    left: (objectRect.right + objectRect.left) / 2,
+                    right: (objectRect.right + objectRect.left) / 2,
+                    top: objectRect.y,
+                };
                 const collisionTargets = document.querySelectorAll('[collision-enabled]:not([mouse-through])');
 
                 collisionTargets.forEach(target => {
                     const targetRect = target.getBoundingClientRect();
-                    if (checkCollision(objectRect, targetRect)) {
+                    if (checkCollision(fallingObjectRect, targetRect)) {
 
                         // カスタムイベントを発火
                         const collisionEvent = new CustomEvent('collision', {
@@ -191,7 +198,7 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
                         clearInterval(collisionCheckInterval); // 衝突判定を停止
                     }
                 });
-            }, 30);
+            }, frameRate);
 
             // 衝突時のイベント
             fallingObject.container.addEventListener("collision", (event) => {
@@ -218,6 +225,7 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
             }, animationDelayTime);
         }
 
+        // オブジェクト同士の衝突時のイベントを実行する関数
         function executeEvent(segment, fallingObject, healthParameterObject, eventDetail) {
             // 共通の消滅処理
             const handleDestruction = (delayTime) => {
@@ -272,14 +280,12 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
                 else {
                     healthParameterObject.decreaseHealth();
                 }
-                console.log("damaged [Health]: " + healthParameterObject.life);
                 return displayTime;
             }
 
             // 体力を回復させる
             function isHealed() {
                 healthParameterObject.increaseHealth();
-                console.log("healed [Health]: " + healthParameterObject.life);
                 return 2000;
             }
         }
@@ -620,6 +626,7 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
         const cellHeight = parentHeight / optimalRows;
 
         const summaries = container.querySelectorAll('.summary-box');
+        if (!summaries) return;
         summaries.forEach(summary => {
             // summary-box のサイズを設定
             if (cellWidth < cellHeight) {
@@ -828,3 +835,28 @@ function scrollToSection(sectionId) {
         });
     }
 }
+
+function animatedElement(sectionId) {
+    const section = document.getElementById(sectionId);
+    const backPlate = section.closest('.back-plate');
+    
+    if (sectionId === 'close') {
+        backPlate.classList.add("is-closed");
+        setTimeout(() => {
+            backPlate.classList.remove("is-closed");
+        }, 600);
+    } else if (sectionId === 'minimize') {
+        backPlate.classList.add("is-minimized");
+        setTimeout(() => {
+            setTimeout(() => {
+                backPlate.classList.remove("is-minimized");
+                backPlate.classList.remove("is-hidden");
+            }, 1700);
+            backPlate.classList.add("is-hidden");
+        }, 300);
+    }
+}
+
+
+window.scrollToSection = scrollToSection;
+window.animatedElement = animatedElement;

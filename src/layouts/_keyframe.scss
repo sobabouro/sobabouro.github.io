@@ -1,0 +1,64 @@
+/**
+ * @file _keyframes.scss
+ * @desc キーフレーム関連
+ */
+
+@keyframes fallAndBounce {
+    0% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+    30% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    55% {
+        transform: translateX(-50%) translateY(0);
+    }
+    70% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+    80% {
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg)
+    }
+    75% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
+
+@keyframes expand {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+    
+}
+
+@keyframes moveVertical {
+    0% { top: -30%; }
+    100% { top: 130%; }
+}

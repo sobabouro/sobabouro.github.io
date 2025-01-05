@@ -56,7 +56,6 @@
     --zoom-factor: 1;
     --zoom-limit: 1.5;
 
-    --window-min-px: 1;
     --window-min-vp: 1;
     --square-similarity: 1;
 
@@ -73,12 +72,14 @@
     --color-hover: #0056b3;
     --color-white: #fcfcfc;
     --color-black: #2e2e2e;
+    --color-blue: #298ed16c;
 
     --font-size-base: 16px;
 
     --overlay-height: 50%;
     --overlay-angle: 0deg;
 
+    --frame-rate: 20;
     --animation-duration: 15s;
     --animation-delay-time: 10; //ms
     --count-health-hearts: 3;

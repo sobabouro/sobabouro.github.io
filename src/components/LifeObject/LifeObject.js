@@ -179,21 +179,17 @@ export class LifeObject {
 
         if (rightDisplay === 'none' && leftDisplay === 'none') {
             leftGroup.style.display = 'block';
-            this.object.classList.add('is-healed');
-            setTimeout(() => {
-                this.object.classList.remove('is-healed');
-            }, 600);
         }
         else if (rightDisplay === 'none' && leftDisplay === 'block') {
             rightGroup.style.display = 'block';
-            this.object.classList.add('is-healed');
-            setTimeout(() => {
-                this.object.classList.remove('is-healed');
-            }, 600);
         }
         else {
             // 何もしない
         }
+        this.object.classList.add('is-healed');
+        setTimeout(() => {
+            this.object.classList.remove('is-healed');
+        }, 600);
     }
 
     // display 属性のリセット

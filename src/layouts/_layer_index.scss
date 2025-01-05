@@ -1,0 +1,60 @@
+/**
+ * @file _layer_index.scss
+ * @desc z-index の追加削除の動的な管理をラクにしたい目的
+ */
+
+.z03 {
+    z-index: -3;
+}
+
+.z02 {
+    z-index: -2;
+}
+
+.z01 {
+    z-index: -1;
+}
+
+.z0 {
+    z-index: 0;
+}
+
+.z1 {
+    z-index: 1;
+}
+
+.z2 {
+    z-index: 2;
+}
+
+.z3 {
+    z-index: 3;
+}
+
+.z4 {
+    z-index: 4;
+}
+
+.z5 {
+    z-index: 5;
+}
+
+.z1h {
+    z-index: 100;
+}
+
+.z2h {
+    z-index: 200;
+}
+
+.z1s {
+    z-index: 1000;
+}
+
+.z2s {
+    z-index: 2000;
+}
+
+.z20s {
+    z-index: 20000;
+}
