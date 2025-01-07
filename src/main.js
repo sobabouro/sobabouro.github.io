@@ -1,5 +1,6 @@
 import { FallingObject } from "./components/FallingObject/FallingObject.js";
 import { HealthParameterObject } from "./components/HealthParameterObject/HealthParameterObject.js";
+import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js";
 
 // 画面ロードイベント時にもろもろ実行する
 (function () {
@@ -41,6 +42,10 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
 
 // ロードイベント後 DOM が生成されてからもろもろ実行する
 (function () {
+    // スライダーバーを生成
+    const sliderBarObject = new SliderBarObject('slider1');
+    sliderBarObject.initSlideContainer();
+
     // カーソルを作成する関数
     function makeCursor() {
         // カーソル要素を取得
@@ -178,7 +183,7 @@ import { HealthParameterObject } from "./components/HealthParameterObject/Health
                     bottom: objectRect.y + objectRect.width,
                     left: (objectRect.right + objectRect.left) / 2,
                     right: (objectRect.right + objectRect.left) / 2,
-                    top: objectRect.y,
+                    top: objectRect.y + objectRect.width,
                 };
                 const collisionTargets = document.querySelectorAll('[collision-enabled]:not([mouse-through])');
 
@@ -856,7 +861,6 @@ function animatedElement(sectionId) {
         }, 300);
     }
 }
-
 
 window.scrollToSection = scrollToSection;
 window.animatedElement = animatedElement;

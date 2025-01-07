@@ -1,0 +1,145 @@
+/**
+ * @file _slider_object.scss
+ * @desc スライドショーのレイヤー関連
+ */
+
+.slider-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 30vh;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 200;
+
+    .main-display {
+        position: relative;
+        height: 70%;
+        width: 100%;
+
+        .media {
+            position: absolute;
+            display: flex;
+            visibility: hidden;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            flex-direction: row;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0);
+
+            img {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                flex: 0;
+                object-fit: contain;
+            }
+
+            video {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                flex: 0;
+                object-fit: contain;
+
+                source {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .detail {
+                position: relative;
+                flex: 1;
+                font-family: "Zen Kurenaido";
+                font-size: var(--bar-font-size);
+                color: var(--color-white);
+                padding: var(--bar-font-size);
+                align-items: center;
+                justify-content: start;
+            }
+
+            &.is-main {
+                visibility: visible;
+            }
+        }
+    }
+
+    .slider {
+        position: relative;
+        display: flex;
+        height: 30%;
+        width: 100%;
+        margin: 1% 0;
+        justify-content: center;
+
+        .side-space {
+            position: relative;
+            width: 49.5%;
+            height: 100%;
+        }
+
+        .display-point {
+            position: relative;
+            display: flex;
+            width: 1%;
+            height: 100%;
+            overflow: visible;
+
+            // ここに SlideObject のスタイルが適用された .slide を配置する
+        }
+    }
+
+    .slider-buttons {
+        position: absolute;
+        height: 30%;
+        width: 100%;
+        bottom: 0;
+        justify-content: space-between;
+
+        .prev-button {
+            display: block;
+            position: relative;
+            width: calc(var(--bar-font-size) * 0.3);
+            height: calc(var(--bar-font-size) * 0.03);
+            background-color: var(--color-white);
+            border-radius: 99rem;
+            transition: all 0.3s ease;
+            padding: calc(var(--bar-font-size) * 0.3);
+            box-sizing: content-box;
+        }
+
+        .next-button {
+            display: block;
+            position: relative;
+            width: calc(var(--bar-font-size) * 0.3);
+            height: calc(var(--bar-font-size) * 0.03);
+            transform: rotate(-45deg);
+            background-color: var(--color-white);
+            border-radius: 99rem;
+            transition: all 0.3s ease;
+        
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: calc(var(--bar-font-size) * 0.3);
+                height: calc(var(--bar-font-size) * 0.03);
+                background-color: var(--color-white);
+                border-radius: 99rem;
+                transform: rotate(90deg);
+            }
+        }
+
+        &:hover .prev-button {
+            transform: scale(1.6);
+        }
+
+        &:hover .next-button {
+            transform: rotate(-45deg) scale(1.6);
+        }
+    }
+}

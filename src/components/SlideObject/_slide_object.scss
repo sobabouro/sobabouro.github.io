@@ -1,0 +1,63 @@
+/**
+ * @file _slide_object.scss
+ * @desc 一枚一枚のスライドのスタイル
+ */
+
+.slide {
+    position: absolute;
+    display: inline-block;
+    width: 25vw;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0;
+    visibility: hidden;
+    --translate-x: 0px;
+    --scale: 1;
+    transform: translateX(var(--translate-x)) scale(var(--scale));
+    transition: all 0.5s ease-in-out;
+
+    .image-container {
+        position: relative;
+        height: 80%;
+        width: 100%;
+        justify-content: center;
+        background-size: fill;
+
+        img {
+            position: relative;
+            object-fit: scale-down;
+        }
+    }
+
+    .title {
+        position: relative;
+        height: 20%;
+        bottom: 0;
+        background-color: #298ed1;
+        color: var(--color-black);
+        font-family: 'Dot Gothic 16';
+        font-size: calc(var(--bar-font-size) * 0.3);
+        text-align: center;
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+
+    &.is-slideActive {
+        opacity: 1;
+    }
+
+    &.is-slideVisible {
+        visibility: visible;
+    }
+
+    &.center .title {
+        opacity: 1;
+    }
+}
