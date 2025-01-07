@@ -157,6 +157,7 @@
                 <div class="justify-center">
                     <div class="vertical-zoom-box" default-height="50vh">
                         <div class="pythagoras-container">
+
                             <div class="summary-box">
                                 <button class="button" onclick="scrollToSection('shokai')" data-block-object="2.5">
                                     <img src="figs/intro.png" alt="自己紹介アイコン" class="button-icon z2s">
@@ -166,7 +167,7 @@
                                     </span>
                                 </button>
                             </div>
-    
+
                             <div class="summary-box">
                                 <button class="button" onclick="scrollToSection('apipo')" data-block-object="2.5">
                                     <img src="figs/appeal.png" alt="アピポアイコン" class="button-icon z2s">
@@ -176,7 +177,7 @@
                                     </div>
                                 </button>
                             </div>
-    
+
                             <div class="summary-box">
                                 <button class="button" onclick="scrollToSection('skill')" data-block-object="2.5">
                                     <img src="figs/language.png" alt="扱った言語アイコン" class="button-icon z2s">
@@ -186,36 +187,17 @@
                                     </span>
                                 </button>
                             </div>
-    
+
                             <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('shooting')" data-block-object="2.5">
+                                <button class="button" onclick="scrollToSection('works')" data-block-object="2.5">
                                     <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
                                     <span class="button-text z2s">
                                         <div class="text-sub"> 制作物 </div>
-                                        <div class="text-main"> WORK 1 </div>
+                                        <div class="text-main"> WORKS </div>
                                     </span>
                                 </button>
                             </div>
-    
-                            <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('kenkyu')" data-block-object="2.5">
-                                    <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
-                                    <span class="button-text z2s">
-                                        <div class="text-sub"> 制作物 </div>
-                                        <div class="text-main"> WORK 2 </div>
-                                    </span>
-                                </button>
-                            </div>
-    
-                            <div class="summary-box">
-                                <button class="button" onclick="scrollToSection('heyakowashi')" data-block-object="2.5">
-                                    <img src="figs/product.png" alt="作品アイコン" class="button-icon z2s">
-                                    <span class="button-text z2s">
-                                        <div class="text-sub"> 制作物 </div>
-                                        <div class="text-main"> WORK 3 </div>
-                                    </span>
-                                </button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -574,50 +556,81 @@
                     </div>
                 </div>
             </div>
-
-            <div class="slider-container" id="slider1">
-                <div class="main-display">
-                    <div class="media">
-                        <img src="figs/icon-c-sharp.png" alt="Slide 1">
-                        <div class="details">詳細テキスト 1</div>
-                    </div>
-                    <div class="media">
-                        <img src="figs/icon-python.png" alt="Slide 2">
-                        <div class="details">詳細テキスト 2</div>
-                    </div>
-                    <div class="media">
-                        <img src="figs/icon-java.png" alt="Slide 3">
-                        <div class="details">詳細テキスト 3</div>
-                    </div>
-                    <div class="media">
-                        <img src="figs/icon-kotlin.png" alt="Slide 3">
-                        <div class="details">詳細テキスト 4</div>
-                    </div>
-                </div>
-                <div class="slider">
-                    <div class="side-space"></div>
-                    <div class="display-point">
-                        <div class="slide">
-                            <div class="img-container"><img src="figs/icon-c-sharp.png" alt="Slide 1"></div>
-                            <div class="title">詳細テキスト 1</div>
-                        </div>
-                        <div class="slide">
-                            <div class="img-container"><img src="figs/icon-python.png" alt="Slide 2"></div>
-                            <div class="title">詳細テキスト 2</div>
-                        </div>
-                        <div class="slide">
-                            <div class="img-container"><img src="figs/icon-java.png" alt="Slide 3"></div>
-                            <div class="title">詳細テキスト 3</div>
-                        </div>
-                        <div class="slide">
-                            <div class="img-container"><img src="figs/icon-kotlin.png" alt="Slide 3"></div>
-                            <div class="title">詳細テキスト 4</div>
-                        </div>
-                    </div>
-                    <div class="side-space"></div>
+            <!-- カット -->
+            <div class="whiteboad">
+                <div class="cut z2s">
+                    <div class="text-sub">(クリックでリンク先へ飛べます)</div>
+                    <div class="double-underline">WORKS</div>
                 </div>
             </div>
-
+            <!-- 制作物セクション -->
+            <div class="pc-object" id="works">
+                <img class="cursor" src="figs/cursor.png" alt=" ">
+                <div class="frame">
+                    <div class="slider-container" id="slider1">
+                        <div class="main-display" data-block-object="2.5">
+                            <div class="media">
+                                <img src="figs/darts_1.1.1.png" alt="Slide 1">
+                                <div class="details">
+                                    <div class="title">酔っ払いダーツ</div>
+                                    <div class="description">
+                                        学部3年生の時に初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="figs/holo_shooting_1.1.1.png" alt="Slide 2">
+                                <div class="details" data-font-size="0.5">
+                                    <div class="title">Holo Shooting</div>
+                                    <div class="description">
+                                        学部4年生のときに，研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="figs/heyakowashi.gif" alt="Slide 3">
+                                <div class="details">
+                                    <div class="title">部屋壊しゲーム</div>
+                                    <div class="description">
+                                        修士1年のときに，研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="figs/icon-kotlin.png" alt="Slide 3">
+                                <div class="details">詳細テキスト 4</div>
+                            </div>
+                        </div>
+                        <div class="space-vertical"></div>
+                        <div class="space-vertical"></div>
+                        <div class="slider">
+                            <div class="side-space"></div>
+                            <div class="display-point">
+                                <div class="slide">
+                                    <div class="img-container"><img src="figs/darts_1.1.1.png" alt="Slide 1"></div>
+                                    <div class="title">酔っ払いダーツ</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="figs/holo_shooting_2.1.1.png" alt="Slide 2"></div>
+                                    <div class="title" data-font-size="0.3">Holo Shooting</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="figs/heyakowashi_1.1.1.png" alt="Slide 3"></div>
+                                    <div class="title">部屋壊しゲーム</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="figs/icon-kotlin.png" alt="Slide 3"></div>
+                                    <div class="title">詳細テキスト 4</div>
+                                </div>
+                            </div>
+                            <div class="side-space"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand"></div>
+                <div class="base"></div>
+            </div>
+            <!-- フッター -->
             <div class="footer">
                 <div class="social-icons">
                     <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
@@ -627,9 +640,9 @@
                         <img src="figs/mail.png" alt="E-mail" class="social-icon">
                     </a>
                 </div>
-                <p class="footer-text">
-                    <div class="s-cursive"> PORTFOLIO </div>
-                </p>
+                <div class="footer-text">
+                    <div class="s-cursive"> Portfolio </div>
+                </div>
             </div>
         </div>
     </main-scene>

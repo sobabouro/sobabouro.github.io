@@ -232,6 +232,7 @@
     padding-top: calc(var(--bar-font-size) * 0.28);
     padding-bottom: calc(var(--bar-font-size) * 0.32);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     letter-spacing: calc(var(--bar-font-size) * 0.05);
@@ -239,6 +240,18 @@
     font-family: 'Arcade-classic', 'DotGothic16', 'Josefin Sans';
     font-weight: 300;
     font-style: color var(--color-black);
+
+    .text-sub {
+        position: relative;
+        display: flex;
+        bottom: 0;
+        text-align: center;
+        color: var(--color-black);
+        font-family: "Kiwi Maru";
+        font-size: calc(var(--bar-font-size) * 0.25);
+        color: var(--color-black);
+        font-weight: 400;
+    }
 }
 
 .double-underline {

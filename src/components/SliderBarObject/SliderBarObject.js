@@ -37,18 +37,25 @@ export class SliderBarObject {
 
         const prev_button = document.createElement('button');
         prev_button.classList.add('prev-button');
-        prev_button.textContent = '←';
 
         const next_button = document.createElement('button');
         next_button.classList.add('next-button');
-        next_button.textContent = '→';
 
         // イベントリスナーを追加
         prev_button.addEventListener('click', () => {
+            prev_button.classList.add('is-clicked');
             this.previousSlide();
+            setTimeout(() => {
+                prev_button.classList.remove('is-clicked');
+            }, 1000);
         });
+
         next_button.addEventListener('click', () => {
+            next_button.classList.add('is-clicked');
             this.nextSlide();
+            setTimeout(() => {
+                next_button.classList.remove('is-clicked');
+            }, 1000);
         });
 
         slider_buttons.appendChild(prev_button);
@@ -63,11 +70,31 @@ export class SliderBarObject {
         this.setSlide();
         this.startAutoSlide();
 
-        // 'slider' にマウスがホバーしていない限り，三秒おきにスライドを切り替える
-        this.slider_container.addEventListener('mouseenter', () => {
+        // スライダーにマウスがホバーしていない限り，三秒おきにスライドを切り替える
+        this.slider_container.querySelector('.slider').addEventListener('mouseenter', () => {
+            this.slider_container.classList.add('is-hover');
             this.stopAutoSlide();
         });
-        this.slider_container.addEventListener('mouseleave', () => {
+        this.slider_container.querySelector('.slider').addEventListener('mouseleave', () => {
+            this.slider_container.classList.remove('is-hover');
+            this.startAutoSlide();
+        });
+
+        // ボタンにマウスがホバーしていない限り，三秒おきにスライドを切り替える
+        this.slider_container.querySelector('.prev-button').addEventListener('mouseenter', () => {
+            this.slider_container.classList.add('is-hover');
+            this.stopAutoSlide();
+        });
+        this.slider_container.querySelector('.prev-button').addEventListener('mouseleave', () => {
+            this.slider_container.classList.remove('is-hover');
+            this.startAutoSlide();
+        });
+        this.slider_container.querySelector('.next-button').addEventListener('mouseenter', () => {
+            this.slider_container.classList.add('is-hover');
+            this.stopAutoSlide();
+        });
+        this.slider_container.querySelector('.next-button').addEventListener('mouseleave', () => {
+            this.slider_container.classList.remove('is-hover');
             this.startAutoSlide();
         });
     }
@@ -83,8 +110,10 @@ export class SliderBarObject {
     // 自動スライドを開始
     startAutoSlide() {
         this.interval = setInterval(() => {
-            this.nextSlide();
-        }, 5000);
+            if (!this.slider_container.classList.contains('is-hover')) {
+                this.nextSlide();
+            }
+        }, 4000);
     }
 
     // 自動スライドを停止
@@ -99,7 +128,7 @@ export class SliderBarObject {
         this.slide_contents[next_slide_index].slide_object.slideAheadFromLeftToCenter();
         this.slide_contents[this.current_slide_index].slide_object.slideAheadFromCenterToRight();
         this.slide_contents[(this.current_slide_index + 1) % this.slide_contents.length].slide_object.slideOutGoAhead();
-        this.toggleMainContent(this.current_slide_index, next_index);
+        this.toggleMainContent(this.current_slide_index, next_slide_index);
         this.current_slide_index = next_slide_index;
     }
 
@@ -110,17 +139,19 @@ export class SliderBarObject {
         this.slide_contents[previous_slide_index].slide_object.slideBackFromRightToCenter();
         this.slide_contents[this.current_slide_index].slide_object.slideBackFromCenterToLeft();
         this.slide_contents[(this.current_slide_index - 1 + this.slide_contents.length) % this.slide_contents.length].slide_object.slideOutGoBack();
-        this.toggleMainContent(this.current_slide_index, previous_index);
+        this.toggleMainContent(this.current_slide_index, previous_slide_index);
         this.current_slide_index = previous_slide_index;
     }
 
     // メインコンテンツの表示を切り替える
     toggleMainContent(hidden_index, visible_index) {
-        if (this.media_contents[hidden_index].root.classList.contains('is-main')) {
-            this.media_contents[hidden_index].root.classList.remove('is-main');
-        }
-        if (!this.media_contents[visible_index].root.classList.contains('is-main')) {
-            this.media_contents[visible_index].root.classList.add('is-main');
-        }
+        setTimeout(() => {
+            if (this.media_contents[hidden_index].root.classList.contains('is-main')) {
+                this.media_contents[hidden_index].root.classList.remove('is-main');
+            }
+            if (!this.media_contents[visible_index].root.classList.contains('is-main')) {
+                this.media_contents[visible_index].root.classList.add('is-main');
+            }
+        }, 650);
     }
 }
