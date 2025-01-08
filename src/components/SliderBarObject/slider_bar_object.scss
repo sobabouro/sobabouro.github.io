@@ -197,19 +197,30 @@
                 position: absolute;
                 height: 30%;
                 width: 100%;
-                bottom: -8%;
+                bottom: 0;
                 justify-content: space-between;
 
-                .next-button {
+                button {
                     position: absolute;
+                    width: calc(var(--bar-font-size) * 1.2);
+                    aspect-ratio: 1 / 1;
+                    cursor: none;
+                    border: none;
+                    background-color: rgba(0, 0, 0, 0);
+
+                    &:focus {
+                        outline: none;
+                    }
+                
+                    &:hover {
+                        filter: brightness(1.2);
+                    }
+                }
+
+                .next-button {
                     right: calc(var(--bar-font-size) * -1.2);
-                    width: 0;
-                    height: 0;
-                    background: transparent;
-                    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-                    width: calc(var(--bar-font-size) * 0.8);
-                    height: calc(var(--bar-font-size) * 0.8);
-                    background-color: rgba(255, 0, 140, 0.87);
+                    background-image: url('../../../figs/arrow_right.png');
+                    background-size: contain;
                     transition: transform 0.3s ease;
 
                     &.is-clicked {
@@ -226,16 +237,9 @@
                 }
 
                 .prev-button {
-                    position: absolute;
                     left: calc(var(--bar-font-size) * -1.2);
-                    width: 0;
-                    height: 0;
-                    background: transparent;
-                    clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
-                    width: calc(var(--bar-font-size) * 0.8);
-                    height: calc(var(--bar-font-size) * 0.8);
-                    background-color: var(--color-hover);
-                    cursor: pointer;
+                    background-image: url('../../../figs/arrow_left.png');
+                    background-size: contain;
                     transition: transform 0.3s ease;
 
                     &.is-clicked {

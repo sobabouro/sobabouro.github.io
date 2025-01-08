@@ -648,30 +648,46 @@ main-scene.active {
 }
 
 .sky-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 50vh;
   background-color: #ebe9e6;
   overflow: hidden;
 }
-.sky-container .sky {
+.sky-container .sky-4, .sky-container .sky-3, .sky-container .sky-2, .sky-container .sky-1 {
   position: absolute;
   display: flex;
+  justify-content: space-between;
   width: 100%;
   height: auto;
-  top: 0;
+  top: calc(var(--bar-font-size) * -1.2);
   right: 0;
   left: 0;
   margin: 0 auto;
-  justify-content: space-around;
-  animation: scroll-horizon-left 20s infinite linear 0.1s both;
 }
-.sky-container .sky .cloud {
+.sky-container .sky-4 .cloud, .sky-container .sky-3 .cloud, .sky-container .sky-2 .cloud, .sky-container .sky-1 .cloud {
   position: relative;
-  display: inline-block;
+  width: auto;
+  height: calc(var(--bar-font-size) * 3);
   background-color: rgba(235, 233, 230, 0);
   background-size: contain;
   background-position: center;
 }
-.sky-container .sky .cloud img {
+.sky-container .sky-4 .cloud img, .sky-container .sky-3 .cloud img, .sky-container .sky-2 .cloud img, .sky-container .sky-1 .cloud img {
   object-fit: contain;
+}
+.sky-container .sky-4 {
+  animation: scroll-horizon-to-left 80s infinite linear 0.1s both;
+}
+.sky-container .sky-3 {
+  animation: scroll-horizon-to-left 60s infinite linear 0.1s both;
+}
+.sky-container .sky-2 {
+  animation: scroll-horizon-to-left 50s infinite linear 0.1s both;
+}
+.sky-container .sky-1 {
+  animation: scroll-horizon-to-left 30s infinite linear 0.1s both;
 }
 .sky-container .media {
   position: relative;
@@ -2006,7 +2022,7 @@ main-scene.active {
 }
 @keyframes scroll-horizon-to-left {
   from {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
   to {
     transform: translateX(-100%);
@@ -2469,19 +2485,27 @@ main-scene.active {
   position: absolute;
   height: 30%;
   width: 100%;
-  bottom: -8%;
+  bottom: 0;
   justify-content: space-between;
 }
-.pc-object .frame .slider-container .slider-buttons .next-button {
+.pc-object .frame .slider-container .slider-buttons button {
   position: absolute;
+  width: calc(var(--bar-font-size) * 1.2);
+  aspect-ratio: 1/1;
+  cursor: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+.pc-object .frame .slider-container .slider-buttons button:focus {
+  outline: none;
+}
+.pc-object .frame .slider-container .slider-buttons button:hover {
+  filter: brightness(1.2);
+}
+.pc-object .frame .slider-container .slider-buttons .next-button {
   right: calc(var(--bar-font-size) * -1.2);
-  width: 0;
-  height: 0;
-  background: transparent;
-  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-  width: calc(var(--bar-font-size) * 0.8);
-  height: calc(var(--bar-font-size) * 0.8);
-  background-color: rgba(255, 0, 140, 0.87);
+  background-image: url("../../../figs/arrow_right.png");
+  background-size: contain;
   transition: transform 0.3s ease;
 }
 .pc-object .frame .slider-container .slider-buttons .next-button.is-clicked {
@@ -2494,16 +2518,9 @@ main-scene.active {
   transform: scale(0.8);
 }
 .pc-object .frame .slider-container .slider-buttons .prev-button {
-  position: absolute;
   left: calc(var(--bar-font-size) * -1.2);
-  width: 0;
-  height: 0;
-  background: transparent;
-  clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
-  width: calc(var(--bar-font-size) * 0.8);
-  height: calc(var(--bar-font-size) * 0.8);
-  background-color: var(--color-hover);
-  cursor: pointer;
+  background-image: url("../../../figs/arrow_left.png");
+  background-size: contain;
   transition: transform 0.3s ease;
 }
 .pc-object .frame .slider-container .slider-buttons .prev-button.is-clicked {

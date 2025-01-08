@@ -145,24 +145,28 @@
 }
 
 .sky-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 50vh;
     background-color: #ebe9e6;
     overflow: hidden;
 
-    .sky {
+    .sky-4, .sky-3, .sky-2, .sky-1 {
         position: absolute;
         display: flex;
+        justify-content: space-between;
         width: 100%;
         height: auto;
-        top: 0;
+        top: calc(var(--bar-font-size) * -1.2);
         right: 0;
         left: 0;
         margin: 0 auto;
-        justify-content: space-around;
-        animation: scroll-horizon-left 20s infinite linear 0.1s both;
 
         .cloud {
             position: relative;
-            display: inline-block;
+            width: auto;
+            height: calc(var(--bar-font-size) * 3);
             background-color: #ebe9e600;
             background-size: contain;
             background-position: center;
@@ -171,6 +175,22 @@
                 object-fit: contain;
             }
         }
+    }
+
+    .sky-4 {
+        animation: scroll-horizon-to-left 80s infinite linear 0.1s both;
+    }
+
+    .sky-3 {
+        animation: scroll-horizon-to-left 60s infinite linear 0.1s both;
+    }
+
+    .sky-2 {
+        animation: scroll-horizon-to-left 50s infinite linear 0.1s both;
+    }
+
+    .sky-1 {
+        animation: scroll-horizon-to-left 30s infinite linear 0.1s both;
     }
 
     .media {
