@@ -68,14 +68,14 @@
             transition: background-color 0.3s;
             border-radius: var(--solid-line-weight);
             border: var(--solid-line-weight) solid var(--color-white);
-        }
 
-        button:focus {
-            outline: none;
-        }
+            &:hover {
+                background-color: var(--color-hover);
+            }
 
-        button:hover {
-            background-color: var(--color-hover);
+            &:focus {
+                outline: none;
+            }
         }
     }
 }
@@ -96,6 +96,10 @@
     width: calc(var(--bar-font-size) * 0.3);
     height: calc(var(--bar-font-size) * 0.3);
     border-radius: 50%;
+
+    .is-drawerActive & {
+        background: transparent;
+    }
 }
 
 .line {
@@ -126,23 +130,19 @@
     &::after {
         bottom: calc(var(--bar-font-size) * 0.1);
     }
-}
 
-.is-drawerActive .circle {
-    background: transparent;
-}
+    .is-drawerActive & {
+        background-color: transparent;
 
-.is-drawerActive .line {
-    background-color: transparent;
+        &::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
 
-    &::before {
-        top: 0;
-        transform: rotate(45deg);
-    }
-
-    &::after {
-        bottom: 0;
-        transform: rotate(-45deg);
+        &::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+        }
     }
 }
 
@@ -166,19 +166,113 @@
 
 .drawer {
     position: fixed;
+    display: flex;
     top: 0;
     right: -80vw;
     width: 80vw;
     max-width: 600px;
     height: 100%;
-    background: 
-        linear-gradient(to top, rgb(45, 22, 172) 0%, rgb(160, 247, 255) 100%);
+    padding: calc(var(--bar-font-size) * 2) calc(var(--bar-font-size) * 0.5);
+    gap: calc(var(--bar-font-size) * 0.5);
+    border: black solid var(--solid-line-weight);
+    border-radius: 15px 0 0 15px;
     color: var(--color-white);
-    display: flex;
+    background-color:var(--color-white);
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     transition: right 0.3s ease;
+    overflow-y: scroll;
     z-index: 999;
+
+    .page-top {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-family: 'Arcade-classic', 'DotGothic16';
+        font-size: calc(var(--font-size-base) * 2);
+        font-weight: bold;
+        color: var(--color-black);
+        transition: all 0.15s ease-in-out;
+
+        &:hover {
+            scale: 1.05;
+        }
+    }
+
+    .drawer-menu {
+        position: relative;
+        height: 30vh;
+        max-width: 90%;
+        gap: var(--solid-line-weight);
+        border-radius: 15px;
+        border: var(--color-black) solid var(--solid-line-weight);
+        justify-content: center;
+        transition: all 0.15s ease-in-out;
+
+        .media {
+            position: relative;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            padding: 0 calc(var(--solid-line-weight) * 2);
+            gap: var(--solid-line-weight);
+            flex-direction: row;
+            justify-content: center;
+            margin: auto;
+            background-color: rgba(255, 253, 164, 0);
+
+            img, video {
+                position: relative;
+                flex: 0;
+                width: 35%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0);
+                object-fit: scale-down;
+
+                source {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: scale-down;
+                }
+            }
+
+            .details {
+                position: relative;
+                display: flex;
+                flex: 1;
+                height: 100%;
+                width: 65%;
+                gap:calc(var(--bar-font-size) * 0.2);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .title {
+                    font-family: 'Arcade-classic', 'DotGothic16';
+                    font-size: calc(var(--font-size-base) * 1.5);
+                    font-weight: bold;
+                    color: var(--color-pink);
+                }
+
+                .description {
+                    font-family: 'Kiwi Maru';
+                    font-size: calc(var(--font-size-base) * 0.8);
+                    color: var(--color-black);
+                }
+            }
+        }
+
+        &:hover {
+            scale: 1.05;
+
+            .media {
+                img, video {
+                    filter: brightness(1.5);
+                }
+            }
+        }
+    }
 
     .is-drawerActive & {
         opacity: 1;

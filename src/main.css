@@ -56,9 +56,10 @@
   --solid-line-weight: 0;
   --color-bar: #1c286b;
   --color-hover: #0056b3;
-  --color-white: #fcfcfc;
+  --color-white: #f4f4f4;
   --color-black: #2e2e2e;
   --color-blue: #298ed16c;
+  --color-pink:rgb(255, 70, 110);
   --font-size-base: 16px;
   --overlay-height: 50%;
   --overlay-angle: 0deg;
@@ -330,13 +331,13 @@ sup {
 }
 
 a {
-  color: #e95420;
+  color: rgba(233, 86, 32, 0);
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #ac3911;
+  color: rgba(172, 56, 17, 0);
   text-decoration: underline;
 }
 
@@ -1159,7 +1160,7 @@ main-scene.active {
   align-items: center;
   border-radius: 15%;
   box-sizing: border-box;
-  background-color: #fcfcfc;
+  background-color: var(--color-white);
   background-size: contain;
   z-index: 100;
 }
@@ -1204,7 +1205,7 @@ main-scene.active {
 .footer {
   width: 100%;
   height: calc(var(--bar-font-size) * 3.5);
-  background-color: var(--color-bar);
+  background-color: var(--color-hover);
   color: white;
   text-align: center;
   padding: calc(var(--bar-font-size) * 0.5);
@@ -1573,11 +1574,11 @@ main-scene.active {
   border-radius: var(--solid-line-weight);
   border: var(--solid-line-weight) solid var(--color-white);
 }
-.popup-bar .right button:focus {
-  outline: none;
-}
 .popup-bar .right button:hover {
   background-color: var(--color-hover);
+}
+.popup-bar .right button:focus {
+  outline: none;
 }
 
 .menu-text {
@@ -1596,6 +1597,9 @@ main-scene.active {
   width: calc(var(--bar-font-size) * 0.3);
   height: calc(var(--bar-font-size) * 0.3);
   border-radius: 50%;
+}
+.is-drawerActive .circle {
+  background: transparent;
 }
 
 .line {
@@ -1623,11 +1627,6 @@ main-scene.active {
 .line::after {
   bottom: calc(var(--bar-font-size) * 0.1);
 }
-
-.is-drawerActive .circle {
-  background: transparent;
-}
-
 .is-drawerActive .line {
   background-color: transparent;
 }
@@ -1659,18 +1658,100 @@ main-scene.active {
 
 .drawer {
   position: fixed;
+  display: flex;
   top: 0;
   right: -80vw;
   width: 80vw;
   max-width: 600px;
   height: 100%;
-  background: linear-gradient(to top, rgb(45, 22, 172) 0%, rgb(160, 247, 255) 100%);
+  padding: calc(var(--bar-font-size) * 2) calc(var(--bar-font-size) * 0.5);
+  gap: calc(var(--bar-font-size) * 0.5);
+  border: black solid var(--solid-line-weight);
+  border-radius: 15px 0 0 15px;
   color: var(--color-white);
+  background-color: var(--color-white);
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  transition: right 0.3s ease;
+  overflow-y: scroll;
+  z-index: 999;
+}
+.drawer .page-top {
+  width: 100%;
   display: flex;
+  justify-content: center;
+  font-family: "Arcade-classic", "DotGothic16";
+  font-size: calc(var(--font-size-base) * 2);
+  font-weight: bold;
+  color: var(--color-black);
+  transition: all 0.15s ease-in-out;
+}
+.drawer .page-top:hover {
+  scale: 1.05;
+}
+.drawer .drawer-menu {
+  position: relative;
+  height: 30vh;
+  max-width: 90%;
+  gap: var(--solid-line-weight);
+  border-radius: 15px;
+  border: var(--color-black) solid var(--solid-line-weight);
+  justify-content: center;
+  transition: all 0.15s ease-in-out;
+}
+.drawer .drawer-menu .media {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 0 calc(var(--solid-line-weight) * 2);
+  gap: var(--solid-line-weight);
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  background-color: rgba(255, 253, 164, 0);
+}
+.drawer .drawer-menu .media img, .drawer .drawer-menu .media video {
+  position: relative;
+  flex: 0;
+  width: 35%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  object-fit: scale-down;
+}
+.drawer .drawer-menu .media img source, .drawer .drawer-menu .media video source {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+.drawer .drawer-menu .media .details {
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  width: 65%;
+  gap: calc(var(--bar-font-size) * 0.2);
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: right 0.3s ease;
-  z-index: 999;
+}
+.drawer .drawer-menu .media .details .title {
+  font-family: "Arcade-classic", "DotGothic16";
+  font-size: calc(var(--font-size-base) * 1.5);
+  font-weight: bold;
+  color: var(--color-pink);
+}
+.drawer .drawer-menu .media .details .description {
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 0.8);
+  color: var(--color-black);
+}
+.drawer .drawer-menu:hover {
+  scale: 1.05;
+}
+.drawer .drawer-menu:hover .media img, .drawer .drawer-menu:hover .media video {
+  filter: brightness(1.5);
 }
 .is-drawerActive .drawer {
   opacity: 1;
@@ -2289,7 +2370,7 @@ main-scene.active {
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
   width: calc(var(--bar-font-size) * 0.8);
   height: calc(var(--bar-font-size) * 0.8);
-  background-color: rgba(255, 0, 98, 0.87);
+  background-color: rgba(255, 0, 140, 0.87);
   transition: transform 0.3s ease;
 }
 .pc-object .frame .slider-container .slider-buttons .next-button.is-clicked {
@@ -2310,7 +2391,7 @@ main-scene.active {
   clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
   width: calc(var(--bar-font-size) * 0.8);
   height: calc(var(--bar-font-size) * 0.8);
-  background-color: rgba(0, 119, 255, 0.87);
+  background-color: var(--color-hover);
   cursor: pointer;
   transition: transform 0.3s ease;
 }

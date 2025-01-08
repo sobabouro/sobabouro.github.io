@@ -38,7 +38,7 @@
     }
 </style>
 
-<body>
+<body onload="openMainPage()">
     <start-scene>
         <div class="container-centeredness">
             <div class="container-vertical">
@@ -71,11 +71,74 @@
 
         <div class="backdrop" style="z-index: 2001;"></div>
         <div class="drawer" style="z-index: 2002;">
-            <ul>
-                <li><a href="#section1">Section 1</a></li>
-                <li><a href="#section2">Section 2</a></li>
-                <li><a href="#section3">Section 3</a></li>
-            </ul>
+            <a href="index.html" class="page-top">
+                MAIN PAGE
+            </a>
+            <a href="work_darts.html" class="container-left">
+                <div class="drawer-menu">
+                    <div class="media">
+                        <img src="../figs/darts.gif" alt="Slide 1">
+                        <div class="details">
+                            <div class="title">酔っ払いダーツ</div>
+                            <div class="description">
+                                初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="work_holo_shooting.html" class="container-right">
+                <div class="drawer-menu">
+                    <div class="media">
+                        <div class="details" data-font-size="0.5">
+                            <div class="title">Holo Shooting</div>
+                            <div class="description">
+                                研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
+                            </div>
+                        </div>
+                        <img src="../figs/holo_shooting.gif" alt="Slide 2">
+                    </div>
+                </div>
+            </a>
+            <a href="work_3d_born.html" class="container-left">
+                <div class="drawer-menu">
+                    <div class="media">
+                        <img src="../figs/3d_born.gif" alt="Slide 3">
+                        <div class="details">
+                            <div class="title">学部卒業研究</div>
+                            <div class="description">
+                                「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="work_heyakowashi.html" class="container-right">
+                <div class="drawer-menu">
+                    <div class="media">
+                        <div class="details">
+                            <div class="title">部屋壊しゲーム</div>
+                            <div class="description">
+                                研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
+                            </div>
+                        </div>
+                        <img src="../figs/heyakowashi.gif" alt="Slide 4">
+                    </div>
+                </div>
+            </a>
+            <a href="work_letus_letters.html" class="container-left">
+                <div class="drawer-menu">
+                    <div class="media">
+                        <img src="../figs/title.gif" alt="Slide 5">
+                        <div class="details">
+                            <div class="title">Let us, Letters</div>
+                            <div class="description">
+                                portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
 
         <div class="popup-bar" id="popupBar">
@@ -212,7 +275,7 @@
             <div class="plate" id="shokai">
                 <div class="image-container" aspect="710x973">
                     <svg class="wave-svg wave-container z01" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                        <path class="wave-path" d="" fill="#fcfcfc"></path>
+                        <path class="wave-path" d="" fill="#f4f4f4"></path>
                     </svg>
                     <div class="empty">
                         <img src="../figs/self1.png" alt="自己紹介" class="background-image z02">                         
@@ -402,7 +465,7 @@
 
                 <div class="container-vertical ">
                     <svg class="wave-svg reverse-wave-container z01" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                        <path class="wave-path" d="" fill="#fcfcfc"></path>
+                        <path class="wave-path" d="" fill="#f4f4f4"></path>
                     </svg>
                 </div>
             </div>

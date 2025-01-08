@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>portfolio</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../src/main.css">
+</head>
+
+<style>
+    body {
+        position: absolute;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        background-image: url('../../figs/universe.png');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        cursor: none;
+        overflow-x: hidden;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+
+        .no-scroll {
+            overflow: hidden;
+        }
+    }
+
+    body.fade-in {
+            opacity: 1;
+        }
+
+    * {
+        box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
+        /* outline: 1px solid red; */
+    }
+</style>
+
+<body onload="openSubPage()">
+    <div class="mouse-overlay"></div>
+
+    <div class="backdrop" style="z-index: 2001;"></div>
+    <div class="drawer" style="z-index: 2002;">
+        <a href="index.html" class="page-top">
+            MAIN PAGE
+        </a>
+        <a href="work_darts.html" class="container-left">
+            <div class="drawer-menu">
+                <div class="media">
+                    <img src="../figs/darts.gif" alt="Slide 1">
+                    <div class="details">
+                        <div class="title">酔っ払いダーツ</div>
+                        <div class="description">
+                            初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="work_holo_shooting.html" class="container-right">
+            <div class="drawer-menu">
+                <div class="media">
+                    <div class="details" data-font-size="0.5">
+                        <div class="title">Holo Shooting</div>
+                        <div class="description">
+                            研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
+                        </div>
+                    </div>
+                    <img src="../figs/holo_shooting.gif" alt="Slide 2">
+                </div>
+            </div>
+        </a>
+        <a href="work_3d_born.html" class="container-left">
+            <div class="drawer-menu">
+                <div class="media">
+                    <img src="../figs/3d_born.gif" alt="Slide 3">
+                    <div class="details">
+                        <div class="title">学部卒業研究</div>
+                        <div class="description">
+                            「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="work_heyakowashi.html" class="container-right">
+            <div class="drawer-menu">
+                <div class="media">
+                    <div class="details">
+                        <div class="title">部屋壊しゲーム</div>
+                        <div class="description">
+                            研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
+                        </div>
+                    </div>
+                    <img src="../figs/heyakowashi.gif" alt="Slide 4">
+                </div>
+            </div>
+        </a>
+        <a href="work_letus_letters.html" class="container-left">
+            <div class="drawer-menu">
+                <div class="media">
+                    <img src="../figs/title.gif" alt="Slide 5">
+                    <div class="details">
+                        <div class="title">Let us, Letters</div>
+                        <div class="description">
+                            portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="popup-bar" id="popupBar">
+        <div class="left z20s">
+            <div class="health-container">
+                <div class="game-over">
+                    <div class="container">
+                        <div class="sentence" data-font-size="2">
+                            <div class="dot-game" style="color: #ff1f1f;">
+                                GAME OVER
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <button id="scrollTopButton">
+                <span>PAGE TOP</span>
+            </button>
+            <button id="menuButton" aria-expanded="false">
+                <div class="circle">
+                    <div class="line"></div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="game-field z1h">
+        <div class="segment" id="segmentA"></div>
+        <div class="segment" id="segmentB"></div>
+        <div class="segment" id="segmentC"></div>
+        <div class="ground" data-block-object="1"></div>
+    </div>
+
+    <div class="content">
+        <!-- カット -->
+        <div class="whiteboad">
+            <div class="cut z2s">
+                <div class="double-underline"> SUMMARY </div>
+            </div>
+        </div>
+        <!-- ジャンプボタン -->
+        <div class="plate">
+            <div class="justify-center">
+                <div class="vertical-zoom-box" default-height="50vh">
+                    <div class="pythagoras-container">
+
+                        <div class="summary-box">
+                            <button class="button" onclick="scrollToSection('intro')" data-block-object="2.5">
+                                <img src="../figs/intro.png" alt="" class="button-icon z2s">
+                                <span class="button-text z2s">
+                                    <div class="text-sub"> 概要 </div>
+                                    <div class="text-main"> INTRO </div>
+                                </span>
+                            </button>
+                        </div>
+
+                        <div class="summary-box">
+                            <button class="button" onclick="scrollToSection('effort')" data-block-object="2.5">
+                                <img src="../figs/appeal.png" alt="" class="button-icon z2s">
+                                <div class="button-text z2s">
+                                    <div class="text-sub"> アピールポイント </div>
+                                    <div class="text-main"> EFFORT </div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="summary-box">
+                            <button class="button" onclick="scrollToSection('detail')" data-block-object="2.5">
+                                <img src="../figs/product.png" alt="" class="button-icon z2s">
+                                <span class="button-text z2s">
+                                    <div class="text-sub"> 詳細 </div>
+                                    <div class="text-main"> DETAIL </div>
+                                </span>
+                            </button>
+                        </div>
+
+                        <div class="summary-box">
+                            <button class="button" onclick="scrollToSection('github')" data-block-object="2.5">
+                                <img src="../figs/language.png" alt="" class="button-icon z2s">
+                                <span class="button-text z2s">
+                                    <div class="text-sub"> GitHub </div>
+                                    <div class="text-main"> GIT HUB </div>
+                                </span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- カット -->
+        <div class="whiteboad">
+            <div class="cut z2s">
+                <div class="double-underline"> CONTENT </div>
+            </div>
+        </div>
+        <!-- フッター -->
+        <div class="footer">
+            <div class="social-icons">
+                <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
+                    <img src="../figs/google.png" alt="Google" class="social-icon">
+                </a>
+                <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
+                    <img src="../figs/mail.png" alt="E-mail" class="social-icon">
+                </a>
+            </div>
+            <div class="footer-text">
+                <div class="s-cursive"> Portfolio </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../src/main.js"></script>
+</body>
+
+</html>

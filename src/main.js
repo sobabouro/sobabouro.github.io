@@ -2,50 +2,8 @@ import { FallingObject } from "./components/FallingObject/FallingObject.js";
 import { HealthParameterObject } from "./components/HealthParameterObject/HealthParameterObject.js";
 import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js";
 
-// 画面ロードイベント時にもろもろ実行する
-(function () {
-    function changeScene() {
-        const startScene = document.querySelector("start-scene");
-        const mainScene = document.querySelector("main-scene");
-
-        document.documentElement.classList.add("no-scroll");
-        document.body.classList.add("no-scroll");
-
-        // ページがロードされた後にスタートシーンをフェードイン
-        setTimeout(() => {
-            startScene.classList.add("fade-in");
-
-            // スタートシーン生存時間
-            setTimeout(() => {
-                // スタートシーンをフェードアウト
-                startScene.classList.add("fade-out");
-
-                // メインシーンをフェードイン
-                setTimeout(() => {
-                    startScene.style.display = "none";
-                    document.documentElement.classList.remove("no-scroll");
-                    document.body.classList.remove("no-scroll");
-
-                    window.scrollTo(0, 0);
-                    mainScene.classList.add("active");
-                }, 1000);
-            }, 2000);
-        }, 500);
-    }
-
-    function initialize() {
-        changeScene();
-    }
-
-    window.addEventListener("load", initialize);
-})();
-
 // ロードイベント後 DOM が生成されてからもろもろ実行する
 (function () {
-    // スライダーバーを生成
-    const sliderBarObject = new SliderBarObject('slider1');
-    sliderBarObject.initSlideContainer();
-
     // カーソルを作成する関数
     function makeCursor() {
         // カーソル要素を取得
@@ -473,6 +431,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 (function () {
     let timer = null;
 
+    // ウィンドウのリサイズイベントを監視
     function updateZoomFactor() {
         // ブラウザの倍率を取得
         let zoomFactor = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
@@ -796,8 +755,9 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 (function () {
     // メニューボタン
     const menuButton = document.getElementById('menuButton');
-    const menuText = menuButton.querySelector('.menu-text');
+    // const menuText = menuButton.querySelector('.menu-text');
     const backdrop = document.querySelector('.backdrop');
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
     menuButton.addEventListener('click', () => {
         const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
@@ -805,6 +765,8 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 
         // 親要素のHTMLタグに `is-drawerActive` クラスをトグル
         document.documentElement.classList.toggle('is-drawerActive');
+        document.body.style.overflowY = isExpanded ? 'auto' : 'hidden';
+        document.body.style.paddingRight = isExpanded ? '0' : `${scrollbarWidth}px`;
 
         // テキストの切り替え
         // menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
@@ -815,7 +777,9 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         // 親要素からクラスを削除
         document.documentElement.classList.remove('is-drawerActive');
         menuButton.setAttribute('aria-expanded', 'false');
-        menuText.textContent = 'MENU';
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0';
+        // menuText.textContent = 'MENU';
     });
 
     // トップへ戻るボタンのクリックイベント
@@ -842,6 +806,7 @@ function scrollToSection(sectionId) {
     }
 }
 
+// icon フォルダ オブジェクトのアニメーション
 function animatedElement(sectionId) {
     const section = document.getElementById(sectionId);
     const backPlate = section.closest('.back-plate');
@@ -863,5 +828,51 @@ function animatedElement(sectionId) {
     }
 }
 
+// シーン遷移
+function openMainPage() {
+    const startScene = document.querySelector("start-scene");
+    const mainScene = document.querySelector("main-scene");
+
+    document.documentElement.classList.add("no-scroll");
+    document.body.classList.add("no-scroll");
+
+    // ページがロードされた後にスタートシーンをフェードイン
+    setTimeout(() => {
+        startScene.classList.add("fade-in");
+
+        // スタートシーン生存時間
+        setTimeout(() => {
+            // スタートシーンをフェードアウト
+            startScene.classList.add("fade-out");
+
+            // メインシーンをフェードイン
+            setTimeout(() => {
+                startScene.style.display = "none";
+                document.documentElement.classList.remove("no-scroll");
+                document.body.classList.remove("no-scroll");
+
+                window.scrollTo(0, 0);
+                mainScene.classList.add("active");
+                
+                // スライダーバーを生成
+                const sliderBarObject = new SliderBarObject('slider1');
+                sliderBarObject.initSlideContainer();
+            }, 1000);
+        }, 2000);
+    }, 500);
+}
+
+// シーン遷移
+function openSubPage() {
+    document.documentElement.classList.remove("no-scroll");
+    document.body.classList.remove("no-scroll");
+    document.body.style.overflowY = "auto";
+    setTimeout(() => {
+        document.body.classList.add("fade-in");
+    }, 100);
+}
+
 window.scrollToSection = scrollToSection;
 window.animatedElement = animatedElement;
+window.openMainPage = openMainPage;
+window.openSubPage = openSubPage;
