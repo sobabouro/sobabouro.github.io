@@ -502,7 +502,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         const maxWidth = window.innerWidth; // ビューポートの幅
         const minWidth = 320; // フォントサイズを調整し始める最小幅
         const minFontSize = 10; // 最小フォントサイズ
-        const maxFontSize = 30; // 最大フォントサイズ
+        const maxFontSize = 70; // 最大フォントサイズ
         const scaleFactor = 0.03125; // 増加率を調整する係数
 
         // ビューポート幅が400px以上であればフォントサイズを増加させる
@@ -515,6 +515,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 
         // フォントサイズを設定
         document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
+        console.log(calculatedFontSize);
 
         document.querySelectorAll('.sentence').forEach((el) => {
             const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));

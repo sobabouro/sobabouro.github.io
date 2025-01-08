@@ -29,6 +29,7 @@
 
     .footer-text {
         font-size: var(--bar-font-size);
+        letter-spacing: calc(var(--bar-font-size) * -0.3);
         margin: calc(var(--bar-font-size) * 0.5) 0;
     }
 }

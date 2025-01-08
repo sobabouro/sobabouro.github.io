@@ -1224,6 +1224,7 @@ main-scene.active {
 }
 .footer .footer-text {
   font-size: var(--bar-font-size);
+  letter-spacing: calc(var(--bar-font-size) * -0.3);
   margin: calc(var(--bar-font-size) * 0.5) 0;
 }
 
@@ -2079,7 +2080,7 @@ main-scene.active {
   justify-content: space-around;
   background-color: rgba(0, 0, 0, 0);
   color: var(--color-white);
-  font-family: "Arcade-classic", "DotGothic16";
+  font-family: "Kiwi Maru", "Arcade-classic", "DotGothic16";
   font-size: calc(var(--bar-font-size) * 0.2);
   font-weight: bold;
   opacity: 0;
@@ -2105,7 +2106,7 @@ main-scene.active {
   flex-direction: column;
   overflow: visible;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   padding: var(--bar-font-size);
   box-sizing: border-box;
   justify-content: center;
@@ -2238,13 +2239,13 @@ main-scene.active {
 }
 .pc-object .frame .slider-container .main-display .media .details .title {
   font-family: "Arcade-classic", "DotGothic16";
-  font-size: calc(var(--bar-font-size) * 0.4);
+  font-size: calc(var(--font-size-base) * 1);
   font-weight: bold;
   color: var(--color-black);
 }
 .pc-object .frame .slider-container .main-display .media .details .description {
   font-family: "Kiwi Maru";
-  font-size: calc(var(--bar-font-size) * 0.3);
+  font-size: calc(var(--font-size-base) * 0.8);
   color: var(--color-white);
 }
 .pc-object .frame .slider-container .main-display .media.is-main {

@@ -122,7 +122,7 @@ export class SliderBarObject {
     }
 
     // 右にスライド
-    nextSlide() {
+    previousSlide() {
         const next_slide_index = (this.current_slide_index - 1 + this.slide_contents.length) % this.slide_contents.length;
         this.slide_contents[(this.current_slide_index - 2 + this.slide_contents.length) % this.slide_contents.length].slide_object.slideInToLeftPosition();
         this.slide_contents[next_slide_index].slide_object.slideAheadFromLeftToCenter();
@@ -133,7 +133,7 @@ export class SliderBarObject {
     }
 
     // 左にスライド
-    previousSlide() {
+    nextSlide() {
         const previous_slide_index = (this.current_slide_index + 1) % this.slide_contents.length;
         this.slide_contents[(this.current_slide_index + 2) % this.slide_contents.length].slide_object.slideInToRightPosition();
         this.slide_contents[previous_slide_index].slide_object.slideBackFromRightToCenter();

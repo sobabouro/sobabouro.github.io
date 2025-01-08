@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>portfolio</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../src/main.css">
+</head>
+
+<style>
+    body {
+        position: absolute;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        background-image: url('../../figs/universe.png');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        cursor: none;
+        overflow-x: hidden;
+        z-index: -1;
+
+        .no-scroll {
+            overflow: hidden;
+        }
+    }
+
+    * {
+        box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
+        /* outline: 1px solid red; */
+    }
+</style>
+
+<body>
+    <start-scene>
+        <div class="container-centeredness">
+            <div class="container-vertical">
+                <div class="justify-center">
+                    <div class="sentence" data-font-size="5">
+                        <div class="dot-game" style="color: #fcfcfc;">
+                            Thank you
+                        </div>
+                    </div>
+                </div>
+                <div class="justify-center">
+                    <div class="sentence" data-font-size="5">
+                        <div class="dot-game" style="color: #fcfcfc;">
+                            for
+                        </div>
+                    </div>
+                </div>
+                <div class="justify-center">
+                    <div class="sentence" data-font-size="5">
+                        <div class="dot-game" style="color: #fcfcfc;">
+                            visiting
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </start-scene>
+    <main-scene>
+        <div class="mouse-overlay"></div>
+
+        <div class="backdrop" style="z-index: 2001;"></div>
+        <div class="drawer" style="z-index: 2002;">
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+                <li><a href="#section3">Section 3</a></li>
+            </ul>
+        </div>
+
+        <div class="popup-bar" id="popupBar">
+            <div class="left z20s">
+                <div class="health-container">
+                    <div class="game-over">
+                        <div class="container">
+                            <div class="sentence" data-font-size="2">
+                                <div class="dot-game" style="color: #ff1f1f;">
+                                    GAME OVER
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <button id="scrollTopButton">
+                    <span>PAGE TOP</span>
+                </button>
+                <button id="menuButton" aria-expanded="false">
+                    <div class="circle">
+                        <div class="line"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="game-field z1h">
+            <div class="segment" id="segmentA"></div>
+            <div class="segment" id="segmentB"></div>
+            <div class="segment" id="segmentC"></div>
+            <div class="ground" data-block-object="1"></div>
+        </div>
+
+        <div class="content" id="topPage">
+            <!-- ページトップの動画 -->
+            <div class="whiteboad">
+                <div class="video-container">
+                    <video autoplay muted loop class="background-video">
+                        <source src="../videos/portfolio.mp4" type="video/mp4">
+                        ブラウザがサポートしていません．
+                    </video>
+                    <div class="overlay">
+                        <div class="flushleft">
+                            <div class="sentence" data-font-size="4">
+                                <div class="s-cursive" style="letter-spacing: -0.22em;">
+                                    <div class="right-fade-text z2s" data-delay-time="500">
+                                        PORTFOLIO
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sentence">
+                                <div class="s-standard">
+                                    <div class="top-in z2s" data-delay-time="1500">
+                                        Shota Onotsuka
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sentence" data-font-size="0.8">
+                                <div class="s-standard">
+                                    <div class="top-in z2s" data-delay-time="2000">
+                                        Guraduate School of Informatics, Gunma University
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- カット -->
+            <div class="whiteboad">
+                <div class="cut z2s">
+                    <div class="double-underline"> SUMMARY </div>
+                </div>
+            </div>
+            <!-- ジャンプボタン -->
+            <div class="plate">
+                <div class="justify-center">
+                    <div class="vertical-zoom-box" default-height="50vh">
+                        <div class="pythagoras-container">
+
+                            <div class="summary-box">
+                                <button class="button" onclick="scrollToSection('shokai')" data-block-object="2.5">
+                                    <img src="../figs/intro.png" alt="自己紹介アイコン" class="button-icon z2s">
+                                    <span class="button-text z2s">
+                                        <div class="text-sub"> 自己紹介 </div>
+                                        <div class="text-main"> INTRO </div>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="summary-box">
+                                <button class="button" onclick="scrollToSection('apipo')" data-block-object="2.5">
+                                    <img src="../figs/appeal.png" alt="アピポアイコン" class="button-icon z2s">
+                                    <div class="button-text z2s">
+                                        <div class="text-sub"> アピールポイント </div>
+                                        <div class="text-main"> STRENGTH </div>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <div class="summary-box">
+                                <button class="button" onclick="scrollToSection('skill')" data-block-object="2.5">
+                                    <img src="../figs/language.png" alt="扱った言語アイコン" class="button-icon z2s">
+                                    <span class="button-text z2s">
+                                        <div class="text-sub"> 言語＆技術 </div>
+                                        <div class="text-main"> SKILL </div>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="summary-box">
+                                <button class="button" onclick="scrollToSection('works')" data-block-object="2.5">
+                                    <img src="../figs/product.png" alt="作品アイコン" class="button-icon z2s">
+                                    <span class="button-text z2s">
+                                        <div class="text-sub"> 制作物 </div>
+                                        <div class="text-main"> WORKS </div>
+                                    </span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- カット -->
+            <div class="whiteboad">
+                <div class="cut z2s">
+                    <div class="double-underline"> CONTENT </div>
+                </div>
+            </div>
+            <!-- 自己紹介セクション -->
+            <div class="plate" id="shokai">
+                <div class="image-container" aspect="710x973">
+                    <svg class="wave-svg wave-container z01" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path class="wave-path" d="" fill="#fcfcfc"></path>
+                    </svg>
+                    <div class="empty">
+                        <img src="../figs/self1.png" alt="自己紹介" class="background-image z02">                         
+                        <div class="overlay-half z2s" data-height="0.6" data-width="0.6" data-top="0.42" data-angle="-1.5deg" data-block-object="1">
+                            <div class="flush-center">
+
+                                <div class="s-japanese" style="color: black; font-weight: bold;">
+                                    小野塚 昇大（おのつか しょうた）
+                                </div>
+                                <div class="s-japanese" style="color: black;">
+                                    <div class="column-box-frame">
+                                        <item>2001年 5月 9日 生まれ</item>
+                                        <item>趣味:FPSゲーム、制作</item>
+                                        <item>資格:普通自動車免許、茶道裏千家初級許状</item>
+                                    </div>
+                                </div>
+    
+                                <div class="s-japanese" style="color: black; font-weight: bold;">
+                                    エピソード
+                                </div>
+                                <div class="s-japanese" style="color: black;">
+                                    <div class="column-box-frame">
+                                        <item>幼少期には段ボールや端材が身近に多く、工作をよくやっていました。</item>
+                                        <item>図工や習字が得意で、展覧会に進出してました！</item>
+                                        <item>トランスフォーマーの変形玩具を、LEGOで完全再現して遊んだりしていました。</item>
+                                        <item>百貨店のフリースペースでコンセントを取り合いながら、友達と3DSでローカル通信プレイするのが好きでした。</item>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- アピールポイントセクション -->
+            <div class="container-vertical" id="apipo">
+                <div class="whiteboad">
+                    <div class="container">
+                        <div class="col z2s">
+                            <div class="margin-box" size="medium">
+                                <div class="container-vertical">
+                                    <div class="flush-center" >
+                                        <img src="../figs/moji2.png" alt="筆" style="width: 60%;" data-block-object="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-box" size="medium">
+                                <div class="container-vertical">
+                                    <div class="flush-center" >
+                                        <img src="../figs/moji4.png" alt="筆" style="width: 40%;" data-block-object="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-box" size="medium">
+                                <div class="container-vertical">
+                                    <div class="flush-center" >
+                                        <img src="../figs/moji1.png" alt="筆" style="width: 60%;" data-block-object="1">
+                                    </div>
+                                    <div class="space-vertical"></div>
+                                    <div class="space-vertical"></div>
+                                    <div class="space-vertical"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 z2s">
+                            <div class="container">
+                                <div class="justify-center">
+                                    <div class="space-vertical">
+                                        <div class="vertical">
+                                            <div class="sentence" style="color: black;">
+                                                <div class="kaisei-opti" style="font-weight: bold;">
+                                                    <div class="no-break">　とにかく<br>「つくること」<br>「工夫すること」<br>　が大好き</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-vertical" style="line-height: 2;">
+                                <div class="sentence" data-font-size="0.8" style="color: black;">
+                                    <div class="kiwi-maru">
+                                        好奇心
+                                    </div>
+                                </div>
+                                <div class="sentence" data-font-size="0.6" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>新しい技術・知識・体験に，常に興味を持ち続けています．</item>
+                                            <item>なんでも触れてみることで，新しい価値を発見することができると考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="sentence" data-font-size="0.8" style="color: black;">
+                                    <div class="kiwi-maru">
+                                        完遂力
+                                    </div>
+                                </div>
+                                <div class="sentence" data-font-size="0.6" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>一度取り組んだことは，最後までやり遂げます．</item>
+                                            <item>課題に対する解決力や，達成感を得られると考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="sentence" data-font-size="0.8" style="color: black;">
+                                    <div class="kiwi-maru">
+                                        応用力
+                                    </div>
+                                </div>
+                                <div class="sentence" data-font-size="0.6" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>インプットアウトプットを大切にしています．</item>
+                                            <item>仕事をするにも，遊ぶにも，コミュニケーションにおいても，この力が最も大切であると考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="sentence" data-font-size="0.8" style="color: black;">
+                                    <div class="kiwi-maru">
+                                        集中力
+                                    </div>
+                                </div>
+                                <div class="sentence" data-font-size="0.6" style="color: black;">
+                                    <div class="zen-kurenaido">
+                                        <div class="column-box">
+                                            <item>気づいたら夜になる程，何かに夢中になれます．</item>
+                                            <item>完遂力が継戦能力なら，応用力は基礎攻撃力であり，集中力は攻撃頻度のようなものだと考えています．</item>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+
+                        <div class="col z2s">
+                            <div class="margin-box" size="medium">
+                                <div class="container-vertical">
+                                    <div class="space-vertical"></div>
+                                    <div class="space-vertical"></div>
+                                    <div class="space-vertical"></div>
+                                    <div class="left-side" >
+                                        <img src="../figs/self3.png" alt="自画" style="width: 70%;" data-block-object="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-box" size="medium">
+                                <div class="container-right">
+                                    <div class="left-side" >
+                                        <div class="rotate-left-5" >
+                                            <img src="../figs/self2.jpg" alt="自画" data-block-object="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-box" size="medium">
+                                <div class="container-vertical">
+                                    <div class="left-side">
+                                        <div class="rotate-right-5">
+                                            <img src="../figs/self5.jpg" alt="自画" data-block-object="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-box" size="medium">
+                                <div class="container-right">
+                                    <div class="right-side" >
+                                        <div class="rotate-right-5">
+                                            <img src="../figs/self4.jpg" alt="自画" style="width: 70%;" data-block-object="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-vertical ">
+                    <svg class="wave-svg reverse-wave-container z01" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path class="wave-path" d="" fill="#fcfcfc"></path>
+                    </svg>
+                </div>
+            </div>
+            <!-- 言語＆技術セクション -->
+            <div class="app-icon-plate" id="skill">
+                <div class="space-vertical"></div>
+                <div class="space-vertical"></div>
+                <div class="space-vertical"></div>
+                <div class="back-plate">
+                    <div class="vertical-zoom-box" default-height="50vh">
+                        <div class="title">
+                            <div class="left">  経験＆活用してきた言語やツール </div>
+                            <div class="right">
+                                <div class="button" id="minimize" onclick="animatedElement('minimize')" data-block-object="0.5">
+                                    <div class="minimize-line"></div>
+                                </div>
+                                <div class="button" id="close" onclick="animatedElement('close')" data-block-object="0.5">
+                                    <div class="close-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="padding-box">
+                            <div class="pythagoras-container">
+                                <!-- miro -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-miro.png" alt="">
+                                        <div class="text"> Miro </div>
+                                    </div>
+                                </div>
+                                <!-- github -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-github.png" alt="">
+                                        <div class="text">
+                                            GitHub
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- csharp -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-c-sharp.png" alt="">
+                                        <div class="text">
+                                            C#
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- python -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-python.png" alt="">
+                                        <div class="text">
+                                            Python
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- java -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-java.png" alt="">
+                                        <div class="text">
+                                            Java
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- javascript -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-javascript.png" alt="">
+                                        <div class="text">
+                                            JavaScript
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- R -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-R.png" alt="">
+                                        <div class="text">
+                                            R
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- kotlin -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-kotlin.png" alt="">
+                                        <div class="text">
+                                            Kotlin
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- opencv -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-opencv.png" alt="">
+                                        <div class="text">
+                                            OpenCV
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- arduino -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-arduino.png" alt="">
+                                        <div class="text">
+                                            Arduino
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- unity -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-unity.png" alt="">
+                                        <div class="text">
+                                            Unity
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- blender -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-blender.png" alt="">
+                                        <div class="text">
+                                            Blender
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- davinci -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-davinci.png" alt="">
+                                        <div class="text no-break">
+                                            DaVinci Resolve
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- gimp -->
+                                <div class="summary-box">
+                                    <div class="app-icon-box" data-block-object="1">
+                                        <img src="../figs/icon-gimp.png" alt="">
+                                        <div class="text">
+                                            GIMP
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- カット -->
+            <div class="whiteboad">
+                <div class="cut z2s">
+                    <div class="text-sub">(クリックでリンク先へ飛べます)</div>
+                    <div class="double-underline">WORKS</div>
+                </div>
+            </div>
+            <!-- 制作物セクション -->
+            <div class="pc-object" id="works">
+                <img class="cursor" src="../figs/cursor.png" alt=" ">
+                <div class="frame">
+                    <div class="slider-container" id="slider1">
+                        <div class="main-display" data-block-object="2.5">
+
+                            <div class="media">
+                                <img src="../figs/darts.gif" alt="Slide 1">
+                                <div class="details">
+                                    <div class="title">酔っ払いダーツ</div>
+                                    <div class="description">
+                                        初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="../figs/holo_shooting.gif" alt="Slide 2">
+                                <div class="details" data-font-size="0.5">
+                                    <div class="title">Holo Shooting</div>
+                                    <div class="description">
+                                        研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="../figs/3d_born.gif" alt="Slide 3">
+                                <div class="details">
+                                    <div class="title">学部卒業研究</div>
+                                    <div class="description">
+                                        「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="../figs/heyakowashi.gif" alt="Slide 4">
+                                <div class="details">
+                                    <div class="title">部屋壊しゲーム</div>
+                                    <div class="description">
+                                        研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="media">
+                                <img src="../figs/title.gif" alt="Slide 5">
+                                <div class="details">
+                                    <div class="title">Let us, Letters</div>
+                                    <div class="description">
+                                        portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="space-vertical"></div>
+                        <div class="slider">
+                            <div class="side-space"></div>
+                            <div class="display-point">
+                                <div class="slide">
+                                    <div class="img-container"><img src="../figs/darts_1.1.1.png" alt="Slide 1"></div>
+                                    <div class="title">2022 / 夏</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="../figs/holo_shooting_2.1.1.png" alt="Slide 2"></div>
+                                    <div class="title">2023 / 春~夏</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="../figs/model.PNG" alt="Slide 3"></div>
+                                    <div class="title">2023 / 秋~冬</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="../figs/heyakowashi_1.1.1.png" alt="Slide 4"></div>
+                                    <div class="title">2024 / 夏</div>
+                                </div>
+                                <div class="slide">
+                                    <div class="img-container"><img src="../figs/letus_letters.png" alt="Slide 5"></div>
+                                    <div class="title">2024 / 秋</div>
+                                </div>
+
+                            </div>
+                            <div class="side-space"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand"></div>
+                <div class="base"></div>
+            </div>
+            <!-- フッター -->
+            <div class="footer">
+                <div class="social-icons">
+                    <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
+                        <img src="../figs/google.png" alt="Google" class="social-icon">
+                    </a>
+                    <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
+                        <img src="../figs/mail.png" alt="E-mail" class="social-icon">
+                    </a>
+                </div>
+                <div class="footer-text">
+                    <div class="s-cursive"> Portfolio </div>
+                </div>
+            </div>
+        </div>
+    </main-scene>
+
+    <script type="module" src="../src/main.js"></script>
+</body>
+
+</html>

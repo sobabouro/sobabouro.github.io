@@ -9,7 +9,7 @@
     flex-direction: column;
     overflow: visible;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     padding: var(--bar-font-size);
     box-sizing: border-box;
     justify-content: center;
@@ -148,14 +148,14 @@
 
                         .title {
                             font-family: 'Arcade-classic', 'DotGothic16';
-                            font-size: calc(var(--bar-font-size) * 0.4);
+                            font-size: calc(var(--font-size-base) * 1);
                             font-weight: bold;
                             color: var(--color-black);
                         }
 
                         .description {
-                            font-family: "Kiwi Maru";
-                            font-size: calc(var(--bar-font-size) * 0.3);
+                            font-family: 'Kiwi Maru';
+                            font-size: calc(var(--font-size-base) * 0.8);
                             color: var(--color-white);
                         }
                     }
