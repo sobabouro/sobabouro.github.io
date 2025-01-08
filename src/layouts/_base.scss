@@ -56,10 +56,17 @@
     display: flex;
     position: relative;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: space-between;
     width: 100%;
     background-color: rgba(14, 77, 114, 0);
+}
+
+.gray-translucent-plate {
+    background-color: #fcfcfc59;
+}
+
+.blue-translucent-plate {
+    background-color: #429aff46;
 }
 
 .empty {
@@ -219,24 +226,38 @@
 }
 
 .image-container {
-    // position: relative;
+    position: relative;
     width: 100%;
     height: 0;
     overflow: hidden;
 }
 
+.plane-image-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
 .cut {
     position: relative;
-    background-color: rgba(0, 0, 0, 0);
-    box-sizing: border-box;
-    padding-top: calc(var(--bar-font-size) * 0.28);
-    padding-bottom: calc(var(--bar-font-size) * 0.32);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    letter-spacing: calc(var(--bar-font-size) * 0.05);
-    font-size: calc(var(--bar-font-size) * 0.7);
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0px 0px var(--solid-line-weight) rgba(0, 0, 0, 0.651);
+    box-sizing: border-box;
+    padding-top: calc(var(--bar-font-size) * 0.1);
+    padding-bottom: calc(var(--bar-font-size) * 0.2);
+    letter-spacing: var(--solid-line-weight);
+    font-size: calc(var(--bar-font-size) * 0.5);
     font-family: 'Arcade-classic', 'DotGothic16', 'Josefin Sans';
     font-weight: 300;
     font-style: color var(--color-black);

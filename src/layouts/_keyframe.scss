@@ -62,3 +62,21 @@
     0% { top: -30%; }
     100% { top: 130%; }
 }
+
+@keyframes scroll-horizon-to-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes scroll-horizon-to-right {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}

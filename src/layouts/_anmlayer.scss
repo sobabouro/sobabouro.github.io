@@ -143,3 +143,86 @@
         background-color: #00000000;
     }
 }
+
+.sky-container {
+    background-color: #ebe9e6;
+    overflow: hidden;
+
+    .sky {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        height: auto;
+        top: 0;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        justify-content: space-around;
+        animation: scroll-horizon-left 20s infinite linear 0.1s both;
+
+        .cloud {
+            position: relative;
+            display: inline-block;
+            background-color: #ebe9e600;
+            background-size: contain;
+            background-position: center;
+
+            img {
+                object-fit: contain;
+            }
+        }
+    }
+
+    .media {
+        position: relative;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        padding: 0 calc(var(--solid-line-weight) * 2);
+        gap: var(--solid-line-weight);
+        flex-direction: row;
+        justify-content: center;
+        margin: auto;
+        background-color: rgba(255, 253, 164, 0);
+
+        img, video {
+            position: relative;
+            flex: 0;
+            width: 35%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            object-fit: scale-down;
+
+            source {
+                width: 100%;
+                height: 100%;
+                object-fit: scale-down;
+            }
+        }
+
+        .details {
+            position: relative;
+            display: flex;
+            flex: 1;
+            height: 100%;
+            width: 65%;
+            gap:calc(var(--bar-font-size) * 0.2);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .title {
+                font-family: 'Arcade-classic', 'DotGothic16';
+                font-size: calc(var(--bar-font-size) * 0.5);
+                font-weight: bold;
+                color: var(--color-pink);
+            }
+
+            .description {
+                font-family: 'Kiwi Maru';
+                font-size: calc(var(--bar-font-size) * 0.3);
+                color: var(--color-black);
+            }
+        }
+    }
+}

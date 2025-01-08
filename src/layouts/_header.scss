@@ -170,7 +170,7 @@
     top: 0;
     right: -80vw;
     width: 80vw;
-    max-width: 600px;
+    max-width: 800px;
     height: 100%;
     padding: calc(var(--bar-font-size) * 2) calc(var(--bar-font-size) * 0.5);
     gap: calc(var(--bar-font-size) * 0.5);
@@ -250,14 +250,14 @@
 
                 .title {
                     font-family: 'Arcade-classic', 'DotGothic16';
-                    font-size: calc(var(--font-size-base) * 1.5);
+                    font-size: calc(var(--bar-font-size) * 0.5);
                     font-weight: bold;
                     color: var(--color-pink);
                 }
 
                 .description {
                     font-family: 'Kiwi Maru';
-                    font-size: calc(var(--font-size-base) * 0.8);
+                    font-size: calc(var(--bar-font-size) * 0.3);
                     color: var(--color-black);
                 }
             }
