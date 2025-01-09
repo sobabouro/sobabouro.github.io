@@ -55,10 +55,12 @@
   --bar-font-size: 0;
   --solid-line-weight: 0;
   --color-bar: #1c286b;
+  --color-button: #4699f85e;
   --color-hover: #0056b3;
   --color-white: #f4f4f4;
   --color-black: #2e2e2e;
-  --color-blue: #298ed16c;
+  --color-blue: #327fd6;
+  --color-yellow: #e6f371;
   --color-pink:rgb(255, 70, 110);
   --font-size-base: 16px;
   --overlay-height: 50%;
@@ -650,8 +652,12 @@ main-scene.active {
 .sky-container {
   position: relative;
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 50vh;
+  height: auto;
+  padding: calc(var(--font-size-base) * 1.5);
+  gap: calc(var(--font-size-base) * 1);
+  justify-content: center;
   background-color: #ebe9e6;
   overflow: hidden;
 }
@@ -677,6 +683,26 @@ main-scene.active {
 .sky-container .sky-4 .cloud img, .sky-container .sky-3 .cloud img, .sky-container .sky-2 .cloud img, .sky-container .sky-1 .cloud img {
   object-fit: contain;
 }
+.sky-container .sky-4 .ship-1, .sky-container .sky-4 .ship-2, .sky-container .sky-4 .ship-3, .sky-container .sky-3 .ship-1, .sky-container .sky-3 .ship-2, .sky-container .sky-3 .ship-3, .sky-container .sky-2 .ship-1, .sky-container .sky-2 .ship-2, .sky-container .sky-2 .ship-3, .sky-container .sky-1 .ship-1, .sky-container .sky-1 .ship-2, .sky-container .sky-1 .ship-3 {
+  position: relative;
+  width: auto;
+  height: calc(var(--bar-font-size) * 1);
+  background-color: rgba(235, 233, 230, 0);
+  background-size: contain;
+  background-position: center;
+}
+.sky-container .sky-4 .ship-1 img, .sky-container .sky-4 .ship-2 img, .sky-container .sky-4 .ship-3 img, .sky-container .sky-3 .ship-1 img, .sky-container .sky-3 .ship-2 img, .sky-container .sky-3 .ship-3 img, .sky-container .sky-2 .ship-1 img, .sky-container .sky-2 .ship-2 img, .sky-container .sky-2 .ship-3 img, .sky-container .sky-1 .ship-1 img, .sky-container .sky-1 .ship-2 img, .sky-container .sky-1 .ship-3 img {
+  object-fit: contain;
+}
+.sky-container .sky-4 .ship-1, .sky-container .sky-3 .ship-1, .sky-container .sky-2 .ship-1, .sky-container .sky-1 .ship-1 {
+  top: var(--bar-font-size);
+}
+.sky-container .sky-4 .ship-2, .sky-container .sky-3 .ship-2, .sky-container .sky-2 .ship-2, .sky-container .sky-1 .ship-2 {
+  top: calc(var(--bar-font-size) * 1.2);
+}
+.sky-container .sky-4 .ship-3, .sky-container .sky-3 .ship-3, .sky-container .sky-2 .ship-3, .sky-container .sky-1 .ship-3 {
+  top: calc(var(--bar-font-size) * 1.4);
+}
 .sky-container .sky-4 {
   animation: scroll-horizon-to-left 80s infinite linear 0.1s both;
 }
@@ -689,7 +715,90 @@ main-scene.active {
 .sky-container .sky-1 {
   animation: scroll-horizon-to-left 30s infinite linear 0.1s both;
 }
-.sky-container .media {
+.sky-container .text {
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 1);
+  color: var(--color-black);
+}
+.sky-container .border-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  justify-content: start;
+  text-align: start;
+  padding: calc(var(--solid-line-weight) * 2);
+  gap: calc(var(--solid-line-weight) * 2);
+  border: var(--solid-line-weight) solid var(--color-black);
+  border-radius: 10px;
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 1);
+  background-color: rgba(235, 233, 230, 0);
+  overflow: hidden;
+}
+.sky-container .border-container ul {
+  list-style-type: square;
+}
+.sky-container .border-container ul ul {
+  list-style-type: disc;
+}
+.sky-container .border-container ul li {
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 1);
+  font-weight: normal;
+  color: var(--color-black);
+}
+.sky-container .border-container li {
+  margin: var(--solid-line-weight 0);
+  font-family: "Josefin Sans";
+  font-size: calc(var(--font-size-base) * 1.1);
+  font-weight: bold;
+  color: var(--color-blue);
+}
+.sky-container .intro {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  line-height: 1.3;
+  gap: calc(var(--font-size-base) * 1);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.sky-container .intro .title {
+  position: relative;
+  height: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: "Arcade-classic", "DotGothic16";
+  font-size: calc(var(--font-size-base) * 2.5);
+  font-weight: bold;
+  color: var(--color-pink);
+}
+.sky-container .intro .description {
+  position: relative;
+  height: auto;
+  width: 100%;
+  font-family: "Kiwi Maru", "Zen Kurenaido";
+  font-size: calc(var(--font-size-base) * 1);
+  color: var(--color-black);
+}
+.sky-container .video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+  overflow: hidden;
+}
+.sky-container .effort {
   position: relative;
   display: flex;
   height: 100%;
@@ -701,7 +810,7 @@ main-scene.active {
   margin: auto;
   background-color: rgba(255, 253, 164, 0);
 }
-.sky-container .media img, .sky-container .media video {
+.sky-container .effort img, .sky-container .effort video {
   position: relative;
   flex: 0;
   width: 35%;
@@ -709,32 +818,43 @@ main-scene.active {
   background-color: rgba(0, 0, 0, 0);
   object-fit: scale-down;
 }
-.sky-container .media img source, .sky-container .media video source {
+.sky-container .effort img source, .sky-container .effort video source {
   width: 100%;
   height: 100%;
   object-fit: scale-down;
 }
-.sky-container .media .details {
+.sky-container .effort .details {
   position: relative;
   display: flex;
   flex: 1;
   height: 100%;
   width: 65%;
-  gap: calc(var(--bar-font-size) * 0.2);
+  gap: calc(var(--font-size-base) * 0.2);
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.sky-container .media .details .title {
+.sky-container .effort .details .title {
   font-family: "Arcade-classic", "DotGothic16";
-  font-size: calc(var(--bar-font-size) * 0.5);
+  font-size: calc(var(--font-size-base) * 0.5);
   font-weight: bold;
   color: var(--color-pink);
 }
-.sky-container .media .details .description {
+.sky-container .effort .details .description {
   font-family: "Kiwi Maru";
-  font-size: calc(var(--bar-font-size) * 0.3);
+  font-size: calc(var(--font-size-base) * 0.3);
   color: var(--color-black);
+}
+.sky-container .ground {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../figs/ground_1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  opacity: 0.8;
 }
 
 /**
@@ -963,6 +1083,23 @@ main-scene.active {
   overflow: hidden;
 }
 
+.plane-video-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.plane-video-container video {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.plane-video-container source {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .image-container {
   position: relative;
   width: 100%;
@@ -1105,7 +1242,7 @@ main-scene.active {
   aspect-ratio: 5/4;
   letter-spacing: 5px;
   border: none;
-  background-color: var(--color-blue);
+  background-color: var(--color-button);
   color: var(--color-white);
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -1780,7 +1917,7 @@ main-scene.active {
   border: black solid var(--solid-line-weight);
   border-radius: 15px 0 0 15px;
   color: var(--color-white);
-  background-color: var(--color-white);
+  background-color: #ebe9e6;
   flex-direction: column;
   align-items: center;
   justify-content: start;
@@ -1795,7 +1932,8 @@ main-scene.active {
   font-family: "Arcade-classic", "DotGothic16";
   font-size: calc(var(--font-size-base) * 2);
   font-weight: bold;
-  color: var(--color-black);
+  text-shadow: 0 0 2px var(--color-black);
+  color: var(--color-blue);
   transition: all 0.15s ease-in-out;
 }
 .drawer .page-top:hover {
@@ -2030,7 +2168,7 @@ main-scene.active {
 }
 @keyframes scroll-horizon-to-right {
   from {
-    transform: translateX(0);
+    transform: translateX(10%);
   }
   to {
     transform: translateX(100%);
