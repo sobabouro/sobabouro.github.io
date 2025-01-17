@@ -434,7 +434,12 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
     // ウィンドウのリサイズイベントを監視
     function updateZoomFactor() {
         // ブラウザの倍率を取得
-        let zoomFactor = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
+        let zoomFactor;
+        if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            zoomFactor = window.screen.availWidth / document.documentElement.clientWidth;
+        } else {
+            zoomFactor = window.devicePixelRatio;
+        }
         // 倍率補正
         zoomFactor = Math.floor(zoomFactor * zoomFactor * 100);
         
@@ -474,7 +479,6 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 
         // フォントサイズを設定
         document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
-        console.log(calculatedFontSize);
 
         document.querySelectorAll('.sentence').forEach((el) => {
             const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
@@ -487,7 +491,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
     // zoom-square のレイアウトを調整する
     function updateZoomBoxes() {
         const zoomFactor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--zoom-factor"));
-    
+
         // すべての .vertical-zoom-box (vbox) を処理
         document.querySelectorAll(".vertical-zoom-box").forEach((vbox) => {    
 
@@ -551,9 +555,9 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         let minAspectDiff = Infinity;
     
         // グリッドの探索
-        const sqrtN = Math.floor(Math.sqrt(boxCount));
+        const floorMag = Math.floor(Math.sqrt(boxCount));
 
-        for (let q = sqrtN; q <= boxCount; q++) {
+        for (let q = floorMag; q <= boxCount; q++) {
             const rows = isPortrait ? Math.ceil(boxCount / q) : q;
             const cols = isPortrait ? q : Math.ceil(boxCount / q);
 

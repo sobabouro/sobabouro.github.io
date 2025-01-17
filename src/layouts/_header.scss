@@ -57,7 +57,7 @@
             justify-content: center;
             height: 100%;
             width: auto;
-            background-color: rgb(0, 0, 0);
+            background-color: var(--color-black);
             color: var(--color-white);
             border: none;
             padding: 0 calc(var(--bar-font-size) * 0.2);
@@ -174,10 +174,14 @@
     height: 100%;
     padding: calc(var(--bar-font-size) * 2) calc(var(--bar-font-size) * 0.5);
     gap: calc(var(--bar-font-size) * 0.5);
-    border: black solid var(--solid-line-weight);
+    border: white solid var(--solid-line-weight);
     border-radius: 15px 0 0 15px;
     color: var(--color-white);
-    background-color: #ebe9e6;
+    background-attachment: scroll;
+    background-image: url('../../figs/maptile_renga_black_02_x5.png');
+    background-repeat:repeat-y;
+    background-size: contain;
+    background-color: var(--color-black);
     flex-direction: column;
     align-items: center;
     justify-content: start;
@@ -206,8 +210,9 @@
         height: 30vh;
         max-width: 90%;
         gap: var(--solid-line-weight);
+        background-color: var(--color-black);
         border-radius: 15px;
-        border: var(--color-black) solid var(--solid-line-weight);
+        border: var(--color-white) solid var(--solid-line-weight);
         justify-content: center;
         transition: all 0.15s ease-in-out;
 
@@ -244,7 +249,7 @@
                 flex: 1;
                 height: 100%;
                 width: 65%;
-                gap:calc(var(--bar-font-size) * 0.2);
+                gap:calc(var(--bar-font-size) * 0.4);
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
@@ -259,13 +264,13 @@
                 .description {
                     font-family: 'Kiwi Maru';
                     font-size: calc(var(--bar-font-size) * 0.3);
-                    color: var(--color-black);
+                    color: var(--color-white);
                 }
             }
         }
 
         &:hover {
-            scale: 1.05;
+            scale: 1.02;
 
             .media {
                 img, video {
@@ -279,4 +284,48 @@
         opacity: 1;
         right: 0;
     }
+}
+
+.neon-red, .neon-blue, .neon-green, .neon-orange, .neon-pink, .neon-purple {
+    color: #fee;
+
+    span:nth-of-type(1) {
+        animation: blink linear infinite 3s;
+    }
+
+    span:nth-of-type(2) {
+        animation: blink linear infinite 4s;
+    }
+
+    span:nth-of-type(3) {
+        animation: blink linear infinite 4.7s;
+    }
+
+    span:nth-of-type(4) {
+        animation: blink linear infinite 5.5s;
+    }
+}
+
+.neon-red {
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #ff4444, 0 0 0.5em #ff4444, 0 0 0.1em #ff4444, 0 10px 3px #000;
+}
+
+.neon-blue {
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #5271ff, 0 0 0.5em #5271ff, 0 0 0.1em #5271ff, 0 10px 3px #000;
+}
+
+.neon-green {
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #0fa, 0 0 0.5em #0fa, 0 0 0.1em #0fa, 0 10px 3px #000;
+}
+
+.neon-orange {
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #ffa500, 0 0 0.5em #ff8d00, 0 0 0.1em #ffa500, 0 10px 3px #000;
+}
+
+.neon-pink {
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #f09, 0 0 0.5em #f09, 0 0 0.1em #f09, 0 10px 3px #000;
+}
+
+.neon-purple {
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #bc13fe, 0 0 0.5em #bc13fe, 0 0 0.1em #bc13fe, 0 10px 3px #000;
 }
