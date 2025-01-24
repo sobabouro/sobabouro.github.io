@@ -178,7 +178,7 @@
     border-radius: 15px 0 0 15px;
     color: var(--color-white);
     background-attachment: scroll;
-    background-image: url('../../figs/maptile_renga_black_02_x5.png');
+    background-image: url('../../figs/backgrounds/maptile_renga_black_02_matt_x5.png');
     background-repeat:repeat-y;
     background-size: contain;
     background-color: var(--color-black);
@@ -214,7 +214,7 @@
         border-radius: 15px;
         border: var(--color-white) solid var(--solid-line-weight);
         justify-content: center;
-        transition: all 0.15s ease-in-out;
+        overflow: hidden;
 
         .media {
             position: relative;
@@ -227,6 +227,7 @@
             justify-content: center;
             margin: auto;
             background-color: rgba(255, 253, 164, 0);
+            transition: all 0.15s ease-in-out;
 
             img, video {
                 position: relative;
@@ -270,9 +271,10 @@
         }
 
         &:hover {
-            scale: 1.02;
 
             .media {
+                scale: 1.02;
+
                 img, video {
                     filter: brightness(1.5);
                 }

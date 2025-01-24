@@ -19,7 +19,7 @@
         padding: 0;
         font-size: 16px;
         font-family: Arial, sans-serif;
-        background-image: url('../../figs/universe.png');
+        background-image: url('../../figs/backgrounds/universe.png');
         background-size: cover;
         background-attachment: fixed;
         background-position: bottom;
@@ -39,7 +39,7 @@
         }
 
     * {
-        box-sizing: border-box; /* パディングやボーダーを含めて幅を計算 */
+        box-sizing: border-box;
         outline: 1px solid red;
     }
 </style>
@@ -57,7 +57,7 @@
         <a href="./work_darts.html" class="container-left">
             <div class="drawer-menu">
                 <div class="media">
-                    <img src="./figs/darts.gif" alt="Slide 1">
+                    <img src="../figs/darts.gif" alt="Slide 1">
                     <div class="details">
                         <div class="title">
                             <div class="neon-blue">
@@ -84,14 +84,14 @@
                             研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
                         </div>
                     </div>
-                    <img src="./figs/holo_shooting.gif" alt="Slide 2">
+                    <img src="../figs/holo_shooting.gif" alt="Slide 2">
                 </div>
             </div>
         </a>
         <a href="./work_3d_born.html" class="container-left">
             <div class="drawer-menu">
                 <div class="media">
-                    <img src="./figs/3d_born.gif" alt="Slide 3">
+                    <img src="../figs/3d_born.gif" alt="Slide 3">
                     <div class="details">
                         <div class="title">
                             <div class="neon-blue">
@@ -118,14 +118,14 @@
                             研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
                         </div>
                     </div>
-                    <img src="./figs/heyakowashi.gif" alt="Slide 4">
+                    <img src="../figs/heyakowashi.gif" alt="Slide 4">
                 </div>
             </div>
         </a>
         <a href="./work_letus_letters.html" class="container-left">
             <div class="drawer-menu">
                 <div class="media">
-                    <img src="./figs/title.gif" alt="Slide 5">
+                    <img src="../figs/title.gif" alt="Slide 5">
                     <div class="details">
                         <div class="title">
                             <div class="neon-blue">
@@ -193,7 +193,7 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('intro')" data-block-object="2.5">
-                                <img src="../figs/intro.png" alt="" class="button-icon z2s">
+                                <img src="../figs/summary-icons/intro.png" alt="" class="button-icon z2s">
                                 <span class="button-text z2s">
                                     <div class="text-sub"> 概要 </div>
                                     <div class="text-main"> INTRO </div>
@@ -203,7 +203,7 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('effort')" data-block-object="2.5">
-                                <img src="../figs/appeal.png" alt="" class="button-icon z2s">
+                                <img src="../figs/summary-icons/appeal.png" alt="" class="button-icon z2s">
                                 <div class="button-text z2s">
                                     <div class="text-sub"> アピールポイント </div>
                                     <div class="text-main"> EFFORT </div>
@@ -213,7 +213,7 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('detail')" data-block-object="2.5">
-                                <img src="../figs/product.png" alt="" class="button-icon z2s">
+                                <img src="../figs/summary-icons/product.png" alt="" class="button-icon z2s">
                                 <span class="button-text z2s">
                                     <div class="text-sub"> 詳細 </div>
                                     <div class="text-main"> DETAIL </div>
@@ -223,7 +223,7 @@
 
                         <div class="summary-box">
                             <button class="button" onclick="scrollToSection('github')" data-block-object="2.5">
-                                <img src="../figs/github_white.png" alt="" class="button-icon z2s">
+                                <img src="../figs/summary-icons/github_white.png" alt="" class="button-icon z2s">
                                 <span class="button-text z2s">
                                     <div class="text-sub"> 制作物ページ </div>
                                     <div class="text-main"> GIT HUB </div>
@@ -244,13 +244,15 @@
         <!-- 概要 -->
         <div class="sky-container">
             <div class="intro">
-                <div class="title"> Holo Shooting </div>
-                <div class="description">
+                <div class="title z2s">
+                    <div class="neon-orange"> Holo Shooting </div>
+                </div>
+                <div class="description z2s">
                     Holo Shooting は，Microsoft 社が開発した MR デバイスである HoloLens2 を用いたシューティングゲームです．
                     本作品は，HoloLens2 の特徴である空間認識機能を活かし，プレイヤーが実際の空間を舞台にしてゲームをプレイすることを可能にした，対戦型ゲームです．
                 </div>
             </div>
-            <div class="sky-4">
+            <!-- <div class="sky-4">
                 <img src="../figs/clouds/cloud_XL_1.png" class="cloud" alt="">
                 <img src="../figs/clouds/cloud_XL_2.png" class="cloud" alt="">
                 <img src="../figs/clouds/cloud_XL_3.png" class="cloud" alt="">
@@ -266,7 +268,7 @@
             <div class="sky-1">
                 <img src="../figs/clouds/cloud_S_4.png" class="cloud" alt="">
                 <img src="../figs/clouds/cloud_S_5.png" class="cloud" alt="">
-            </div>
+            </div> -->
         </div>
         <!-- カット -->
         <div class="whiteboad" id="detail">
@@ -276,41 +278,43 @@
         </div>
         <!-- 詳細 -->
         <div class="sky-container">
-            <div class="text"> プレイ動画 </div>
+            <div class="text z2s"> デモ動画 </div>
             <div class="vertical-zoom-box">
                 <video controls>
                     <source src="../videos/HoloShooting_demo_commentary.mp4" type="video/mp4">
                 </video>
             </div>
-            <div class="border-container">
-                <ul>
-                    <li>制作の同機</li>
-                    学業の一環で，「チーム制作をしよう」というものがありました．テーマやルールがざっくりとしたものでこのほかに設けられておらず，何をするか決めかねているなか，所属研究室に自由に使用できる HoloLens2 デバイスがあったこともあり，「HoloLens2 を使ったゲームを作ろう」ということになりました．
-                </ul>
-                <ul>
-                    <li>制作期間</li>
-                    2023 年 5 月 ～ 2023 年 8 月
-                </ul>
-                <ul>
-                    <li>制作人数</li>
-                    同期の学生 6名
-                </ul>
-                <ul>
-                    <li>仕様</li>
-                    ゲームコンセプトや仕様決定は全員で行い，分担して実装を行いました．
+            <div class="padding-box">
+                <div class="border-container z2s">
                     <ul>
-                        <li>通信・サーバ関連</li>
-                        <li>スタート待機画面．</li>
-                        <li>スタート画面遷移</li>
-                        <li>対戦画面</li>
-                        <li>リザルト画面</li>
+                        <li>制作の同機</li>
+                        学業の一環で，「チーム制作をしよう」というものがありました．テーマやルールがざっくりとしたものでこのほかに設けられておらず，何をするか決めかねているなか，所属研究室に自由に使用できる HoloLens2 デバイスがあったこともあり，「HoloLens2 を使ったゲームを作ろう」ということになりました．
                     </ul>
-                </ul>
-                <ul>
-                    <li>担当部分</li>
-                    私が主に担当した箇所は，ゲームの対戦画面です．ハンドアクションの認識・判定・処理や，弾のオブジェクト，エフェクトや UI の制作を行いました．
-                </ul>
+                    <ul>
+                        <li>制作期間</li>
+                        2023 年 5 月 ～ 2023 年 8 月
+                    </ul>
+                    <ul>
+                        <li>制作人数</li>
+                        同期の学生 6名
+                    </ul>
+                    <ul>
+                        <li>仕様</li>
+                        ゲームコンセプトや仕様決定は全員で行い，分担して実装を行いました．
+                        <ul>
+                            <li>通信・サーバ関連</li>
+                            <li>スタート待機画面．</li>
+                            <li>スタート画面遷移</li>
+                            <li>対戦画面</li>
+                            <li>リザルト画面</li>
+                        </ul>
+                    </ul>
+                    <ul>
+                        <li>担当部分</li>
+                        私が主に担当した箇所は，ゲームの対戦画面です．ハンドアクションの認識・判定・処理や，弾のオブジェクト，エフェクトや UI の制作を行いました．
+                    </ul>
 
+                </div>
             </div>
 
             <div class="sky-2">
@@ -332,6 +336,28 @@
         </div>
         <!-- アピールポイント -->
         <div class="sky-container">
+            <div class="effort">
+                <div class="container-flexible">
+                    <img src="../figs/handjoints.png" alt="">
+                    <div class="underline z2s">
+                        <ul>
+                            <li> ハンドアクション </li>
+                            ハンドトラッキング機能を用いて，プレイヤーのハンドアクションを，関節やフレームごとに認識・解析し，ゲーム内で使用できるアクションとして作成しました．
+                            レンズからの視線の通り方や加速度，関節同士が構成する角度の閾値設定など，様々なアプローチで，実用性のあるハンドアクションを実装しました．ハンドアクションは，弾のシュートアクションや，メニュー画面ポップ用アクションを実装しました．
+                        </ul>
+                    </div>
+                </div>
+                <div class="container-flexible">
+                    <img src="../figs/menu.png" alt="">
+                    <div class="underline z2s">
+                        <ul>
+                            <li> 弾のパラメータ設定オブジェクト </li>
+                            MRTK2 のアセットにあるスライダーというオブジェクトを応用して，弾のパラメータを設定するオブジェクトを作成しました．またスライダー同士でステータスポイントを共有するようにし，弾のパラメータを設定する際にステータスポイントが超過しないよう工夫することで，プレイヤーのオリジナルな弾を作れるようにしました．
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div class="sky-4">
                 <img src="../figs/hikutei/fune_hansen_beige.png" class="ship-1" alt="">
                 <img src="../figs/hikutei/hikutei_01_brown.png" class="ship-3" alt="">
@@ -358,16 +384,18 @@
         </div>
         <!-- フッター -->
         <div class="footer">
-            <div class="social-icons">
-                <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
-                    <img src="../figs/google.png" alt="Google" class="social-icon">
-                </a>
-                <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
-                    <img src="../figs/mail.png" alt="E-mail" class="social-icon">
-                </a>
-            </div>
-            <div class="footer-text">
-                <div class="s-cursive"> Portfolio </div>
+            <div class="ground">
+                <div class="social-icons z2s">
+                    <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
+                        <img src="../figs/summary-icons/google.png" alt="Google" class="social-icon">
+                    </a>
+                    <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
+                        <img src="../figs/summary-icons/mail.png" alt="E-mail" class="social-icon">
+                    </a>
+                </div>
+                <div class="footer-text z2s">
+                    <div class="s-cursive"> Portfolio </div>
+                </div>
             </div>
         </div>
     </div>

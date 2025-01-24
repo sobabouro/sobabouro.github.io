@@ -185,6 +185,7 @@
 
 .vertical-zoom-box {
     width: 100%;
+    max-width: 100%;
     height: auto;
     min-height: var(--object-minimum-height);
     max-height: var(--object-maximum-height);

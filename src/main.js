@@ -433,8 +433,18 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 
     // ウィンドウのリサイズイベントを監視
     function updateZoomFactor() {
+        const maxWidth = window.innerWidth; // ビューポートの幅
+        const minWidth = 320; // フォントサイズを調整し始める最小幅
+        const minFontSize = 16; // 最小フォントサイズ
+        const baseFontSize = 24; // ベースフォントサイズ
+        const maxFontSize = 65; // 最大フォントサイズ
+        const scaleFactor = 0.02; // 増加率を調整する係数
+
+        // ビューポート幅が400px以上であればフォントサイズを増加させる
+        let calculatedFontSize = minFontSize;
         // ブラウザの倍率を取得
         let zoomFactor;
+
         if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
             zoomFactor = window.screen.availWidth / document.documentElement.clientWidth;
         } else {
@@ -442,7 +452,21 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         }
         // 倍率補正
         zoomFactor = Math.floor(zoomFactor * zoomFactor * 100);
-        
+
+        // // フォントサイズを (幅 - 320) * scaleFactor に比例して増加
+        // calculatedFontSize = clamp(baseFontSize, minFontSize / zoomFactor / 100, maxFontSize / zoomFactor / 100);
+        // console.log(calculatedFontSize);
+
+        // // フォントサイズを設定
+        // document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
+
+        document.querySelectorAll('.sentence').forEach((el) => {
+            const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
+            if (!isNaN(fontSizeMultiplier)) {
+                el.style.fontSize = `${calculatedFontSize * fontSizeMultiplier}px`;
+            }
+        });
+
         document.documentElement.style.setProperty("--zoom-factor", zoomFactor);
 
         // ウィンドウの縦横の小さい方を取得
@@ -459,33 +483,6 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 
         document.documentElement.style.setProperty("--bar-font-size", `${barHeight * minDimension}px`);
         document.documentElement.style.setProperty("--solid-line-weight", `${barHeight * minDimension * 0.08}px`);
-    }
-
-    // フォントサイズを動的に変更する
-    function updateFontSize() {
-        const maxWidth = window.innerWidth; // ビューポートの幅
-        const minWidth = 320; // フォントサイズを調整し始める最小幅
-        const minFontSize = 10; // 最小フォントサイズ
-        const maxFontSize = 70; // 最大フォントサイズ
-        const scaleFactor = 0.03125; // 増加率を調整する係数
-
-        // ビューポート幅が400px以上であればフォントサイズを増加させる
-        let calculatedFontSize = minFontSize;
-
-        if (maxWidth > minWidth) {
-            // フォントサイズを (幅 - 320) * scaleFactor に比例して増加
-            calculatedFontSize = Math.min(maxFontSize, minFontSize + (maxWidth - minWidth) * scaleFactor);
-        }
-
-        // フォントサイズを設定
-        document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
-
-        document.querySelectorAll('.sentence').forEach((el) => {
-            const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
-            if (!isNaN(fontSizeMultiplier)) {
-                el.style.fontSize = `${calculatedFontSize * fontSizeMultiplier}px`;
-            }
-        });
     }
 
     // zoom-square のレイアウトを調整する
@@ -710,7 +707,6 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         }
         timer = setTimeout(function () {
             updateZoomFactor();
-            updateFontSize();
             updateZoomBoxes();
             updatePythagoras();
             updateImgContainer();
@@ -761,7 +757,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
     const menuButton = document.getElementById('menuButton');
     // const menuText = menuButton.querySelector('.menu-text');
     const backdrop = document.querySelector('.backdrop');
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    // const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
     menuButton.addEventListener('click', () => {
         const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
@@ -770,7 +766,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         // 親要素のHTMLタグに `is-drawerActive` クラスをトグル
         document.documentElement.classList.toggle('is-drawerActive');
         document.body.style.overflowY = isExpanded ? 'auto' : 'hidden';
-        document.body.style.paddingRight = isExpanded ? '0' : `${scrollbarWidth}px`;
+        // document.body.style.paddingRight = isExpanded ? '0' : `${scrollbarWidth}px`;
 
         // テキストの切り替え
         // menuText.textContent = isExpanded ? 'MENU' : 'CLOSE';
@@ -874,6 +870,10 @@ function openSubPage() {
     setTimeout(() => {
         document.body.classList.add("fade-in");
     }, 100);
+}
+
+function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
 }
 
 window.scrollToSection = scrollToSection;
