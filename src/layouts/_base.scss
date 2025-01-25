@@ -7,6 +7,10 @@
     font-size: calc(var(--font-size-base) * var(--font-size-multiplier, 1));
 }
 
+.sentence-base-size {
+    font-size: var(--font-size-base);
+}
+
 .container,
 .container-centeredness,
 .container-vertical, 
