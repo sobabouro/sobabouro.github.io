@@ -3,13 +3,14 @@ export class FallingObject {
     constructor(segment, segmentWidth) {
         // アニメーション設定
         const duration = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animation-duration"));
+        const objectSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--object-rect-as-segment-divisor"));
 
         // ランダムな位置に配置
         this.container = document.createElement("div");
         this.container.classList.add("falling-object-container");
         this.container.style.position = "absolute";
         this.container.style.left = `${this.getRandomX(segment)}px`;
-        this.container.style.width = `${segmentWidth / 3}px`;
+        this.container.style.width = `${segmentWidth / objectSize}px`;
 
         // 画像を作成
         this.object = this.createObject();

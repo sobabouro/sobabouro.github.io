@@ -67,6 +67,7 @@
   --overlay-height: 50%;
   --overlay-angle: 0deg;
   --frame-rate: 20;
+  --object-rect-as-segment-divisor: 5;
   --animation-duration: 20s;
   --animation-delay-time: 10;
   --count-health-hearts: 3;
@@ -744,7 +745,6 @@ main-scene.active {
   border-radius: 10px;
   box-sizing: border-box;
   font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1);
   background-color: rgba(235, 233, 230, 0);
   overflow: hidden;
 }
@@ -756,7 +756,6 @@ main-scene.active {
 }
 .sky-container .border-container ul ul li {
   font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1);
   font-weight: normal;
   line-height: 1;
   color: var(--color-black);
@@ -764,7 +763,6 @@ main-scene.active {
 .sky-container .border-container ul li {
   margin: var(--solid-line-weight 0);
   font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1.1);
   font-weight: bold;
   line-height: 1.5;
   color: var(--color-blue);
@@ -775,7 +773,7 @@ main-scene.active {
   width: 100%;
   height: 100%;
   line-height: 1.3;
-  padding: calc(var(--font-size-base) * 0.7);
+  padding: calc(var(--font-size-base) * 1);
   gap: calc(var(--font-size-base) * 1);
   flex-direction: column;
   align-items: center;
@@ -857,7 +855,6 @@ main-scene.active {
 }
 .sky-container .effort .container-flexible .underline ul ul li {
   font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1);
   font-weight: normal;
   line-height: 1;
   color: var(--color-black);
@@ -865,7 +862,6 @@ main-scene.active {
 .sky-container .effort .container-flexible .underline ul li {
   margin: var(--solid-line-weight 0);
   font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1.1);
   font-weight: bold;
   line-height: 1.5;
   color: var(--color-blue);

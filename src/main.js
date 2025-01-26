@@ -20,18 +20,20 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
             let hoverSize = radius;
 
             // `[data-block-object]` の要素を検出し、ホバー時にサイズを変える
-            clickableElements.forEach(element => {
-                const rect = element.getBoundingClientRect();
-                const scaling = element.getAttribute('data-block-object');
-                if (
-                    x >= rect.left &&
-                    x <= rect.right &&
-                    y >= rect.top &&
-                    y <= rect.bottom
-                ) {
-                    hoverSize = radius * scaling; // ホバー時にサイズを拡大
-                }
-            });
+            if (document.documentElement.classList.contains(':not(is-drawerActive)')) {
+                clickableElements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const scaling = element.getAttribute('data-block-object');
+                    if (
+                        x >= rect.left &&
+                        x <= rect.right &&
+                        y >= rect.top &&
+                        y <= rect.bottom
+                    ) {
+                        hoverSize = radius * scaling; // ホバー時にサイズを拡大
+                    }
+                });
+            }
 
             // `clip-path` を動的に設定
             if (y < popupBarHeight + radius && document.documentElement.classList.contains('is-barActive')) {
@@ -48,6 +50,10 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
                 mouseOverlay.style.zIndex = 1000;
                 mouseOverlay.style.clipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
                 mouseOverlay.style.webkitClipPath = `circle(${hoverSize}px at ${x}px ${y}px)`;
+            }
+
+            if (document.documentElement.classList.contains('is-drawerActive')) {
+                mouseOverlay.style.zIndex = 10000;
             }
         });
     }
