@@ -40,7 +40,7 @@
 
     * {
         box-sizing: border-box;
-        outline: 1px solid red;
+        /* outline: 1px solid red; */
     }
 </style>
 
@@ -245,11 +245,15 @@
         <div class="sky-container">
             <div class="intro">
                 <div class="title z2s">
-                    <div class="neon-orange"> Holo Shooting </div>
+                    <div class="neon-orange">
+                        <div class="sentence" data-font-size="3"> Holo Shooting </div>
+                    </div>
                 </div>
                 <div class="description z2s">
+                    <div class="sentence">
                     【Holo Shooting】は，Microsoft 社が開発した MR デバイスである HoloLens2 を用いたシューティングゲームです．
                     このゲームは，HoloLens2 の特徴である空間認識機能を活かし，プレイヤーが実際の空間を舞台にしてゲームをプレイすることを可能にした，対戦型ゲームです．
+                    </div>
                 </div>
             </div>
             <!-- <div class="sky-4">
@@ -279,59 +283,61 @@
         <!-- 詳細 -->
         <div class="sky-container">
             <div class="text z2s"> デモ動画 </div>
-            <div class="vertical-zoom-box">
+            <div class="vertical-zoom-box z1h" data-block-object="0.4">
                 <video controls>
                     <source src="../videos/HoloShooting_demo_commentary.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="padding-box">
-                <div class="border-container z2s">
-                    <ul>
-                        <li>制作の同機</li>
-                        学業の一環で，「チーム制作をしよう」というものがありました．テーマやルールがざっくりとしたものでこのほかに設けられておらず，何をするか決めかねているなか，所属研究室に自由に使用できる HoloLens2 デバイスがあったこともあり，「HoloLens2 を使ったゲームを作ろう」ということになりました．
-                    </ul>
-                    <ul>
-                        <li>制作期間</li>
-                        2023 年 5 月 ～ 2023 年 8 月
-                    </ul>
-                    <ul>
-                        <li>制作人数</li>
-                        同期の学生 6名
-                    </ul>
-                    <ul>
-                        <li>仕様</li>
-                        ゲームコンセプトや仕様決定は全員で行い，分担して実装を行いました．
+                <div class="sentence">
+                    <div class="border-container z2s">
                         <ul>
-                            <li>通信・サーバ関連</li>
-                            <li>スタート待機画面．</li>
-                            <li>スタート画面遷移</li>
-                            <li>対戦画面</li>
-                            <li>リザルト画面</li>
+                            <li>制作の同機</li>
+                            学業の一環で，「チーム制作をしよう」というものがありました．テーマやルールがざっくりとしたものでこのほかに設けられておらず，何をするか決めかねているなか，所属研究室に自由に使用できる HoloLens2 デバイスがあったこともあり，「HoloLens2 を使ったゲームを作ろう」ということになりました．
                         </ul>
-                    </ul>
-                    <ul>
-                        <li>担当部分</li>
-                        私が主に担当した箇所は，ゲームの対戦画面です．ハンドアクションの認識・判定・処理や，弾のオブジェクト，エフェクトや UI の制作を行いました．
-                    </ul>
-                    <ul>
-                        <li>制作環境</li>
                         <ul>
-                            <li>使用デバイス :Microsoft HoloLens2</li>
-                            <li>開発エンジン :Unity</li>
-                            <li>開発言語 :C#</li>
-                            <li>ライブラリ :Mixed Reality Toolkit 2</li>
+                            <li>制作期間</li>
+                            2023 年 5 月 ～ 2023 年 8 月
                         </ul>
-                    </ul>
-                    <ul>
-                        <li>実行環境</li>
-                        Windows 10 (Windows 11)
-                        Windows Holographics for Business
-                    </ul>
-                    <ul>
-                        <li>実行手順</li>
-                        Unity 上でビルド後，VisualStudio2019 (ver16.8 以降) を通して UWP 形式に変換し，HoloLens2 上で起動する．
-                    </ul>
+                        <ul>
+                            <li>制作人数</li>
+                            同期の学生 6名
+                        </ul>
+                        <ul>
+                            <li>仕様</li>
+                            ゲームコンセプトや仕様決定は全員で行い，分担して実装を行いました．
+                            <ul>
+                                <li>通信・サーバ関連</li>
+                                <li>スタート待機画面．</li>
+                                <li>スタート画面遷移</li>
+                                <li>対戦画面</li>
+                                <li>リザルト画面</li>
+                            </ul>
+                        </ul>
+                        <ul>
+                            <li>担当部分</li>
+                            私が主に担当した箇所は，ゲームの対戦画面です．ハンドアクションの認識・判定・処理や，弾のオブジェクト，エフェクトや UI の制作を行いました．
+                        </ul>
+                        <ul>
+                            <li>制作環境</li>
+                            <ul>
+                                <li>使用デバイス :Microsoft HoloLens2</li>
+                                <li>開発エンジン :Unity</li>
+                                <li>開発言語 :C#</li>
+                                <li>ライブラリ :Mixed Reality Toolkit 2</li>
+                            </ul>
+                        </ul>
+                        <ul>
+                            <li>実行環境</li>
+                            Windows 10 (Windows 11)
+                            Windows Holographics for Business
+                        </ul>
+                        <ul>
+                            <li>実行手順</li>
+                            Unity 上でビルド後，VisualStudio2019 (ver16.8 以降) を通して UWP 形式に変換し，HoloLens2 上で起動する．
+                        </ul>
 
+                    </div>
                 </div>
             </div>
 
@@ -355,23 +361,25 @@
         <!-- アピールポイント -->
         <div class="sky-container">
             <div class="effort">
-                <div class="container-flexible">
-                    <img src="../figs/handjoints.png" alt="">
-                    <div class="underline z2s">
-                        <ul>
-                            <li> ハンドアクション </li>
-                            ハンドトラッキング機能を用いて，プレイヤーのハンドアクションを，関節やフレームごとに認識・解析し，ゲーム内で使用できるアクションとして作成しました．
-                            レンズからの視線の通り方や加速度，関節同士が構成する角度の閾値設定など，様々なアプローチで，実用性のあるハンドアクションを実装しました．ハンドアクションは，弾のシュートアクションや，メニュー画面ポップ用アクションを実装しました．
-                        </ul>
+                <div class="sentence">
+                    <div class="container-flexible">
+                        <img src="../figs/handjoints.png" alt="">
+                        <div class="underline z2s">
+                            <ul>
+                                <li> ハンドアクション </li>
+                                ハンドトラッキング機能を用いて，プレイヤーのハンドアクションを，関節やフレームごとに認識・解析し，ゲーム内で使用できるアクションとして作成しました．
+                                レンズからの視線の通り方や加速度，関節同士が構成する角度の閾値設定など，様々なアプローチで，実用性のあるハンドアクションを実装しました．ハンドアクションは，弾のシュートアクションや，メニュー画面ポップ用アクションを実装しました．
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="container-flexible">
-                    <img src="../figs/menu.png" alt="">
-                    <div class="underline z2s">
-                        <ul>
-                            <li> 弾のパラメータ設定オブジェクト </li>
-                            MRTK2 のアセットにあるスライダーというオブジェクトを応用して，弾のパラメータを設定するオブジェクトを作成しました．またスライダー同士でステータスポイントを共有するようにし，弾のパラメータを設定する際にステータスポイントが超過しないよう工夫することで，プレイヤーのオリジナルな弾を作れるようにしました．
-                        </ul>
+                    <div class="container-flexible">
+                        <img src="../figs/menu.png" alt="">
+                        <div class="underline z2s">
+                            <ul>
+                                <li> 弾のパラメータ設定オブジェクト </li>
+                                MRTK2 のアセットにあるスライダーというオブジェクトを応用して，弾のパラメータを設定するオブジェクトを作成しました．またスライダー同士でステータスポイントを共有するようにし，弾のパラメータを設定する際にステータスポイントが超過しないよう工夫することで，プレイヤーのオリジナルな弾を作れるようにしました．
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -401,7 +409,7 @@
             <div class="padding-box">
                 <div class="border-container z2s">
                     制作物の GitHub リンクはこちらです！
-                    <a href="https://github.com/sobabouro/Holo-Shooting" target="_blank" class="sentence-base-size">https://github.com/sobabouro/Holo-Shooting</a>
+                    <a href="https://github.com/sobabouro/Holo-Shooting" target="_blank" class="link sentence-fixed-size"> https://github.com/sobabouro/Holo-Shooting </a>
                 </div>
             </div>
         </div>

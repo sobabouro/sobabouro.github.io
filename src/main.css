@@ -63,7 +63,7 @@
   --color-yellow: #e6f371;
   --color-beige: #ebe9e6;
   --color-pink:rgb(255, 70, 110);
-  --font-size-base: clamp(1.5vmin, 20px, 4vmin);
+  --font-size-base: 2vmin;
   --overlay-height: 50%;
   --overlay-angle: 0deg;
   --frame-rate: 20;
@@ -736,7 +736,7 @@ main-scene.active {
   width: 100%;
   max-width: 100%;
   height: auto;
-  justify-content: start;
+  justify-content: center;
   text-align: start;
   padding: calc(var(--solid-line-weight) * 2);
   gap: calc(var(--solid-line-weight) * 2);
@@ -754,17 +754,19 @@ main-scene.active {
 .sky-container .border-container ul ul {
   list-style-type: disc;
 }
-.sky-container .border-container ul li {
+.sky-container .border-container ul ul li {
   font-family: "Kiwi Maru";
   font-size: calc(var(--font-size-base) * 1);
   font-weight: normal;
+  line-height: 1;
   color: var(--color-black);
 }
-.sky-container .border-container li {
+.sky-container .border-container ul li {
   margin: var(--solid-line-weight 0);
-  font-family: "Josefin Sans";
+  font-family: "Kiwi Maru";
   font-size: calc(var(--font-size-base) * 1.1);
   font-weight: bold;
+  line-height: 1.5;
   color: var(--color-blue);
 }
 .sky-container .intro {
@@ -819,6 +821,8 @@ main-scene.active {
   gap: var(--font-size-base);
   flex-direction: column;
   justify-content: center;
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 1);
   background-color: rgba(255, 253, 164, 0);
 }
 .sky-container .effort .container-flexible {
@@ -836,14 +840,12 @@ main-scene.active {
   width: 100%;
   max-width: 100%;
   height: auto;
-  justify-content: start;
+  justify-content: center;
   text-align: start;
   padding: calc(var(--solid-line-weight) * 2);
   gap: calc(var(--solid-line-weight) * 2);
   border-bottom: var(--solid-line-weight) solid var(--color-black);
   box-sizing: border-box;
-  font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1);
   background-color: rgba(235, 233, 230, 0);
   overflow: hidden;
 }
@@ -852,38 +854,20 @@ main-scene.active {
 }
 .sky-container .effort .container-flexible .underline ul ul {
   list-style-type: disc;
-  padding: 0;
-  margin: 0;
+}
+.sky-container .effort .container-flexible .underline ul ul li {
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 1);
+  font-weight: normal;
+  line-height: 1;
+  color: var(--color-black);
 }
 .sky-container .effort .container-flexible .underline ul li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5em;
-  list-style: none;
-  font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1);
-  font-weight: normal;
-  color: var(--color-black);
-}
-.sky-container .effort .container-flexible .underline ul li::before {
-  content: "・";
-  color: var(--color-black);
-}
-.sky-container .effort .container-flexible .underline ul li li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5em;
-  list-style: none;
-  font-family: "Kiwi Maru";
-  font-size: calc(var(--font-size-base) * 1);
-  font-weight: normal;
-  color: var(--color-black);
-}
-.sky-container .effort .container-flexible .underline li {
   margin: var(--solid-line-weight 0);
-  font-family: "Josefin Sans";
+  font-family: "Kiwi Maru";
   font-size: calc(var(--font-size-base) * 1.1);
   font-weight: bold;
+  line-height: 1.5;
   color: var(--color-blue);
 }
 .sky-container .effort .container-flexible img, .sky-container .effort .container-flexible video {
@@ -918,6 +902,10 @@ main-scene.active {
   background-position: bottom;
   opacity: 0.8;
 }
+.sky-container .link {
+  font-family: "Kiwi Maru";
+  color: var(--color-blue);
+}
 
 .sky-container:has(.intro) {
   background-color: transparent;
@@ -931,7 +919,7 @@ main-scene.active {
   font-size: calc(var(--font-size-base) * var(--font-size-multiplier, 1));
 }
 
-.sentence-base-size {
+.sentence-fixed-size {
   font-size: var(--font-size-base);
 }
 
@@ -1421,6 +1409,7 @@ main-scene.active {
   justify-content: space-around;
   height: 100%;
   margin: 0;
+  background-color: rgba(0, 0, 0, 0);
   padding: 0 calc(var(--solid-line-weight) * 2);
 }
 .app-icon-plate .back-plate .title .right .button {
@@ -1428,6 +1417,7 @@ main-scene.active {
   height: 100%;
   width: calc(var(--bar-font-size) * 0.6);
   justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
 }
 .app-icon-plate .back-plate .title .right .button .minimize-line {
   display: block;

@@ -243,7 +243,7 @@
         width: 100%;
         max-width: 100%;
         height: auto;
-        justify-content: start;
+        justify-content: center;
         text-align: start;
         padding: calc(var(--solid-line-weight) * 2);
         gap : calc(var(--solid-line-weight) * 2);
@@ -260,22 +260,24 @@
 
             ul {
                 list-style-type: disc;
+
+                li {
+                    font-family: 'Kiwi Maru';
+                    font-size: calc(var(--font-size-base) * 1);
+                    font-weight: normal;
+                    line-height: 1;
+                    color: var(--color-black);
+                }
             }
 
             li {
+                margin: var(--solid-line-weight 0);
                 font-family: 'Kiwi Maru';
-                font-size: calc(var(--font-size-base) * 1);
-                font-weight: normal;
-                color: var(--color-black);
+                font-size: calc(var(--font-size-base) * 1.1);
+                font-weight: bold;
+                line-height: 1.5;
+                color: var(--color-blue);
             }
-        }
-
-        li {
-            margin: var(--solid-line-weight 0);
-            font-family: 'Josefin Sans';
-            font-size: calc(var(--font-size-base) * 1.1);
-            font-weight: bold;
-            color: var(--color-blue);
         }
     }
 
@@ -335,6 +337,8 @@
         gap: var(--font-size-base);
         flex-direction: column;
         justify-content: center;
+        font-family: 'Kiwi Maru';
+        font-size: calc(var(--font-size-base) * 1);
         background-color: rgba(255, 253, 164, 0);
 
         .container-flexible {
@@ -352,60 +356,38 @@
                 width: 100%;
                 max-width: 100%;
                 height: auto;
-                justify-content: start;
+                justify-content: center;
                 text-align: start;
                 padding: calc(var(--solid-line-weight) * 2);
                 gap : calc(var(--solid-line-weight) * 2);
                 border-bottom: var(--solid-line-weight) solid var(--color-black);
                 box-sizing: border-box;
-                font-family: 'Kiwi Maru';
-                font-size: calc(var(--font-size-base) * 1);
                 background-color: #ebe9e600;
                 overflow: hidden;
     
                 ul {
                     list-style-type :square;
-    
+        
                     ul {
                         list-style-type: disc;
-                        padding: 0;
-                        margin: 0;
-                    }
-    
-                    li {
-                        display: flex;
-                        align-items: flex-start;
-                        gap: 0.5em;
-                        list-style: none;
-                        font-family: 'Kiwi Maru';
-                        font-size: calc(var(--font-size-base) * 1);
-                        font-weight: normal;
-                        color: var(--color-black);
-
-                        &::before {
-                            content: '・';
-                            color: var(--color-black);
-                        }
-
+        
                         li {
-                            display: flex;
-                            align-items: flex-start;
-                            gap: 0.5em;
-                            list-style: none;
                             font-family: 'Kiwi Maru';
                             font-size: calc(var(--font-size-base) * 1);
                             font-weight: normal;
+                            line-height: 1;
                             color: var(--color-black);
                         }
                     }
-                }
-    
-                li {
-                    margin: var(--solid-line-weight 0);
-                    font-family: 'Josefin Sans';
-                    font-size: calc(var(--font-size-base) * 1.1);
-                    font-weight: bold;
-                    color: var(--color-blue);
+        
+                    li {
+                        margin: var(--solid-line-weight 0);
+                        font-family: 'Kiwi Maru';
+                        font-size: calc(var(--font-size-base) * 1.1);
+                        font-weight: bold;
+                        line-height: 1.5;
+                        color: var(--color-blue);
+                    }
                 }
             }
 
@@ -446,6 +428,11 @@
         background-size: contain;
         background-position: bottom;
         opacity: 0.8;
+    }
+
+    .link {
+        font-family: 'Kiwi Maru';
+        color: var(--color-blue);
     }
 }
 

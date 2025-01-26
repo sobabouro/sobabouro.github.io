@@ -435,23 +435,21 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
     function updateZoomFactor() {
         const maxWidth = window.innerWidth; // ビューポートの幅
         const minWidth = 320; // フォントサイズを調整し始める最小幅
-        const minFontSize = 16; // 最小フォントサイズ
-        const baseFontSize = 24; // ベースフォントサイズ
-        const maxFontSize = 65; // 最大フォントサイズ
-        const scaleFactor = 0.02; // 増加率を調整する係数
+        const minFontSize = 1.3; // 最小フォントサイズ
+        const baseFontSize = 2; // ベースフォントサイズ
+        const maxFontSize = 2.5; // 最大フォントサイズ
 
-        // ビューポート幅が400px以上であればフォントサイズを増加させる
-        let calculatedFontSize = minFontSize;
         // ブラウザの倍率を取得
         let zoomFactor;
+        let scaleFactor;
 
         if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            zoomFactor = window.screen.availWidth / document.documentElement.clientWidth;
+            scaleFactor = window.screen.availWidth / document.documentElement.clientWidth;
         } else {
-            zoomFactor = window.devicePixelRatio;
+            scaleFactor = window.devicePixelRatio;
         }
         // 倍率補正
-        zoomFactor = Math.floor(zoomFactor * zoomFactor * 100);
+        zoomFactor = Math.floor(scaleFactor * scaleFactor * 100);
 
         // // フォントサイズを (幅 - 320) * scaleFactor に比例して増加
         // calculatedFontSize = clamp(baseFontSize, minFontSize / zoomFactor / 100, maxFontSize / zoomFactor / 100);
@@ -460,10 +458,22 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         // // フォントサイズを設定
         // document.documentElement.style.setProperty('--font-size-base', `${calculatedFontSize}px`);
 
+        document.querySelectorAll('.sentence-fixed-size').forEach((el) => {
+            const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
+            if (!isNaN(fontSizeMultiplier)) {
+                el.style.fontSize = `${baseFontSize * fontSizeMultiplier}vmin`;
+            }
+        });
+
         document.querySelectorAll('.sentence').forEach((el) => {
             const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
             if (!isNaN(fontSizeMultiplier)) {
-                el.style.fontSize = `${calculatedFontSize * fontSizeMultiplier}px`;
+                let fontSize = baseFontSize * fontSizeMultiplier * scaleFactor;
+                fontSize = clamp(fontSize, minFontSize * fontSizeMultiplier, maxFontSize * fontSizeMultiplier);
+                el.style.fontSize = `${fontSize}vmin`;
+            }
+            else {
+                el.style.fontSize = `${baseFontSize * scaleFactor}vmin`;
             }
         });
 
