@@ -192,6 +192,7 @@
     .page-top {
         width: 100%;
         display: flex;
+        position: relative;
         justify-content: center;
         font-family: 'Arcade-classic', 'DotGothic16';
         font-size: calc(var(--font-size-base) * 2);
