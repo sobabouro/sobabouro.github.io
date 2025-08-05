@@ -425,6 +425,16 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         makeCursor();
         gameFieldAdministrator();
 
+        import(
+        'https://unpkg.com/three@0.164.1/build/three.module.js').
+        then(THREE => {
+            import('./components/3DScrollObject/3DScrollObject.js').then(({ 
+                ThreeDScrollAnimation }) => {
+                    const container = document.getElementById('3d-scroll-content');
+                    if (container) {new ThreeDScrollAnimation(container, THREE);}
+                }).catch(error => console.error('Failed to load 3DScrollObject.js',error));
+            }).catch(error => console.error('Failed to load THREE.js', error));
+
         setTimeout(function () {
             waveFadeIn();
         }, 3000);

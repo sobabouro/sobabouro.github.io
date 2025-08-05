@@ -4,7 +4,7 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1", 
+        "test": "echo \"Error: no test specified\" && exit 1",
         "build:css": "sass src/main.scss src/main.css",
         "watch:css": "sass --watch src/main.scss:src/main.css"
     },
@@ -12,6 +12,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "sass": "^1.83.0"
+        "sass": "^1.83.0",
+        "three": "^0.179.1"
     }
 }

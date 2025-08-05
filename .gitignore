@@ -49,3 +49,6 @@ Thumbs.db
 
 # BFG Repo-Cleaner の JAR ファイルを無視する
 bfg-*.jar
+
+# gemini
+GEMINI.md
