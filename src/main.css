@@ -1860,7 +1860,7 @@ main-scene.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: top s ease;
+  transition: top 1s ease;
   z-index: 9999;
   font-size: calc(var(--bar-font-size) * 0.4);
   padding: var(--solid-line-weight);
