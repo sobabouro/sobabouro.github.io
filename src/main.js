@@ -1,6 +1,7 @@
 import { FallingObject } from "./components/FallingObject/FallingObject.js";
 import { HealthParameterObject } from "./components/HealthParameterObject/HealthParameterObject.js";
 import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js";
+import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScrollObject.js";
 
 // ロードイベント後 DOM が生成されてからもろもろ実行する
 (function () {
@@ -425,15 +426,20 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
         makeCursor();
         gameFieldAdministrator();
 
-        import(
-        'https://unpkg.com/three@0.164.1/build/three.module.js').
-        then(THREE => {
-            import('./components/3DScrollObject/3DScrollObject.js').then(({ 
-                ThreeDScrollAnimation }) => {
-                    const container = document.getElementById('3d-scroll-content');
-                    if (container) {new ThreeDScrollAnimation(container, THREE);}
-                }).catch(error => console.error('Failed to load 3DScrollObject.js',error));
-            }).catch(error => console.error('Failed to load THREE.js', error));
+        // 3Dスクロールアニメーションの初期化
+        try {
+            // three.jsは引き続きCDNから動的にインポート
+            import('https://unpkg.com/three@0.164.1/build/three.module.js').then(THREE => {
+                const container = document.getElementById('three-d-scroll-content');
+                if (container) {
+                    new ThreeDScrollObject(container, THREE);
+                } else {
+                    console.error('3D scroll content container not found.');
+                }
+            }).catch(error => console.error('Failed to load THREE.js:', error));
+        } catch (error) {
+            console.error('Failed to initialize 3D scroll animation:', error);
+        }
 
         setTimeout(function () {
             waveFadeIn();
@@ -757,7 +763,7 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
 
         const scrollObjectContainerHeight = parseFloat(
             getComputedStyle(
-                document.getElementById("3d-scroll-content")
+                document.getElementById("three-d-scroll-content")
             ).height
         );
 

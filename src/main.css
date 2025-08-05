@@ -907,6 +907,19 @@ main-scene.active {
   background-color: transparent;
 }
 
+#scroll-animation-container {
+  --scroll-container-height: calc(200vh + 250px);
+  height: var(--scroll-container-height);
+  position: relative;
+}
+#scroll-animation-container #three-d-scroll-content {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
 /**
  * @file _base.scss
  * @desc 汎用性のありそうなボックスレイアウト
@@ -958,7 +971,7 @@ main-scene.active {
 
 .content {
   background-color: rgba(0, 0, 0, 0);
-  width: 100%;
+  width: 100vw;
 }
 
 .whiteboad {
