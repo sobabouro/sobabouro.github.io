@@ -15,7 +15,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: top 1.8s ease;
+    transition: top s ease;
     z-index: 9999;
     font-size: calc(var(--bar-font-size) * 0.4);
     padding: var(--solid-line-weight);
@@ -57,17 +57,17 @@
             justify-content: center;
             height: 100%;
             width: auto;
-            background-color: var(--color-black);
-            color: var(--color-white);
+            background-color: var(--color-white);
+            color: var(--color-black);
             border: none;
             padding: 0 calc(var(--bar-font-size) * 0.2);
             cursor: pointer;
-            font-size: calc(var(--bar-font-size) * 0.4);
+            font-size: calc(var(--bar-font-size) * 0.5);
             font-weight: 300;
             font-family: 'Arcade-classic', sans-serif;
             transition: background-color 0.3s;
             border-radius: var(--solid-line-weight);
-            border: var(--solid-line-weight) solid var(--color-white);
+            border: var(--solid-line-weight) solid var(--color-black);
 
             &:hover {
                 background-color: var(--color-hover);
@@ -106,8 +106,8 @@
     display: block;
     position: relative;
     width: calc(var(--bar-font-size) * 0.3);
-    height: calc(var(--bar-font-size) * 0.03);
-    background-color: var(--color-white);
+    height: calc(var(--bar-font-size) * 0.04);
+    background-color: var(--color-black);
     border-radius: 99rem;
     transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 
@@ -117,8 +117,8 @@
         right: 0;
         position: absolute;
         width: calc(var(--bar-font-size) * 0.3);
-        height: calc(var(--bar-font-size) * 0.03);
-        background-color: var(--color-white);
+        height: calc(var(--bar-font-size) * 0.04);
+        background-color: var(--color-black);
         border-radius: 99rem;
         transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     }
