@@ -22,7 +22,7 @@ export class ThreeDScrollObject {
         });
 
         /** @private @description カメラの最大周回半径 */
-        this._maxCameraRadius = 80;
+        this._maxCameraRadius = 200;
         /** @private @description カメラの最小周回半径 */
         this._minCameraRadius = 20;
         
@@ -31,6 +31,9 @@ export class ThreeDScrollObject {
 
         this._pixelObjects = [];
         this._templateObjects = [];
+
+        this._planetsGroup = new this._THREE.Group();
+        this._scene.add(this._planetsGroup);
 
         this._polyhedrons = [];
         this._init();
@@ -45,15 +48,13 @@ export class ThreeDScrollObject {
         this._camera.position.set(0, 0, this._maxCameraRadius);
 
         this._addEventListeners();
-        this._animate();
         this._onScroll();
 
-        this._createPolyhedrons();
+        // this._createPolyhedrons();
 
-        // this._loadTemplateObjects(() => {
-        //     this._createPixelObjects();
-        //     this.startAnimation();
-        // });
+        this._loadTemplateObjects(() => {
+            this._createPixelObjects();
+        });
 
         // コンテナの描画中のみアニメーションを行うための IntersectionObserver を設定する
         const observerOptions = {
@@ -66,61 +67,21 @@ export class ThreeDScrollObject {
         this._observer.observe(this._scrollContainer);
     }
 
-    _createPolyhedrons() {
-        const geometries = [
-            new this._THREE.TetrahedronGeometry(2.5, 0),
-            new this._THREE.OctahedronGeometry(2.5, 0),
-            new this._THREE.DodecahedronGeometry(2.5, 0),
-            new this._THREE.IcosahedronGeometry(2.5, 0)
-        ];
-
-        this._material = new this._THREE.MeshStandardMaterial({
-            color: 0xffffff,
-            metalness: 0.7,
-            roughness: 0.4,
-            wireframe: true,
-            transparent: true,
-            opacity: 1.0
-        });
-
-        const ambientLight = new this._THREE.AmbientLight(0x404040, 2);
-        this._scene.add(ambientLight);
-        const directionalLight = new this._THREE.DirectionalLight(0xffffff, 1.5);
-        directionalLight.position.set(1, 1, 1);
-        this._scene.add(directionalLight);
-
-        for (let i = 0; i < 80; i++) {
-            const geometry = geometries[Math.floor(Math.random() * geometries.length)];
-            const polyhedron = new this._THREE.Mesh(geometry, this._material);
-
-            const phi = Math.acos(-1 + (2 * i) / 80);
-            const theta = Math.sqrt(80 * Math.PI) * phi;
-
-            polyhedron.position.setFromSphericalCoords(
-                20 + Math.random() * 20,
-                phi,
-                theta
-            );
-
-            polyhedron.rotation.x = Math.random() * 2 * Math.PI;
-            polyhedron.rotation.y = Math.random() * 2 * Math.PI;
-
-            this._polyhedrons.push(polyhedron);
-            this._scene.add(polyhedron);
-        }
-    }
-
     _loadTemplateObjects(onComplete) {
+        const scaleFactor = 1.2;
+        const specialScaleFactor = 0.05;
+
         const svgFolder = './svgs/';
         const svgPathList = [
-            { path: `${svgFolder}bakuhatsu_01.svg`, weight: 1, scale: 3 },
-            { path: `${svgFolder}mark_heart_pink_02.svg`, weight: 2, scale: 2 },
-            { path: `${svgFolder}object_jupiter.svg`, weight: 10, scale: 4 },
-            { path: `${svgFolder}object_mars.svg`, weight: 10, scale: 2 },
-            { path: `${svgFolder}object_moon_yellow.svg`, weight: 10, scale: 2 },
-            { path: `${svgFolder}object_neptune.svg`, weight: 10, scale: 3 },
-            { path: `${svgFolder}object_saturn.svg`, weight: 10, scale: 3.5 },
-            { path: `${svgFolder}object_venus.svg`, weight: 10, scale: 1.8 }
+            { path: `${svgFolder}rocket_02.svg`, weight: 5, scale: 0.3 * scaleFactor },
+            { path: `${svgFolder}bakuhatsu_01.svg`, weight: 5, scale: 0.3 * scaleFactor },
+            { path: `${svgFolder}mark_heart_pink_02.svg`, weight: 5, scale: 0.2 * scaleFactor },
+            { path: `${svgFolder}object_jupiter.svg`, weight: 6, scale: 11.21 * scaleFactor * specialScaleFactor },
+            { path: `${svgFolder}object_mars.svg`, weight: 10, scale: 0.53 * scaleFactor },
+            { path: `${svgFolder}object_moon_yellow.svg`, weight: 10, scale: 0.27 * scaleFactor },
+            { path: `${svgFolder}object_neptune.svg`, weight: 10, scale: 3.88 * scaleFactor * specialScaleFactor },
+            { path: `${svgFolder}object_saturn.svg`, weight: 6, scale: 9.45 * scaleFactor * specialScaleFactor },
+            // { path: `${svgFolder}object_venus.svg`, weight: 8, scale: 0.95 * scaleFactor}
         ];
         
         let loadedCount = 0;
@@ -128,7 +89,7 @@ export class ThreeDScrollObject {
 
         svgPathList.forEach(item => {
             const pixelObject = new PixelObject(this._THREE, item.path, item.scale, 1);
-            pixelObject.load((group) => {
+            pixelObject.load(() => {
                 this._templateObjects.push({
                     object: pixelObject,
                     weight: item.weight
@@ -143,7 +104,7 @@ export class ThreeDScrollObject {
 
     // --- オブジェクトを生成・配置する新しいメソッドを追加 ---
     _createPixelObjects() {
-        const numObjects = 15;
+        const numObjects = 20;
         const totalWeight = this._templateObjects.reduce((sum, item) => sum + item.weight, 0);
         
         const ambientLight = new this._THREE.AmbientLight(0x404040, 2);
@@ -151,6 +112,14 @@ export class ThreeDScrollObject {
         const directionalLight = new this._THREE.DirectionalLight(0xffffff, 1.5);
         directionalLight.position.set(1, 1, 1);
         this._scene.add(directionalLight);
+
+        const sunSvg = './svgs/object_sun.svg';
+        const sunObject = new PixelObject(this._THREE, sunSvg, 3, 1);
+        sunObject.load((group) => {
+            group.position.set(0, 0, 0);
+            this._scene.add(group);
+            this._pixelObjects.push(sunObject);
+        });
 
         for (let i = 0; i < numObjects; i++) {
             let randomWeight = Math.random() * totalWeight;
@@ -178,17 +147,25 @@ export class ThreeDScrollObject {
                 z: Math.random() * 0.005,
             };
 
-            const minRadius = Math.sqrt(1600);
-            const maxRadius = Math.sqrt(2500);
-            const radius = minRadius + Math.random() * (maxRadius - minRadius);
-            const yPosition = 40 + Math.random() * (50 - 40);
-            const angle = Math.random() * Math.PI * 2;
+            const minRadius = 40;
+            const maxRadius = 60;
+            const radiusRange = maxRadius - minRadius;
+
+            const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+            const angle = i * goldenAngle;
+            
+            // 半径を均等に配置
+            const radius = minRadius + (i / (numObjects - 1)) * radiusRange;
+            
+            // y座標も均等に配置
+            const yPosition = - 1 + (i / (numObjects - 1)) * 7;
+            // --- 変更箇所終わり ---
 
             newPixelObject.group.position.x = Math.cos(angle) * radius;
             newPixelObject.group.position.z = Math.sin(angle) * radius;
             newPixelObject.group.position.y = yPosition;
 
-            this._scene.add(newPixelObject.group);
+            this._planetsGroup.add(newPixelObject.group);
             this._pixelObjects.push(newPixelObject);
         }
     }
@@ -253,7 +230,7 @@ export class ThreeDScrollObject {
         // --- ここから修正 ---
         // イージング関数を適用して、スクロールの進行度を非線形に変化させる
         // `Math.pow(progress, 2)` は、初めは緩やかで徐々に急になる効果を持つ
-        const easedProgress = Math.pow(progress, 2);
+        const easedProgress = Math.pow(progress, 1.2);
         // --- ここまで修正 ---
 
         // カメラの角度を計算
@@ -275,9 +252,15 @@ export class ThreeDScrollObject {
         this._camera.position.z = currentRadius * Math.sin(currentAngle);
 
         // オブジェクトの透明度を更新
-        if (this._material) {
-            this._material.opacity = 1 - easedProgress;
-        }
+        const opacity = 1.0 - easedProgress;
+        this._pixelObjects.forEach(pixelObject => {
+            if (pixelObject.isLoaded) {
+                pixelObject.group.children.forEach(mesh => {
+                    mesh.material.opacity = opacity;
+                    mesh.material.transparent = true; // 透明度を有効にする
+                });
+            }
+        });
 
         // カメラは常に中心(0, 0, 0)を向くように設定
         this._camera.lookAt(0, 0, 0);
@@ -290,24 +273,16 @@ export class ThreeDScrollObject {
     }
 
     _animate() {
-        // requestAnimationFrame(this._animate.bind(this));
-
-        // // 各PixelObjectを個別に回転させる
-        // this._pixelObjects.forEach(pixelObject => {
-        //     if (pixelObject.isLoaded) {
-        //         pixelObject.group.rotation.x += pixelObject.rotationSpeed.x;
-        //         pixelObject.group.rotation.y += pixelObject.rotationSpeed.y;
-        //         pixelObject.group.rotation.z += pixelObject.rotationSpeed.z;
-        //     }
-        // });
-
-        // this._renderer.render(this._scene, this._camera);
-
         requestAnimationFrame(this._animate.bind(this));
 
-        this._polyhedrons.forEach(polyhedron => {
-            polyhedron.rotation.x += 0.001;
-            polyhedron.rotation.y += 0.002;
+        this._planetsGroup.rotation.y += 0.001
+
+        this._pixelObjects.forEach(pixelObject => {
+            if (pixelObject.isLoaded) {
+                pixelObject.group.rotation.x += pixelObject.rotationSpeed.x;
+                pixelObject.group.rotation.y += pixelObject.rotationSpeed.y;
+                pixelObject.group.rotation.z += pixelObject.rotationSpeed.z;
+            }
         });
 
         this._renderer.render(this._scene, this._camera);

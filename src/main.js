@@ -871,7 +871,7 @@ function openMainPage() {
     const startScene = document.querySelector("start-scene");
     const mainScene = document.querySelector("main-scene");
 
-    document.documentElement.classList.add("no-scroll");
+    // document.documentElement.classList.add("no-scroll");
     document.body.classList.add("no-scroll");
 
     // ページがロードされた後にスタートシーンをフェードイン
@@ -886,7 +886,7 @@ function openMainPage() {
             // メインシーンをフェードイン
             setTimeout(() => {
                 startScene.style.display = "none";
-                document.documentElement.classList.remove("no-scroll");
+                // document.documentElement.classList.remove("no-scroll");
                 document.body.classList.remove("no-scroll");
 
                 window.scrollTo(0, 0);
@@ -895,9 +895,9 @@ function openMainPage() {
                 // スライダーバーを生成
                 const sliderBarObject = new SliderBarObject('slider1');
                 sliderBarObject.initSlideContainer();
-            }, 1000);
-        }, 2000);
-    }, 500);
+            }, 100);
+        }, 100);
+    }, 100);
 }
 
 // シーン遷移

@@ -19,7 +19,7 @@
         padding: 0;
         font-size: 16px;
         font-family: Arial, sans-serif;
-        background-image: url('./figs/backgrounds/universe.png');
+        background-image: url('./figs/color/141414.png');
         background-size: cover;
         background-attachment: fixed;
         background-position: bottom;
@@ -40,7 +40,7 @@
 
 <body onload="openMainPage()">
     <start-scene>
-        <div class="container-centeredness">
+        <!-- <div class="container-centeredness">
             <div class="container-vertical">
                 <div class="justify-center">
                     <div class="sentence-fixed-size" data-font-size="5">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </start-scene>
     <main-scene>
         <div class="mouse-overlay"></div>
@@ -788,6 +788,13 @@
         </div>
     </main-scene>
 
+    <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.144.0/build/three.module.js"
+    }
+  }
+    </script>
     <script type="module" src="./src/main.js"></script>
 </body>
 

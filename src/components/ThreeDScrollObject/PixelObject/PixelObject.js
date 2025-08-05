@@ -1,24 +1,19 @@
-
+// PixelObject.js
+import { FileLoader, BoxGeometry, MeshBasicMaterial, Mesh, Group, Color } from 'three';
 
 /**
  * @class PixelObject
- * @description SVGドット絵を読み込み、各ピクセルを3Dのボックス（ボクセル）として描画するクラス。
+ * @description SVGドット絵の<rect>タグを直接解析し、各タグを3Dのボックス（ボクセル）として描画するクラス。
  */
 export class PixelObject {
-    /**
-     * @param {string} svgUrl - SVGファイルのパス
-     * @param {number} scale - オブジェクト全体のスケール
-     * @param {number} pixelSize - 1ピクセルに対応するボクセルのサイズ
-     */
     constructor(THREE, svgUrl, scale = 1, pixelSize = 1) {
+        this._THREE = THREE;
         this.svgUrl = svgUrl;
         this.scale = scale;
         this.pixelSize = pixelSize;
-        this._THREE = THREE;
         this.group = new this._THREE.Group();
         this.isLoaded = false;
         
-        // オブジェクトの自転速度を格納するプロパティ
         this.rotationSpeed = {
             x: Math.random() * 0.005,
             y: Math.random() * 0.005,
@@ -26,66 +21,54 @@ export class PixelObject {
         };
     }
 
-    /**
-     * SVGを読み込み、ボクセルオブジェクトを生成してグループに格納します。
-     * @param {function} onComplete - ロード完了時に実行されるコールバック関数
-     */
     load(onComplete) {
-        const loader = new this._THREE.TextureLoader();
-        loader.load(this.svgUrl, (texture) => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            
-            const imgWidth = texture.image.width;
-            const imgHeight = texture.image.height;
-
-            canvas.width = imgWidth;
-            canvas.height = imgHeight;
-            context.drawImage(texture.image, 0, 0);
-
-            const imageData = context.getImageData(0, 0, imgWidth, imgHeight);
-            const data = imageData.data;
+        const loader = new FileLoader();
+        loader.load(this.svgUrl, (svgText) => {
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+            const rects = svgDoc.querySelectorAll('rect');
 
             const geometry = new this._THREE.BoxGeometry(this.pixelSize, this.pixelSize, this.pixelSize);
-            const halfWidth = imgWidth / 2;
-            const halfHeight = imgHeight / 2;
 
-            for (let y = 0; y < imgHeight; y++) {
-                for (let x = 0; x < imgWidth; x++) {
-                    const index = (y * imgWidth + x) * 4;
-                    const a = data[index + 3];
+            // SVGのサイズ情報を取得
+            const svgElement = svgDoc.querySelector('svg');
+            const svgWidth = parseInt(svgElement.getAttribute('width'));
+            const svgHeight = parseInt(svgElement.getAttribute('height'));
 
-                    if (a > 0) {
-                        const r = data[index];
-                        const g = data[index + 1];
-                        const b = data[index + 2];
-                        const material = new this._THREE.MeshBasicMaterial({ color: `rgb(${r}, ${g}, ${b})` });
-                        const voxel = new this._THREE.Mesh(geometry, material);
+            // SVGのグリッドサイズを定義（今回は30）
+            const gridUnit = 30;
+            // メッシュの中心を合わせるためのオフセットを計算
+            const halfWidth = (svgWidth / gridUnit) / 2;
+            const halfHeight = (svgHeight / gridUnit) / 2;
 
-                        voxel.position.set(
-                            (x - halfWidth) * this.pixelSize,
-                            (halfHeight - y) * this.pixelSize,
-                            0
-                        );
-                        
-                        this.group.add(voxel);
-                    }
-                }
-            }
+            rects.forEach(rect => {
+                // rectの座標とサイズを1/30して、1x1グリッドにマッピング
+                const x = parseFloat(rect.getAttribute('x')) / gridUnit;
+                const y = parseFloat(rect.getAttribute('y')) / gridUnit;
+                const fill = rect.getAttribute('fill');
+                
+                const material = new this._THREE.MeshBasicMaterial({
+                    color: new this._THREE.Color(fill),
+                    transparent: true,
+                    opacity: 1.0,
+                });
 
+                const voxel = new this._THREE.Mesh(geometry, material);
+
+                // 計算した1x1グリッドの座標を基に位置を設定
+                voxel.position.set(
+                    (x + 0.5) - halfWidth,
+                    -(y + 0.5) + halfHeight,
+                    0
+                );
+                this.group.add(voxel);
+            });
+            
             this.group.scale.set(this.scale, this.scale, this.scale);
             this.isLoaded = true;
             if (onComplete) onComplete(this.group);
         }, undefined, (error) => {
             console.error('Failed to load SVG:', error);
         });
-    }
-
-    /**
-     * 生成されたオブジェクトのグループを返します。
-     * @returns {Group}
-     */
-    get object() {
-        return this.group;
     }
 }
