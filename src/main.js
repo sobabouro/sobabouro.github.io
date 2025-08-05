@@ -755,11 +755,17 @@ import { SliderBarObject} from "./components/SliderBarObject/SliderBarObject.js"
             getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height")
         );
 
+        const scrollObjectContainerHeight = parseFloat(
+            getComputedStyle(
+                document.getElementById("3d-scroll-content")
+            ).height
+        );
+
         const windowMinVp = parseFloat(
             getComputedStyle(document.documentElement).getPropertyValue("--window-min-vp")
         );
 
-        if (window.scrollY > 40) {
+        if (window.scrollY > 20 + scrollObjectContainerHeight) {
             // スクロールが一定量を超えたらポップアップバーを表示
             document.documentElement.classList.add('is-barActive');
             popupBar.style.top = "0";

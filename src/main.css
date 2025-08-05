@@ -958,6 +958,7 @@ main-scene.active {
 
 .content {
   background-color: rgba(0, 0, 0, 0);
+  width: 100%;
 }
 
 .whiteboad {
@@ -1846,7 +1847,7 @@ main-scene.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: top 0.3s ease;
+  transition: top 1.8s ease;
   z-index: 9999;
   font-size: calc(var(--bar-font-size) * 0.4);
   padding: var(--solid-line-weight);

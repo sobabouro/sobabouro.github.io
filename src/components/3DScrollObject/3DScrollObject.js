@@ -14,6 +14,10 @@ export class ThreeDScrollAnimation {
             return;
         }
         this._container = container;
+        // ▼▼▼ START: ここから追加 ▼▼▼
+        // アニメーションのスクロール範囲となる親コンテナを取得
+        this._scrollContainer = container.parentElement;
+        // ▲▲▲ END: ここまで追加 ▲▲▲
         this._THREE = THREE;
 
         this._scene = new this._THREE.Scene();
@@ -41,13 +45,12 @@ export class ThreeDScrollAnimation {
         this._createPolyhedrons();
         this._addEventListeners();
         this._animate();
-        this._onScroll(); // 初期位置を設定
+        // ▼▼▼ START: ここから修正 ▼▼▼
+        // 初期表示時にスクロール位置を反映させる
+        this._onScroll();
+        // ▲▲▲ END: ここまで修正 ▲▲▲
     }
 
-    /**
-     * @private
-     * @description シーンに表示する正多面体を生成します。
-     */
     _createPolyhedrons() {
         const geometries = [
             new this._THREE.TetrahedronGeometry(2.5, 0),   // 正四面体
@@ -102,30 +105,38 @@ export class ThreeDScrollAnimation {
         window.addEventListener('resize', this._onWindowResize.bind(this));
     }
 
-    /**
-     * @private
-     * @description スクロールイベントを処理し、カメラの角度を更新します。
-     */
+    // ▼▼▼ START: ここから修正 ▼▼▼
     _onScroll() {
-        // スクロール可能な最大値
-        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        // 現在のスクロール進捗 (0.0 ~ 1.0)
-        const scrollProgress = window.scrollY / scrollableHeight;
+        if (!this._scrollContainer) return;
+        // スクロールコンテナの画面上部からの距離と高さを取得
+        const rect = this._scrollContainer.getBoundingClientRect();
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const containerTop = rect.top + scrollTop;
+        const containerHeight = this._scrollContainer.clientHeight;
+
+        // アニメーション区間のスクロール可能距離
+        const scrollableDistance = containerHeight - window.innerHeight;
+
+        // 現在のスクロール位置がコンテナの範囲内にあるか計算
+        const scrollInContainer = scrollTop - containerTop;
+
+        // 0から1の範囲の進行度を計算（範囲外は0か1に丸める）
+        let progress = Math.max(0, Math.min(1, scrollInContainer / scrollableDistance));
+
+        if (isNaN(progress)) {
+            progress = 0;
+        }
 
         // +90度から-70度までの範囲 (合計160度)
         const angleRange = 160;
         const startAngle = 90;
-        const currentAngle = startAngle - (scrollProgress * angleRange);
+        const currentAngle = startAngle - (progress * angleRange);
 
         // カメラのX軸回転を更新 (ラジアンに変換)
         this._camera.rotation.x = this._THREE.MathUtils.degToRad(currentAngle);
     }
-
-
-    /**
-     * @private
-     * @description ウィンドウリサイズイベントを処理します。
-     */
+    // ▲▲▲ END: ここまで修正 ▲▲▲
+    
     _onWindowResize() {
         this._camera.aspect = window.innerWidth / window.innerHeight;
         this._camera.updateProjectionMatrix();
