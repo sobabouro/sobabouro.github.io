@@ -14,6 +14,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
         const clickableElements = document.querySelectorAll('[data-block-object]');
 
         document.addEventListener('mousemove', (e) => {
+
             const popupBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar-font-size"));
             const x = e.clientX;
             const y = e.clientY;
@@ -21,10 +22,12 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
             let hoverSize = radius;
 
             // `[data-block-object]` の要素を検出し、ホバー時にサイズを変える
-            if (document.documentElement.classList.contains(':not(is-drawerActive)')) {
+            if (!document.documentElement.classList.contains('is-drawerActive')) {
+
                 clickableElements.forEach(element => {
                     const rect = element.getBoundingClientRect();
                     const scaling = element.getAttribute('data-block-object');
+
                     if (
                         x >= rect.left &&
                         x <= rect.right &&
@@ -38,6 +41,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
 
             // `clip-path` を動的に設定
             if (y < popupBarHeight + radius && document.documentElement.classList.contains('is-barActive')) {
+
                 const size = Math.max(y - popupBarHeight, radius / 5);
 
                 if (y < popupBarHeight + radius / 5) {
@@ -457,9 +461,9 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     function updateZoomFactor() {
         const maxWidth = window.innerWidth; // ビューポートの幅
         const minWidth = 320; // フォントサイズを調整し始める最小幅
-        const minFontSize = 1.3; // 最小フォントサイズ
-        const baseFontSize = 2; // ベースフォントサイズ
-        const maxFontSize = 2.5; // 最大フォントサイズ
+        const minFontSize = 0.2; // 最小フォントサイズ
+        const baseFontSize = 1.8; // ベースフォントサイズ
+        const maxFontSize = 5; // 最大フォントサイズ
 
         // ブラウザの倍率を取得
         let zoomFactor;
@@ -484,6 +488,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
             const fontSizeMultiplier = parseFloat(el.getAttribute('data-font-size'));
             if (!isNaN(fontSizeMultiplier)) {
                 el.style.fontSize = `${baseFontSize * fontSizeMultiplier}vmin`;
+                el.style.wordSpacing = `calc(${baseFontSize * fontSizeMultiplier}vmin * 0.3)`;
             }
         });
 
