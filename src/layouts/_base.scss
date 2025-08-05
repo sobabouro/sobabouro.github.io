@@ -57,6 +57,24 @@
     background-color: var(--color-white);
 }
 
+.wireframe-white {
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    padding: -1vw;
+    box-sizing: border-box;
+    border: calc(var(--bar-font-size) * 0.1) solid var(--color-white);
+    border-radius: calc(var(--bar-font-size) * 0.05);
+}
+
+.wireframe-black {
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    padding: -1vw;
+    box-sizing: border-box;
+    border: calc(var(--bar-font-size) * 0.1) solid var(--color-black);
+    border-radius: calc(var(--bar-font-size) * 0.05);
+}
+
 .plate {
     display: flex;
     position: relative;

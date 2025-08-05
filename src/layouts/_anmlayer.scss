@@ -437,16 +437,37 @@
 }
 
 #scroll-animation-container {
-  --scroll-container-height: calc(200vh + 250px);
-  
-  height: var(--scroll-container-height);
-  position: relative;
+    --scroll-container-height: calc(200vh + 250px);
+    
+    height: var(--scroll-container-height);
+    position: relative;
 
-  #three-d-scroll-content {
-    position: sticky;
+    #three-d-scroll-content {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+    }
+}
+
+.change-opacity-with-3d-object-container {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-  }
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+
+    .text-box {
+        position: absolute;
+        bottom: 8vh;
+        font-size: calc(var(--font-size-base) * 2);
+        color: var(--color-black);
+        opacity: 1;
+        font-family: 'arcade-classic', 'DotGothic16';
+    }
 }

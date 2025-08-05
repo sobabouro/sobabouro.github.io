@@ -253,14 +253,26 @@ export class ThreeDScrollObject {
 
         // オブジェクトの透明度を更新
         const opacity = 1.0 - easedProgress;
-        this._pixelObjects.forEach(pixelObject => {
-            if (pixelObject.isLoaded) {
-                pixelObject.group.children.forEach(mesh => {
-                    mesh.material.opacity = opacity;
-                    mesh.material.transparent = true; // 透明度を有効にする
-                });
-            }
-        });
+
+        // this._pixelObjects.forEach(pixelObject => {
+        //     if (pixelObject.isLoaded) {
+        //         pixelObject.group.children.forEach(mesh => {
+        //             mesh.material.opacity = opacity;
+        //             mesh.material.transparent = true; // 透明度を有効にする
+        //         });
+        //     }
+        // });
+
+        const scrollAnimationContainer = document.getElementById('scroll-animation-container');
+        if (scrollAnimationContainer) {
+            scrollAnimationContainer.style.opacity = (1.0 - easedProgress).toString();
+        }
+
+        const container = document.querySelector('.change-opacity-with-3d-object-container');
+        if (container) {
+            // スクロールが始まると徐々に表示されるようにする
+            container.style.opacity = (1.0 - easedProgress).toString();
+        }
 
         // カメラは常に中心(0, 0, 0)を向くように設定
         this._camera.lookAt(0, 0, 0);
