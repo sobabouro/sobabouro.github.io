@@ -69,7 +69,7 @@ export class ThreeDScrollObject {
 
     _loadTemplateObjects(onComplete) {
         const scaleFactor = 1.2;
-        const specialScaleFactor = 0.05;
+        const specialScaleFactor = 0.1;
 
         const svgFolder = './svgs/';
         const svgPathList = [
@@ -81,6 +81,8 @@ export class ThreeDScrollObject {
             { path: `${svgFolder}object_moon_yellow.svg`, weight: 10, scale: 0.27 * scaleFactor },
             { path: `${svgFolder}object_neptune.svg`, weight: 10, scale: 3.88 * scaleFactor * specialScaleFactor },
             { path: `${svgFolder}object_saturn.svg`, weight: 6, scale: 9.45 * scaleFactor * specialScaleFactor },
+            { path: `${svgFolder}object_uranus.svg`, weight: 6, scale: 4.01 * scaleFactor * specialScaleFactor },
+            { path: `${svgFolder}object_mercury.svg`, weight: 10, scale: 0.38 * scaleFactor },
             // { path: `${svgFolder}object_venus.svg`, weight: 8, scale: 0.95 * scaleFactor}
         ];
         
