@@ -161,8 +161,6 @@
     }
 }
 
-
-
 .app-icon-plate {
     position: relative;
     display: flex;
@@ -326,5 +324,36 @@
         &.is-closed {
             animation: shake 0.5s ease-in-out;
         }
+    }
+}
+
+.link-box {
+    width: 100%;
+    letter-spacing: 5px;
+    border-radius: var(--solid-line-weight);
+    border: var(--solid-line-weight) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    cursor: none;
+    transition: background-color, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 2%;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        background-color: var(--color-hover);
+        transform: scale(0.95);
+    }
+
+    a {
+        display: block;
     }
 }
