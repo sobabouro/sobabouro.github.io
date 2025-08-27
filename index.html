@@ -239,7 +239,7 @@
                             </div>
                         </div>
                         <div class="container-vertical" style="flex: 4; gap: 2vw;">
-                            <div class="title z2s" data-block-object="1">About me</div>
+                            <div class="title z2s" data-block-object="1.5">About me</div>
                             <div class="text z2s">
                                 埼玉県出身の大学院生．</br>
                                 群馬大学大学院 情報学研究科 情報科学コース在籍．</br>
@@ -253,6 +253,16 @@
                         <div class="justify-center">
                             <div class="vertical-zoom-box" default-height="50dvh">
                                 <div class="pythagoras-container">
+
+                                    <div class="summary-box">
+                                        <button class="button" onclick="scrollToSection('works')" data-block-object="2.5">
+                                            <img src="./figs/dot_icons/work.png" alt="作品アイコン" class="button-icon z2s">
+                                            <span class="button-text z2s">
+                                                <div class="text-sub"> 制作物 </div>
+                                                <div class="text-main"> WORKS </div>
+                                            </span>
+                                        </button>
+                                    </div>
 
                                     <div class="summary-box">
                                         <button class="button" onclick="scrollToSection('shokai')" data-block-object="2.5">
@@ -284,19 +294,102 @@
                                         </button>
                                     </div>
 
-                                    <div class="summary-box">
-                                        <button class="button" onclick="scrollToSection('works')" data-block-object="2.5">
-                                            <img src="./figs/dot_icons/work.png" alt="作品アイコン" class="button-icon z2s">
-                                            <span class="button-text z2s">
-                                                <div class="text-sub"> 制作物 </div>
-                                                <div class="text-main"> WORKS </div>
-                                            </span>
-                                        </button>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- カット -->
+                    <div class="container-left" style="padding: 4vw 8vw 0vw 8vw;">
+                        <div class="title z2s" data-block-object="1.5">Works</div>
+                    </div>
+                    <!-- 制作物セクション -->
+                    <div class="pc-object" id="works">
+                        <img class="cursor z2h" src="./figs/cursor.png" alt=" ">
+                        <div class="frame">
+                            <div class="slider-container" id="slider1">
+                                <div class="main-display z2s" data-block-object="2.5">
+
+                                    <a href="./docs/work_darts.html" class="media">
+                                        <img src="./figs/darts.gif" alt="Slide 1">
+                                        <div class="details">
+                                            <div class="title">酔っ払いダーツ</div>
+                                            <div class="description">
+                                                初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="./docs/work_holo_shooting.html" class="media">
+                                        <img src="./figs/holo_shooting.gif" alt="Slide 2">
+                                        <div class="details" data-font-size="0.5">
+                                            <div class="title">Holo Shooting</div>
+                                            <div class="description">
+                                                研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="./docs/work_3d_born.html" class="media">
+                                        <img src="./figs/3d_born.gif" alt="Slide 3">
+                                        <div class="details">
+                                            <div class="title">学部卒業研究</div>
+                                            <div class="description">
+                                                「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="./docs/work_heyakowashi.html" class="media">
+                                        <img src="./figs/heyakowashi.gif" alt="Slide 4">
+                                        <div class="details">
+                                            <div class="title">部屋壊しゲーム</div>
+                                            <div class="description">
+                                                研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="./docs/work_letus_letters.html" class="media">
+                                        <img src="./figs/title.gif" alt="Slide 5">
+                                        <div class="details">
+                                            <div class="title">Let us, Letters</div>
+                                            <div class="description">
+                                                portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                                <div class="space-vertical"></div>
+                                <div class="slider">
+                                    <div class="side-space"></div>
+                                    <div class="display-point">
+                                        <div class="slide z2s">
+                                            <div class="img-container"><img src="./figs/darts_1.1.1.png" alt="Slide 1"></div>
+                                            <div class="title">2022 / 夏</div>
+                                        </div>
+                                        <div class="slide z2s">
+                                            <div class="img-container"><img src="./figs/holo_shooting_2.1.1.png" alt="Slide 2"></div>
+                                            <div class="title">2023 / 春~夏</div>
+                                        </div>
+                                        <div class="slide z2s">
+                                            <div class="img-container"><img src="./figs/model.PNG" alt="Slide 3"></div>
+                                            <div class="title">2023 / 秋~冬</div>
+                                        </div>
+                                        <div class="slide z2s">
+                                            <div class="img-container"><img src="./figs/heyakowashi_1.1.1.png" alt="Slide 4"></div>
+                                            <div class="title">2024 / 夏</div>
+                                        </div>
+                                        <div class="slide z2s">
+                                            <div class="img-container"><img src="./figs/letus_letters.png" alt="Slide 5"></div>
+                                            <div class="title">2024 / 秋</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="side-space"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stand"></div>
+                        <div class="base"></div>
                     </div>
                     <!-- カット -->
                     <div class="whiteboad">
@@ -680,101 +773,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- カット -->
-                    <div class="whiteboad">
-                        <div class="cut z2s">
-                            <div class="text-sub">(クリックでリンク先へ飛べます)</div>
-                            <div class="double-underline">WORKS</div>
-                        </div>
-                    </div>
-                    <!-- 制作物セクション -->
-                    <div class="pc-object" id="works">
-                        <img class="cursor z2h" src="./figs/cursor.png" alt=" ">
-                        <div class="frame">
-                            <div class="slider-container" id="slider1">
-                                <div class="main-display z2s" data-block-object="2.5">
 
-                                    <a href="./docs/work_darts.html" class="media">
-                                        <img src="./figs/darts.gif" alt="Slide 1">
-                                        <div class="details">
-                                            <div class="title">酔っ払いダーツ</div>
-                                            <div class="description">
-                                                初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="./docs/work_holo_shooting.html" class="media">
-                                        <img src="./figs/holo_shooting.gif" alt="Slide 2">
-                                        <div class="details" data-font-size="0.5">
-                                            <div class="title">Holo Shooting</div>
-                                            <div class="description">
-                                                研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="./docs/work_3d_born.html" class="media">
-                                        <img src="./figs/3d_born.gif" alt="Slide 3">
-                                        <div class="details">
-                                            <div class="title">学部卒業研究</div>
-                                            <div class="description">
-                                                「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="./docs/work_heyakowashi.html" class="media">
-                                        <img src="./figs/heyakowashi.gif" alt="Slide 4">
-                                        <div class="details">
-                                            <div class="title">部屋壊しゲーム</div>
-                                            <div class="description">
-                                                研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <a href="./docs/work_letus_letters.html" class="media">
-                                        <img src="./figs/title.gif" alt="Slide 5">
-                                        <div class="details">
-                                            <div class="title">Let us, Letters</div>
-                                            <div class="description">
-                                                portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                </div>
-                                <div class="space-vertical"></div>
-                                <div class="slider">
-                                    <div class="side-space"></div>
-                                    <div class="display-point">
-                                        <div class="slide z2s">
-                                            <div class="img-container"><img src="./figs/darts_1.1.1.png" alt="Slide 1"></div>
-                                            <div class="title">2022 / 夏</div>
-                                        </div>
-                                        <div class="slide z2s">
-                                            <div class="img-container"><img src="./figs/holo_shooting_2.1.1.png" alt="Slide 2"></div>
-                                            <div class="title">2023 / 春~夏</div>
-                                        </div>
-                                        <div class="slide z2s">
-                                            <div class="img-container"><img src="./figs/model.PNG" alt="Slide 3"></div>
-                                            <div class="title">2023 / 秋~冬</div>
-                                        </div>
-                                        <div class="slide z2s">
-                                            <div class="img-container"><img src="./figs/heyakowashi_1.1.1.png" alt="Slide 4"></div>
-                                            <div class="title">2024 / 夏</div>
-                                        </div>
-                                        <div class="slide z2s">
-                                            <div class="img-container"><img src="./figs/letus_letters.png" alt="Slide 5"></div>
-                                            <div class="title">2024 / 秋</div>
-                                        </div>
-
-                                    </div>
-                                    <div class="side-space"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stand"></div>
-                        <div class="base"></div>
-                    </div>
                     <!-- フッター -->
                     <div class="footer">
                         <div class="earth">
