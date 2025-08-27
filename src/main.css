@@ -2814,7 +2814,7 @@ main-scene.active {
   border: #2e2e2e solid calc(var(--bar-font-size) * 0.5);
   justify-content: center;
   flex-direction: column;
-  background-color: rgba(252, 252, 252, 0);
+  background-color: rgba(8, 8, 8, 0.3764705882);
 }
 .pc-object .frame .slider-container {
   position: relative;
@@ -2882,7 +2882,7 @@ main-scene.active {
 .pc-object .frame .slider-container .main-display .media .details .description {
   font-family: "Kiwi Maru";
   font-size: calc(var(--font-size-base) * 0.8);
-  color: var(--color-white);
+  color: var(--color-black);
 }
 .pc-object .frame .slider-container .main-display .media.is-main {
   visibility: visible;
