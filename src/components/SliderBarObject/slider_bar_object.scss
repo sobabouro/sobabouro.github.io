@@ -78,7 +78,7 @@
         height: 100%;
         box-sizing: border-box;
         border: #2e2e2e solid calc(var(--bar-font-size) * 0.5);
-        border-radius: 2px;
+        // border-radius: 2px;
         justify-content: center;
         flex-direction: column;
         background-color: #fcfcfc00;
@@ -215,7 +215,7 @@
 
                 .next-button {
                     right: calc(var(--bar-font-size) * -1.2);
-                    background-image: url('../../../figs/arrow_right.png');
+                    background-image: url('../../../figs/game_button/button_a.png');
                     background-size: contain;
                     transition: transform 0.3s ease;
 
@@ -234,7 +234,7 @@
 
                 .prev-button {
                     left: calc(var(--bar-font-size) * -1.2);
-                    background-image: url('../../../figs/arrow_left.png');
+                    background-image: url('../../../figs/game_button/button_y.png');
                     background-size: contain;
                     transition: transform 0.3s ease;
 
@@ -256,7 +256,7 @@
 
     .stand {
         width: calc(var(--bar-font-size) * 0.5);
-        height: var(--bar-font-size);
+        height: calc(var(--bar-font-size) * 0.5);
         background-color: #555;
         position: relative;
     }
@@ -266,6 +266,6 @@
         height: calc(var(--bar-font-size) * 0.3);
         background-color: #444;
         position: relative;
-        border-radius: 5px;
+        // border-radius: 5px;
     }
 }

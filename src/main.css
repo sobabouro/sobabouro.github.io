@@ -2812,7 +2812,6 @@ main-scene.active {
   height: 100%;
   box-sizing: border-box;
   border: #2e2e2e solid calc(var(--bar-font-size) * 0.5);
-  border-radius: 2px;
   justify-content: center;
   flex-direction: column;
   background-color: rgba(252, 252, 252, 0);
@@ -2933,7 +2932,7 @@ main-scene.active {
 }
 .pc-object .frame .slider-container .slider-buttons .next-button {
   right: calc(var(--bar-font-size) * -1.2);
-  background-image: url("../../../figs/arrow_right.png");
+  background-image: url("../../../figs/game_button/button_a.png");
   background-size: contain;
   transition: transform 0.3s ease;
 }
@@ -2948,7 +2947,7 @@ main-scene.active {
 }
 .pc-object .frame .slider-container .slider-buttons .prev-button {
   left: calc(var(--bar-font-size) * -1.2);
-  background-image: url("../../../figs/arrow_left.png");
+  background-image: url("../../../figs/game_button/button_y.png");
   background-size: contain;
   transition: transform 0.3s ease;
 }
@@ -2963,7 +2962,7 @@ main-scene.active {
 }
 .pc-object .stand {
   width: calc(var(--bar-font-size) * 0.5);
-  height: var(--bar-font-size);
+  height: calc(var(--bar-font-size) * 0.5);
   background-color: #555;
   position: relative;
 }
@@ -2972,7 +2971,6 @@ main-scene.active {
   height: calc(var(--bar-font-size) * 0.3);
   background-color: #444;
   position: relative;
-  border-radius: 5px;
 }
 
 /*# sourceMappingURL=main.css.map */
