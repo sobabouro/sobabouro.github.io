@@ -2720,8 +2720,8 @@ main-scene.active {
   text-align: center;
   justify-content: space-around;
   background-color: rgba(0, 0, 0, 0);
-  color: var(--color-white);
-  font-family: "Kiwi Maru", "Arcade-classic", "DotGothic16";
+  color: var(--color-black);
+  font-family: "DotGothic16";
   font-size: calc(var(--bar-font-size) * 0.2);
   font-weight: bold;
   opacity: 0;
@@ -2875,7 +2875,7 @@ main-scene.active {
 }
 .pc-object .frame .slider-container .main-display .media .details .title {
   font-family: "Arcade-classic", "DotGothic16";
-  font-size: calc(var(--font-size-base) * 1);
+  font-size: calc(var(--font-size-base) * 2);
   font-weight: bold;
   color: var(--color-black);
 }
