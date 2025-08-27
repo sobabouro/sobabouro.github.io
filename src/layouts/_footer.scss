@@ -10,7 +10,7 @@
     color: var(--color-black);
     text-align: center;
 
-    .cloud, .ground {
+    .cloud, .ground, .earth {
         width: 100%;
         height: 100%;
         flex-direction: column;
@@ -55,5 +55,10 @@
         background-color: var(--color-beige);
         background-image: url('../../figs/backgrounds/ground_2.png');
         background-size: 100% auto;
+    }
+
+    .earth {
+        background-image: url('../../figs/backgrounds/earth.png');
+        background-size: 100% 100%;
     }
 }
