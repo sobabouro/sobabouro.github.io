@@ -160,6 +160,12 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
                     const targetRect = target.getBoundingClientRect();
                     if (checkCollision(fallingObjectRect, targetRect)) {
 
+                        target.classList.add('is-clash');
+
+                        setTimeout(() => {
+                            target.classList.remove('is-clash');
+                        }, 500);
+
                         // カスタムイベントを発火
                         const collisionEvent = new CustomEvent('collision', {
                             detail: {

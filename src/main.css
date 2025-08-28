@@ -600,6 +600,10 @@ main-scene.active {
   transform: translateX(-10px);
 }
 
+.is-clash {
+  animation: electrocute 0.3s ease-in-out;
+}
+
 .mouse-overlay {
   position: fixed;
   top: 0;
@@ -1012,7 +1016,7 @@ main-scene.active {
 
 .text {
   font-size: calc(var(--bar-font-size) * 0.25);
-  font-family: sans-serif;
+  font-family: "Kiwi Maru", "sans-serif";
   color: var(--color-black);
   line-height: 1.5;
 }
@@ -1502,6 +1506,7 @@ main-scene.active {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  border: var(--solid-line-weight) solid var(--color-black);
   background-color: rgba(252, 252, 252, 0.3490196078);
   visibility: visible;
   opacity: 1;
@@ -1514,7 +1519,7 @@ main-scene.active {
   height: calc(var(--bar-font-size) * 1.5);
   top: 0;
   flex-direction: row;
-  border-radius: 10px 10px 0 0;
+  border-radius: 5px 5px 0 0;
   background-color: #298ed1;
   color: var(--color-black);
   font-size: calc(var(--bar-font-size) * 0.4);
@@ -1599,7 +1604,7 @@ main-scene.active {
   align-items: center;
   border-radius: 15%;
   box-sizing: border-box;
-  background-color: var(--color-white);
+  background-color: rgba(211, 211, 211, 0.3137254902);
   background-size: contain;
 }
 .app-icon-plate .back-plate .app-icon-box .img {
@@ -1638,27 +1643,30 @@ main-scene.active {
 
 .link-box {
   width: 100%;
-  letter-spacing: 5px;
   border-radius: var(--solid-line-weight);
   border: var(--solid-line-weight) solid var(--color-black);
-  background-color: var(--color-white);
+  background-color: none;
   color: var(--color-black);
   cursor: none;
   transition: background-color, transform 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  align-items: start;
+  text-align: start;
   box-sizing: border-box;
   padding: 2%;
 }
-.link-box:focus {
-  outline: none;
+.link-box .link-text {
+  font-size: calc(var(--bar-font-size) * 0.25);
+  font-family: "Kiwi Maru", sans-serif;
+  text-align: start;
+  color: var(--color-black);
+  line-height: 1.5;
 }
 .link-box:hover {
-  background-color: var(--color-hover);
-  transform: scale(0.95);
+  background-color: rgba(141, 141, 141, 0.3960784314);
+  transform: scale(0.99);
 }
 .link-box a {
   display: block;
@@ -2424,6 +2432,26 @@ main-scene.active {
   }
   75% {
     transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes electrocute {
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-1deg);
+  }
+  40% {
+    transform: rotate(1deg);
+  }
+  60% {
+    transform: rotate(-1deg);
+  }
+  80% {
+    transform: rotate(1deg);
   }
   100% {
     transform: rotate(0);
