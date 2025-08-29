@@ -176,11 +176,11 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
                     const targetRect = target.getBoundingClientRect();
                     if (checkCollision(fallingObjectRect, targetRect)) {
 
-                        target.classList.add('is-clash');
+                        // target.classList.add('is-clash');
 
-                        setTimeout(() => {
-                            target.classList.remove('is-clash');
-                        }, 500);
+                        // setTimeout(() => {
+                        //     target.classList.remove('is-clash');
+                        // }, 500);
 
                         // カスタムイベントを発火
                         const collisionEvent = new CustomEvent('collision', {
@@ -190,7 +190,6 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
                             },
                         });
                         fallingObject.container.dispatchEvent(collisionEvent);
-
                         clearInterval(collisionCheckInterval); // 衝突判定を停止
                     }
                 });
@@ -234,6 +233,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
 
             // ground オブジェクトの場合
             if (eventDetail.target === "ground") {
+
                 if (eventDetail.object === "rocket") {
                     fallingObject.pauseAnimation();
                     fallingObject.toggleDisplayGround();
@@ -401,7 +401,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
         layer.style.height = `${contentHeight * 0.4}px`;
         const leftContainer = layer.querySelector(".left-side");
         const rightContainer = layer.querySelector(".right-side");
-        const min = 2, max = 5, imageCount = 5;
+        const min = 1, max = 7, imageCount = 5;
 
         leftContainer.innerHTML = '';
         rightContainer.innerHTML = '';
