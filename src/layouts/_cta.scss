@@ -353,7 +353,7 @@
     }
 
     &:hover {
-        background-color: #8d8d8d65;
+        background-color: var(--color-clear-gray);
         transform: scale(0.99);
     }
 

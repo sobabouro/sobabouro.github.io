@@ -174,11 +174,12 @@
     height: 100%;
     padding: calc(var(--bar-font-size) * 2) calc(var(--bar-font-size) * 0.5);
     gap: calc(var(--bar-font-size) * 0.5);
-    border: white solid var(--solid-line-weight);
+    border: var(--color-black) solid var(--solid-line-weight);
     border-radius: 15px 0 0 15px;
     color: var(--color-white);
     background-attachment: scroll;
-    background-image: url('../../figs/backgrounds/maptile_renga_black_02_matt_x5.png');
+    // background-image: url('../../figs/backgrounds/maptile_renga_black_02_matt_x5.png');
+    background-image: url('../../figs/color/f4f4f4.png');
     background-repeat:repeat-y;
     background-size: contain;
     background-color: var(--color-black);
@@ -211,9 +212,9 @@
         height: 30vh;
         max-width: 90%;
         gap: var(--solid-line-weight);
-        background-color: var(--color-black);
+        background-color: var(--color-white);
         border-radius: 15px;
-        border: var(--color-white) solid var(--solid-line-weight);
+        border: var(--color-black) solid var(--solid-line-weight);
         justify-content: center;
         overflow: hidden;
 
@@ -222,8 +223,8 @@
             display: flex;
             height: 100%;
             width: 100%;
-            padding: 0 calc(var(--solid-line-weight) * 2);
-            gap: var(--solid-line-weight);
+            padding: 0 calc(var(--solid-line-weight) * 6);
+            gap: calc(var(--solid-line-weight) * 3);
             flex-direction: row;
             justify-content: center;
             margin: auto;
@@ -265,13 +266,14 @@
 
                 .description {
                     font-family: 'Kiwi Maru';
-                    font-size: calc(var(--bar-font-size) * 0.3);
-                    color: var(--color-white);
+                    font-size: calc(var(--bar-font-size) * 0.23);
+                    color: var(--color-black);
                 }
             }
         }
 
         &:hover {
+            background-color: var(--color-clear-gray);
 
             .media {
                 scale: 1.02;
@@ -281,6 +283,14 @@
                 }
             }
         }
+    }
+
+    a {
+    text-decoration: none;
+    }
+
+    a:hover {
+    text-decoration: none;
     }
 
     .is-drawerActive & {
