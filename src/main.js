@@ -5,6 +5,22 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
 
 // ロードイベント後 DOM が生成されてからもろもろ実行する
 (function () {
+    const scaleFactor = 1.2;
+    const specialScaleFactor = 0.1;
+
+    const svgFolder = './svgs/';
+    const svgPathList = [
+        { path: `${svgFolder}object_jupiter.svg`, weight: 6, scale: 11.21 * scaleFactor * specialScaleFactor },
+        { path: `${svgFolder}object_mars.svg`, weight: 10, scale: 0.53 * scaleFactor },
+        { path: `${svgFolder}object_moon_yellow.svg`, weight: 10, scale: 0.27 * scaleFactor },
+        { path: `${svgFolder}object_neptune.svg`, weight: 10, scale: 3.88 * scaleFactor * specialScaleFactor },
+        { path: `${svgFolder}object_saturn.svg`, weight: 6, scale: 9.45 * scaleFactor * specialScaleFactor },
+        { path: `${svgFolder}object_uranus.svg`, weight: 6, scale: 4.01 * scaleFactor * specialScaleFactor },
+        { path: `${svgFolder}object_mercury.svg`, weight: 10, scale: 0.38 * scaleFactor },
+        { path: `${svgFolder}object_venus.svg`, weight: 6, scale: 0.95 * scaleFactor}
+    ];
+
+
     // カーソルを作成する関数
     function makeCursor() {
         // カーソル要素を取得
@@ -379,6 +395,72 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
         }
     }
 
+    function makeUniverseLayer() {
+        const layer = document.querySelector(".universe-layer");
+        const contentHeight = document.body.scrollHeight;
+        layer.style.height = `${contentHeight * 0.4}px`;
+        const leftContainer = layer.querySelector(".left-side");
+        const rightContainer = layer.querySelector(".right-side");
+        const min = 2, max = 5, imageCount = 5;
+
+        leftContainer.innerHTML = '';
+        rightContainer.innerHTML = '';
+
+        for (let i = 0; i < imageCount; i++) {
+            const space = Math.floor(Math.random() * (max - min + 1)) + min;
+            const item = getRandomItem();
+            const box = document.createElement('div');
+            box.className = 'planet';
+            const img = document.createElement('img');
+            img.src = item.path;
+            img.style.transform = `scale(${item.scale})`;
+
+            for (let j = 0; j < space; j++) {
+                const spacer = document.createElement('div');
+                spacer.className = 'space-horizon';
+                box.appendChild(spacer);
+            }
+            box.appendChild(img);
+            leftContainer.appendChild(box);
+        }
+
+        for (let i = 0; i < imageCount; i++) {
+            const space = Math.floor(Math.random() * (max - min + 1)) + min;
+            const item = getRandomItem();
+            const box = document.createElement('div');
+            box.className = 'planet';
+            const img = document.createElement('img');
+            img.src = item.path;
+            img.style.transform = `scale(${item.scale})`;
+
+            for (let j = 0; j < space; j++) {
+                const spacer = document.createElement('div');
+                spacer.className = 'space-horizon';
+                box.appendChild(spacer);
+            }
+            box.appendChild(img);
+            rightContainer.appendChild(box);
+        }
+    }
+
+    function getRandomItem() {
+        let totalWeight = 0;
+        svgPathList.forEach(image => {
+            totalWeight += image.weight;
+        });
+
+        let randomNum = Math.random() * totalWeight;
+
+        for (const image of svgPathList) {
+            if (randomNum <= image.weight) {
+                return image;
+            }
+            randomNum -= image.weight;
+        }
+
+        return svgPathList[Math.floor(Math.random() * svgPathList.length)];
+    }
+
     // テキストを一文字ずつフェードインする関数
     function waveFadeIn() {
         // waveFadeIn() 補助関数
@@ -435,6 +517,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     function initialize() {
         makeCursor();
         gameFieldAdministrator();
+        makeUniverseLayer();
 
         // 3Dスクロールアニメーションの初期化
         try {
@@ -579,6 +662,12 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
             const boxCount = container.children.length;
             calculatePythagorasLayout(container, boxCount);
         });
+    }
+
+    function updateUniverseLayer() {
+        const layer = document.querySelector(".universe-layer");
+        const contentHeight = document.body.scrollHeight;
+        layer.style.height = `${contentHeight * 0.4}px`;
     }
 
     // pythagoras-container のレイアウトを計算する
@@ -754,6 +843,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
             updatePythagoras();
             updateImgContainer();
             updateAllWaves();
+            updateUniverseLayer();
         }, 200);
     }
 
@@ -793,8 +883,27 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
         }
     }
 
+    function scrollUniverseLayer() {
+        const layer = document.querySelector(".universe-layer");
+        const scrollY = window.scrollY || window.pageYOffset;
+        const transformY = scrollY * -0.2;
+
+        const barActive = document.documentElement.classList.contains('is-barActive');
+        if (barActive) {
+            layer.style.transition = "opacity 2s ease-in";
+            layer.style.opacity = 1;
+        }
+        else {
+            layer.style.transition = "opacity 0.3s ease";
+            layer.style.opacity = 0;
+        }
+
+        layer.style.transform = `translateY(${transformY}px)`;
+    }
+
     function initialize() {
         switchingPopupBar();
+        scrollUniverseLayer();
     }
 
     window.addEventListener("scroll", initialize);
