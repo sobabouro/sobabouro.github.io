@@ -5,7 +5,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
 
 // ロードイベント後 DOM が生成されてからもろもろ実行する
 (function () {
-    const scaleFactor = 1.2;
+    const scaleFactor = 1.5;
     const specialScaleFactor = 0.1;
 
     const svgFolder = './svgs/';
@@ -176,11 +176,11 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
                     const targetRect = target.getBoundingClientRect();
                     if (checkCollision(fallingObjectRect, targetRect)) {
 
-                        // target.classList.add('is-clash');
+                        target.classList.add('is-clash');
 
-                        // setTimeout(() => {
-                        //     target.classList.remove('is-clash');
-                        // }, 500);
+                        setTimeout(() => {
+                            target.classList.remove('is-clash');
+                        }, 500);
 
                         // カスタムイベントを発火
                         const collisionEvent = new CustomEvent('collision', {
@@ -232,7 +232,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
             };
 
             // ground オブジェクトの場合
-            if (eventDetail.target === "ground") {
+            if (eventDetail.target.includes("ground")) {
 
                 if (eventDetail.object === "rocket") {
                     fallingObject.pauseAnimation();
@@ -401,64 +401,60 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
         layer.style.height = `${contentHeight * 0.4}px`;
         const leftContainer = layer.querySelector(".left-side");
         const rightContainer = layer.querySelector(".right-side");
-        const min = 1, max = 7, imageCount = 5;
+        const minH = 0, maxH = 7, minV = 2, maxV = 5, imageCount = 5;
 
-        leftContainer.innerHTML = '';
-        rightContainer.innerHTML = '';
+        const createAndAppendImages = (container) => {
+            container.innerHTML = '';
+            for (let i = 0; i < imageCount; i++) {
+                const spaceHorizon = Math.floor(Math.random() * (maxH - minH + 1)) + minH;
+                const spaceVertical = Math.floor(Math.random() * (maxV - minV + 1)) + minV;
+                const item = getRandomItem();
+                const box = document.createElement('div');
+                box.className = 'planet';
+                box.className = 'z2s';
+                box.setAttribute('data-block-object', '1.5');
 
-        for (let i = 0; i < imageCount; i++) {
-            const space = Math.floor(Math.random() * (max - min + 1)) + min;
-            const item = getRandomItem();
-            const box = document.createElement('div');
-            box.className = 'planet';
-            const img = document.createElement('img');
-            img.src = item.path;
-            img.style.transform = `scale(${item.scale})`;
+                for (let j = 0; j < spaceVertical; j++) {
+                    const spacer = document.createElement('div');
+                    spacer.className = 'space-vertical';
+                    container.appendChild(spacer);
+                }
 
-            for (let j = 0; j < space; j++) {
-                const spacer = document.createElement('div');
-                spacer.className = 'space-horizon';
-                box.appendChild(spacer);
+                for (let j = 0; j < spaceHorizon; j++) {
+                    const spacer = document.createElement('div');
+                    spacer.className = 'space-horizon';
+                    box.appendChild(spacer);
+                }
+                
+                const img = document.createElement('img');
+                img.src = item.path;
+                img.style.transform = `scale(${item.scale})`;
+                
+                box.appendChild(img);
+                container.appendChild(box);
             }
-            box.appendChild(img);
-            leftContainer.appendChild(box);
-        }
+        };
 
-        for (let i = 0; i < imageCount; i++) {
-            const space = Math.floor(Math.random() * (max - min + 1)) + min;
-            const item = getRandomItem();
-            const box = document.createElement('div');
-            box.className = 'planet';
-            const img = document.createElement('img');
-            img.src = item.path;
-            img.style.transform = `scale(${item.scale})`;
+        createAndAppendImages(leftContainer);
+        createAndAppendImages(rightContainer);
 
-            for (let j = 0; j < space; j++) {
-                const spacer = document.createElement('div');
-                spacer.className = 'space-horizon';
-                box.appendChild(spacer);
+        function getRandomItem() {
+            let totalWeight = 0;
+            svgPathList.forEach(image => {
+                totalWeight += image.weight;
+            });
+
+            let randomNum = Math.random() * totalWeight;
+
+            for (const image of svgPathList) {
+                if (randomNum <= image.weight) {
+                    return image;
+                }
+                randomNum -= image.weight;
             }
-            box.appendChild(img);
-            rightContainer.appendChild(box);
+
+            return svgPathList[Math.floor(Math.random() * svgPathList.length)];
         }
-    }
-
-    function getRandomItem() {
-        let totalWeight = 0;
-        svgPathList.forEach(image => {
-            totalWeight += image.weight;
-        });
-
-        let randomNum = Math.random() * totalWeight;
-
-        for (const image of svgPathList) {
-            if (randomNum <= image.weight) {
-                return image;
-            }
-            randomNum -= image.weight;
-        }
-
-        return svgPathList[Math.floor(Math.random() * svgPathList.length)];
     }
 
     // テキストを一文字ずつフェードインする関数
@@ -515,9 +511,9 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     }
 
     function initialize() {
+        makeUniverseLayer();
         makeCursor();
         gameFieldAdministrator();
-        makeUniverseLayer();
 
         // 3Dスクロールアニメーションの初期化
         try {

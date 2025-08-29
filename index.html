@@ -25,7 +25,7 @@
         background-position: bottom;
         cursor: none;
         overflow-x: hidden;
-        z-index: -1;
+        /* z-index: -1; */
 
         .no-scroll {
             overflow: hidden;
@@ -74,6 +74,7 @@
             <div class="segment" id="segmentC"></div>
             <div class="ground" data-block-object="1"></div>
         </div>
+
         <div class="container-centeredness container-vertical">
             <div id="scroll-animation-container">
                 <div id="three-d-scroll-content"></div>
@@ -81,8 +82,16 @@
                     <div class = "text-box">Scroll down</div>
                 </div>
             </div>
+
             <div class="container-centeredness">
                 <div class="backdrop" style="z-index: 2001;"></div>
+
+                <div class="universe-layer">
+                    <div class="left-side"></div>
+                    <div class="right-side"></div>
+                </div>
+
+                <!-- ドロワー -->
                 <div class="drawer" style="z-index: 2002;">
                     <a href="index.html" class="page-top">
                         <div class="neon-orange">
@@ -176,6 +185,7 @@
                     </a>
                 </div>
 
+                <!-- ヘッダーバー -->
                 <div class="popup-bar" id="popupBar">
                     <div class="left z20s">
                         <div class="health-container">

@@ -67,6 +67,7 @@
   --color-yellow: #e6f371;
   --color-beige: #ebe9e6;
   --color-pink:rgb(255, 70, 110);
+  --color-clear-gray: #8d8d8d65;
   --font-size-base: 2vmin;
   --overlay-height: 50%;
   --overlay-angle: 0deg;
@@ -606,6 +607,44 @@ main-scene.active {
 
 .is-clash {
   animation: electrocute 0.3s ease-in-out;
+}
+
+.universe-layer {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  opacity: 0;
+  flex-direction: row;
+  pointer-events: none;
+}
+.universe-layer .left-side, .universe-layer .right-side {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  flex: 1;
+}
+.universe-layer .left-side {
+  align-items: flex-start;
+}
+.universe-layer .left-side .planet {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.universe-layer .right-side {
+  align-items: flex-end;
+}
+.universe-layer .right-side .planet {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+.universe-layer img {
+  max-width: calc(var(--window-min-vp) / 10);
 }
 
 .mouse-overlay {
@@ -1669,7 +1708,7 @@ main-scene.active {
   line-height: 1.5;
 }
 .link-box:hover {
-  background-color: rgba(141, 141, 141, 0.3960784314);
+  background-color: var(--color-clear-gray);
   transform: scale(0.99);
 }
 .link-box a {
@@ -2169,11 +2208,11 @@ main-scene.active {
   height: 100%;
   padding: calc(var(--bar-font-size) * 2) calc(var(--bar-font-size) * 0.5);
   gap: calc(var(--bar-font-size) * 0.5);
-  border: white solid var(--solid-line-weight);
+  border: var(--color-black) solid var(--solid-line-weight);
   border-radius: 15px 0 0 15px;
   color: var(--color-white);
   background-attachment: scroll;
-  background-image: url("../../figs/backgrounds/maptile_renga_black_02_matt_x5.png");
+  background-image: url("../../figs/color/f4f4f4.png");
   background-repeat: repeat-y;
   background-size: contain;
   background-color: var(--color-black);
@@ -2204,9 +2243,9 @@ main-scene.active {
   height: 30vh;
   max-width: 90%;
   gap: var(--solid-line-weight);
-  background-color: var(--color-black);
+  background-color: var(--color-white);
   border-radius: 15px;
-  border: var(--color-white) solid var(--solid-line-weight);
+  border: var(--color-black) solid var(--solid-line-weight);
   justify-content: center;
   overflow: hidden;
 }
@@ -2215,8 +2254,8 @@ main-scene.active {
   display: flex;
   height: 100%;
   width: 100%;
-  padding: 0 calc(var(--solid-line-weight) * 2);
-  gap: var(--solid-line-weight);
+  padding: 0 calc(var(--solid-line-weight) * 6);
+  gap: calc(var(--solid-line-weight) * 3);
   flex-direction: row;
   justify-content: center;
   margin: auto;
@@ -2255,14 +2294,23 @@ main-scene.active {
 }
 .drawer .drawer-menu .media .details .description {
   font-family: "Kiwi Maru";
-  font-size: calc(var(--bar-font-size) * 0.3);
-  color: var(--color-white);
+  font-size: calc(var(--bar-font-size) * 0.23);
+  color: var(--color-black);
+}
+.drawer .drawer-menu:hover {
+  background-color: var(--color-clear-gray);
 }
 .drawer .drawer-menu:hover .media {
   scale: 1.02;
 }
 .drawer .drawer-menu:hover .media img, .drawer .drawer-menu:hover .media video {
   filter: brightness(1.5);
+}
+.drawer a {
+  text-decoration: none;
+}
+.drawer a:hover {
+  text-decoration: none;
 }
 .is-drawerActive .drawer {
   opacity: 1;
