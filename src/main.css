@@ -1067,6 +1067,11 @@ main-scene.active {
   background-color: var(--color-white);
 }
 
+.border {
+  border-radius: var(--solid-line-weight);
+  border: var(--solid-line-weight) solid var(--color-black);
+}
+
 .wireframe-white {
   background-color: rgba(0, 0, 0, 0);
   width: 100%;
