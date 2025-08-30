@@ -1063,11 +1063,12 @@ main-scene.active {
   line-height: 1.5;
 }
 
-.whiteboad {
+.whiteboard {
   background-color: var(--color-white);
 }
 
 .border {
+  position: relative;
   border-radius: var(--solid-line-weight);
   border: var(--solid-line-weight) solid var(--color-black);
 }
