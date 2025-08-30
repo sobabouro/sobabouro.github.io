@@ -8,7 +8,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     const scaleFactor = 1.5;
     const specialScaleFactor = 0.1;
 
-    const svgFolder = './svgs/';
+    const svgFolder = '/svgs/';
     const svgPathList = [
         { path: `${svgFolder}object_jupiter.svg`, weight: 6, scale: 11.21 * scaleFactor * specialScaleFactor },
         { path: `${svgFolder}object_mars.svg`, weight: 10, scale: 0.53 * scaleFactor },
@@ -396,12 +396,18 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     }
 
     function makeUniverseLayer() {
-        const layer = document.querySelector(".universe-layer");
         const contentHeight = document.body.scrollHeight;
-        layer.style.height = `${contentHeight * 0.4}px`;
+        const layer = document.querySelector(".universe-layer");
+        if(document.getElementById("three-d-scroll-content")) {
+            layer.style.top = `50%`;
+            layer.style.height = `${contentHeight * 0.4}px`;
+        }
+        else {
+            layer.style.height = `${contentHeight}px`;
+        }
         const leftContainer = layer.querySelector(".left-side");
         const rightContainer = layer.querySelector(".right-side");
-        const minH = 0, maxH = 7, minV = 2, maxV = 5, imageCount = 5;
+        const minH = 1, maxH = 7, minV = 2, maxV = 5, imageCount = 5;
 
         const createAndAppendImages = (container) => {
             container.innerHTML = '';
@@ -410,8 +416,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
                 const spaceVertical = Math.floor(Math.random() * (maxV - minV + 1)) + minV;
                 const item = getRandomItem();
                 const box = document.createElement('div');
-                box.className = 'planet';
-                box.className = 'z2s';
+                box.className = 'planet z2h';
                 box.setAttribute('data-block-object', '1.5');
 
                 for (let j = 0; j < spaceVertical; j++) {
@@ -523,7 +528,8 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
                 if (container) {
                     new ThreeDScrollObject(container, THREE);
                 } else {
-                    console.error('3D scroll content container not found.');
+                    return 0;
+                    // console.error('3D scroll content container not found.');
                 }
             }).catch(error => console.error('Failed to load THREE.js:', error));
         } catch (error) {
@@ -663,7 +669,13 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     function updateUniverseLayer() {
         const layer = document.querySelector(".universe-layer");
         const contentHeight = document.body.scrollHeight;
-        layer.style.height = `${contentHeight * 0.4}px`;
+        if(document.getElementById("three-d-scroll-content")) {
+            layer.style.top = `50%`;
+            layer.style.height = `${contentHeight * 0.4}px`;
+        }
+        else {
+            layer.style.height = `${contentHeight}px`;
+        }
     }
 
     // pythagoras-container のレイアウトを計算する
@@ -858,11 +870,13 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
             getComputedStyle(document.documentElement).getPropertyValue("--popup-bar-height")
         );
 
-        const scrollObjectContainerHeight = parseFloat(
-            getComputedStyle(
-                document.getElementById("three-d-scroll-content")
-            ).height
-        );
+        const scrollObjectContainerHeight = (() => {
+            const el = document.getElementById("three-d-scroll-content");
+            if (!el) return 0;
+
+            const style = getComputedStyle(el);
+            return parseFloat(style.height) || 0;
+        })();
 
         const windowMinVp = parseFloat(
             getComputedStyle(document.documentElement).getPropertyValue("--window-min-vp")
