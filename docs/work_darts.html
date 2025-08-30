@@ -8,7 +8,7 @@
 
     <title>drunkard-darts</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../src/main.css">
+    <link rel="stylesheet" href="/src/main.css">
 </head>
 
 <style>
@@ -19,424 +19,265 @@
         padding: 0;
         font-size: 16px;
         font-family: Arial, sans-serif;
-        background-image: url('../../figs/backgrounds/universe.png');
+        background-image: url('/figs/color/f4f4f4.png');
         background-size: cover;
         background-attachment: fixed;
         background-position: bottom;
         cursor: none;
         overflow-x: hidden;
-        z-index: -1;
-        opacity: 0;
-        transition: all 0.5s ease-in-out;
+        /* z-index: -1; */
 
         .no-scroll {
             overflow: hidden;
         }
     }
 
-    body.fade-in {
-            opacity: 1;
-        }
-
     * {
         box-sizing: border-box;
-        outline: 1px solid red;
+        /* outline: 1px solid red; */
     }
 </style>
 
-<body onload="openSubPage()">
-    <div class="mouse-overlay"></div>
-
-    <div class="backdrop" style="z-index: 2001;"></div>
-    <div class="drawer" style="z-index: 2002;">
-        <a href="../index.html" class="page-top">
-            <div class="neon-orange">
-                MAIN PAGE
-            </div>
-        </a>
-        <a href="./work_darts.html" class="container-left">
-            <div class="drawer-menu">
-                <div class="media">
-                    <img src="../figs/darts.gif" alt="Slide 1">
-                    <div class="details">
-                        <div class="title">
-                            <div class="neon-blue">
-                                酔<span>っ</span>払い<span>ダ</span>ーツ
-                            </div>
-                        </div>
-                        <div class="description">
-                            初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="./work_holo_shooting.html" class="container-right">
-            <div class="drawer-menu">
-                <div class="media">
-                    <div class="details" data-font-size="0.5">
-                        <div class="title">
-                            <div class="neon-blue">
-                                <span></span><span></span>Holo Shooti<span>n</span>g
-                            </div>
-                        </div>
-                        <div class="description">
-                            研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
-                        </div>
-                    </div>
-                    <img src="../figs/holo_shooting.gif" alt="Slide 2">
-                </div>
-            </div>
-        </a>
-        <a href="./work_3d_born.html" class="container-left">
-            <div class="drawer-menu">
-                <div class="media">
-                    <img src="../figs/3d_born.gif" alt="Slide 3">
-                    <div class="details">
-                        <div class="title">
-                            <div class="neon-blue">
-                                <span></span><span></span><span></span>学部<span>卒</span>業研究
-                            </div>
-                        </div>
-                        <div class="description">
-                            「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="./work_heyakowashi.html" class="container-right">
-            <div class="drawer-menu">
-                <div class="media">
-                    <div class="details">
-                        <div class="title">
-                            <div class="neon-blue">
-                                部屋<span>壊</span>しゲ<span>ー</span>ム<span></span><span></span>
-                            </div>
-                        </div>
-                        <div class="description">
-                            研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
-                        </div>
-                    </div>
-                    <img src="../figs/heyakowashi.gif" alt="Slide 4">
-                </div>
-            </div>
-        </a>
-        <a href="./work_letus_letters.html" class="container-left">
-            <div class="drawer-menu">
-                <div class="media">
-                    <img src="../figs/title.gif" alt="Slide 5">
-                    <div class="details">
-                        <div class="title">
-                            <div class="neon-blue">
-                                Let u<span></span><span></span><span>s</span>,Lett<span>e</span>rs
-                            </div>
-                        </div>
-                        <div class="description">
-                            portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="popup-bar" id="popupBar">
-        <div class="left z20s">
-            <div class="health-container">
-                <div class="game-over">
-                    <div class="container">
-                        <div class="sentence" data-font-size="2">
-                            <div class="dot-game" style="color: #ff1f1f;">
-                                GAME OVER
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body onload="openMainPage()">
+    <start-scene>
+    </start-scene>
+    <main-scene>
+        <div class="mouse-overlay"></div>
+        <div class="game-field z1h">
+            <div class="segment" id="segmentA"></div>
+            <div class="segment" id="segmentB"></div>
+            <div class="segment" id="segmentC"></div>
+            <div class="ground" data-block-object="1"></div>
         </div>
-        <div class="right">
-            <button id="scrollTopButton">
-                <span>PAGE TOP</span>
-            </button>
-            <button id="menuButton" aria-expanded="false">
-                <div class="circle">
-                    <div class="line"></div>
+
+        <div class="container-centeredness container-vertical">
+            <div class="container-centeredness">
+                <div class="backdrop" style="z-index: 2001;"></div>
+
+                <div class="universe-layer">
+                    <div class="left-side"></div>
+                    <div class="right-side"></div>
                 </div>
-            </button>
-        </div>
-    </div>
 
-    <div class="game-field z1h">
-        <div class="segment" id="segmentA"></div>
-        <div class="segment" id="segmentB"></div>
-        <div class="segment" id="segmentC"></div>
-        <div class="ground" data-block-object="1"></div>
-    </div>
-
-    <div class="content">
-        <!-- トップ -->
-        <div class="plane-image-container">
-            <img src="../figs/darts.gif" alt="darts">
-        </div>
-        <!-- カット -->
-        <div class="whiteboad">
-            <div class="cut z2s">
-                <div class="double-underline"> SUMMARY </div>
-            </div>
-        </div>
-        <!-- ジャンプボタン -->
-        <div class="plate">
-            <div class="justify-center">
-                <div class="vertical-zoom-box" default-height="50vh">
-                    <div class="pythagoras-container">
-
-                        <div class="summary-box">
-                            <button class="button" onclick="scrollToSection('intro')" data-block-object="2.5">
-                                <img src="../figs/summary-icons/intro.png" alt="" class="button-icon z2s">
-                                <span class="button-text z2s">
-                                    <div class="text-sub"> 概要 </div>
-                                    <div class="text-main"> INTRO </div>
-                                </span>
-                            </button>
+                <!-- ドロワー -->
+                <div class="drawer" style="z-index: 2002;">
+                    <a href="index.html" class="page-top">
+                        <div class="neon-orange">
+                            MAIN PAGE
                         </div>
-
-                        <div class="summary-box">
-                            <button class="button" onclick="scrollToSection('effort')" data-block-object="2.5">
-                                <img src="../figs/summary-icons/appeal.png" alt="" class="button-icon z2s">
-                                <div class="button-text z2s">
-                                    <div class="text-sub"> アピールポイント </div>
-                                    <div class="text-main"> EFFORT </div>
+                    </a>
+                    <a href="/docs/work_darts.html" class="container-left">
+                        <div class="drawer-menu">
+                            <div class="media">
+                                <img src="/figs/darts.gif" alt="Slide 1">
+                                <div class="details">
+                                    <div class="title">
+                                        <div class="neon-blue">
+                                            酔<span>っ</span>払い<span>ダ</span>ーツ
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        初めて作成したゲームです．ブルを狙おうとすればするほど，カーソルが揺れるようになっています．
+                                    </div>
                                 </div>
-                            </button>
+                            </div>
                         </div>
-
-                        <div class="summary-box">
-                            <button class="button" onclick="scrollToSection('detail')" data-block-object="2.5">
-                                <img src="../figs/summary-icons/product.png" alt="" class="button-icon z2s">
-                                <span class="button-text z2s">
-                                    <div class="text-sub"> 詳細 </div>
-                                    <div class="text-main"> DETAIL </div>
-                                </span>
-                            </button>
-                        </div>
-
-                        <div class="summary-box">
-                            <button class="button" onclick="scrollToSection('github')" data-block-object="2.5">
-                                <img src="../figs/summary-icons/github_white.png" alt="" class="button-icon z2s">
-                                <span class="button-text z2s">
-                                    <div class="text-sub"> 制作物ページ </div>
-                                    <div class="text-main"> GIT HUB </div>
-                                </span>
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- カット -->
-        <div class="whiteboad" id="intro">
-            <div class="cut z2s">
-                <div class="double-underline"> INTRO </div>
-            </div>
-        </div>
-        <!-- 概要 -->
-        <div class="sky-container">
-            <div class="intro">
-                <div class="title z2s">
-                    <div class="neon-orange">
-                        <div class="sentence" data-font-size="3"> 酔っ払いダーツ </div>
-                    </div>
-                </div>
-                <div class="description z2s">
-                    <div class="sentence">
-                    【酔っ払いダーツ】は，
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- カット -->
-        <div class="whiteboad" id="detail">
-            <div class="cut z2s">
-                <div class="double-underline"> DETAIL </div>
-            </div>
-        </div>
-        <!-- 詳細 -->
-        <div class="sky-container">
-            <div class="space-vertical"></div>
-            <div class="text z2s"> デモ動画 ※音量注意 (BGM が小さく，SE が大きめ) </div>
-            <div class="vertical-zoom-box z1h" data-block-object="0.4">
-                <video controls>
-                    <source src="../videos/heyakowashi_github_movie.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="sentence">
-                <div class="padding-box">
-                    <div class="border-container z2s">
-                        <ul>
-                            <li>制作の同機</li>
-                            <ul>
-                                <li>今年卒業の先輩方や後輩たちが多く，みんなで思い出を作りたいと思ったことがキッカケです．</li>
-                                <li>卒業される先輩方の就職先がゲーム制作に携わっていることから，私自身や先輩方のスキルアップを第一に，技術研究を兼ねた制作をしたいと思ったことがキッカケです．</li>
-                            </ul>
-                        </ul>
-                        <ul>
-                            <li>制作期間</li>
-                            2024 年 9 月 ～ 2024 年 11 月 15 日
-                            <ul>
-                                <li>企画・設計: 約1週間</li>
-                                <li>実装・研究: 約2か月</li>
-                            </ul>
-                        </ul>
-                        <ul>
-                            <li>制作人数</li>
-                            メインプログラマ: 修士1年生x1名（自分），修士2年生x2名
-                            オブジェクト制作やデザインなど: 修士2年生x1名，学部3年生x1名
-                        </ul>
-                        <ul>
-                            <li>仕様</li>
-                            ゲームコンセプトや仕様決定は miro や話し合いで決定し，jira や github で管理を行いました．
-                        </ul>
-                        <ul>
-                            <li>担当部分</li>
-                            <ul>
-                                <li>オブジェクトのメッシュを切断・生成を行う「切断属性」の実装．</li>
-                                <li>チュートリアルオブジェクトの制作や、その他オブジェクトの追加．</li>
-                                <li>このゲームの企画や設計に加えた、文化祭当日までの運営や管理．</li>
-                            </ul>
-                        </ul>
-                        <ul>
-                            <li>制作環境</li>
-                            <ul>
-                                <li>使用デバイス :Microsoft HoloLens2</li>
-                                <li>開発エンジン :Unity</li>
-                                <li>開発言語 :C#</li>
-                                <li>ライブラリ :Mixed Reality Toolkit 2</li>
-                            </ul>
-                        </ul>
-                        <ul>
-                            <li>実行環境</li>
-                            Windows 10 (Windows 11)
-                            Windows Holographics for Business
-                        </ul>
-                        <ul>
-                            <li>実行手順</li>
-                            Unity 上でビルド後，VisualStudio2019 (ver16.8 以降) を通して UWP 形式に変換し，HoloLens2 上で起動する．
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="sky-2">
-                <img src="../figs/clouds/cloud_M_1.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_M_2.png" class="cloud" alt="">
-            </div>
-            <div class="sky-1">
-                <img src="../figs/clouds/cloud_S_2.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_S_5.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_S_4.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_S_5.png" class="cloud" alt="">
-            </div>
-        </div>
-        <!-- カット -->
-        <div class="whiteboad" id="effort">
-            <div class="cut z2s">
-                <div class="double-underline"> EFFORT </div>
-            </div>
-        </div>
-        <!-- アピールポイント -->
-        <div class="sky-container">
-            <div class="effort">
-                <div class="sentence">
-                    <div class="container-flexible">
-                        <img src="../figs/slash_desk_car_1.1.1.png" alt="">
-                        <div class="underline z2s">
-                            <ul>
-                                <li> メッシュの切断処理 </li>
-                                自身が計算幾何学の分野に興味があったこと・3D ゲーム制作や，3D モデルの生成に関しての知識が欲しかったこともあり，オブジェクトのメッシュに対して図形的な切断処理を行う「切断属性」を実装しました．
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="container-flexible">
-                        <img src="../figs/mydebug.png" alt="">
-                        <div class="underline z2s">
-                            <ul>
-                                <li> デバッグ機能 </li>
-                                メッシュの切断処理では，UnityDebugger や Log などのデバッグ機能だけでは，切断処理のデバッグが難しいと感じたため，オリジナルのデバッガーを作成して自分なりに工夫しました．配列の要素を視覚的に確認することや，処理済み・処理予定の頂点や辺を物理的に表示することで，問題の特定と修正を容易にしました．視覚的に処理している頂点や辺を確認することで，処理の流れを直感的に理解しやすく，楽しくメッシュ切断機能の実装することができました．
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="container-flexible">
-                        <img src="../figs" alt="">
-                        <div class="underline z2s">
-                            <ul>
-                                <li> 切断面を構成する図形 (非凸穿孔多角形？) への挑戦 </li>
-                                現バージョンでは，断面として複数の図形が構成される断面には対応していますが，図形を任意の数だけ内包する図形を構成される断面には対応していません．具体的には，ドーナツのようなオブジェクト (トーラス) を寝かせて置いたとき，真上から切断することでできる，複数の断面図形は生成することは可能ですが，真横から切断したときにできる「穴」を考慮した断面図形を構成することはできません．こうした断面にも対応できるようなアルゴリズムを考案し，実装することが今後の課題です．
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sky-4">
-                <img src="../figs/hikutei/fune_hansen_beige.png" data-block-object="1" class="ship-1" alt="">
-                <img src="../figs/hikutei/hikutei_01_brown.png" data-block-object="1" class="ship-3" alt="">
-                <img src="../figs/hikutei/hikutei_02_brown.png" data-block-object="1" class="ship-2" alt="">
-            </div>
-            <div class="sky-2">
-                <img src="../figs/hikutei/hikutei_02_brown.png" data-block-object="1" class="ship-1" alt="">
-                <img src="../figs/hikutei/fune_hansen_brown.png" data-block-object="1" class="ship-3" alt="">
-            </div>
-            <div class="sky-1">
-                <img src="../figs/hikutei/hikutei_02_beige.png" data-block-object="1" class="ship-2" alt="">
-                <img src="../figs/hikutei/hikutei_01_beige.png" data-block-object="1" class="ship-3" alt="">
-            </div>
-        </div>
-        <!-- カット -->
-        <div class="whiteboad" id="github">
-            <div class="cut z2s">
-                <div class="double-underline"> GIT HUB </div>
-            </div>
-        </div>
-        <!-- 制作物ページ -->
-        <div class="sky-container">
-            <div class="padding-box">
-                <div class="border-container z2s">
-                    <div class="sentence"> 制作物の GitHub リンクはこちらです！</div>
-                    <a href="https://github.com/sobabouro/aramakiFes2024" target="_blank" class="link sentence"> https://github.com/sobabouro/aramakiFes2024 </a>
-                </div>
-            </div>
-            <div class="sky-2">
-                <img src="../figs/clouds/cloud_M_1.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_M_2.png" class="cloud" alt="">
-            </div>
-            <div class="sky-1">
-                <img src="../figs/clouds/cloud_S_2.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_S_5.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_S_4.png" class="cloud" alt="">
-                <img src="../figs/clouds/cloud_S_5.png" class="cloud" alt="">
-            </div>
-        </div>
-        <!-- フッター -->
-        <div class="footer">
-            <div class="ground">
-                <div class="social-icons z2s">
-                    <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
-                        <img src="../figs/summary-icons/google.png" alt="Google" class="social-icon">
                     </a>
-                    <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
-                        <img src="../figs/summary-icons/mail.png" alt="E-mail" class="social-icon">
+                    <a href="/docs/work_holo_shooting.html" class="container-right">
+                        <div class="drawer-menu">
+                            <div class="media">
+                                <div class="details" data-font-size="0.5">
+                                    <div class="title">
+                                        <div class="neon-blue">
+                                            <span></span><span></span>Holo Shooti<span>n</span>g
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        研究室の同期で制作しました．HoloLes2 というヘッドマウントディスプレイ型のデバイスで遊ぶ，MRシューティングゲームです．
+                                    </div>
+                                </div>
+                                <img src="/figs/holo_shooting.gif" alt="Slide 2">
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/docs/work_3d_born.html" class="container-left">
+                        <div class="drawer-menu">
+                            <div class="media">
+                                <img src="/figs/3d_born.gif" alt="Slide 3">
+                                <div class="details">
+                                    <div class="title">
+                                        <div class="neon-blue">
+                                            <span></span><span></span><span></span>学部<span>卒</span>業研究
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        「シングルショット画像からの3Dモデルの生成とボーン座標推定」と題しまして，一枚の画像内のヒトの骨格推定を行って骨格を生成し，現実の姿勢を特定する研究を行いました．
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/docs/work_heyakowashi.html" class="container-right">
+                        <div class="drawer-menu">
+                            <div class="media">
+                                <div class="details">
+                                    <div class="title">
+                                        <div class="neon-blue">
+                                            部屋<span>壊</span>しゲ<span>ー</span>ム<span></span><span></span>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        研究室のメンバーで制作しました．部屋の中にあるオブジェクトを「突く・斬る・壊す」のパターンで破壊し，スコアを競うゲームです．学園祭出店と技術研究をかねて制作しました．
+                                    </div>
+                                </div>
+                                <img src="/figs/heyakowashi.gif" alt="Slide 4">
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/docs/work_letus_letters.html" class="container-left">
+                        <div class="drawer-menu">
+                            <div class="media">
+                                <img src="/figs/title.gif" alt="Slide 5">
+                                <div class="details">
+                                    <div class="title">
+                                        <div class="neon-blue">
+                                            Let u<span></span><span></span><span>s</span>,Lett<span>e</span>rs
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        portfolio 作成に際して，自分の手書きフォントが欲しくなり制作しました．GIMP に書いた文字の svg ファイルと，設定用の text ファイルを併せて，otf ファイルを生成します．
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                 </div>
-                <div class="footer-text z2s">
-                    <div class="s-cursive"> Portfolio </div>
+
+                <!-- ヘッダーバー -->
+                <div class="popup-bar" id="popupBar">
+                    <div class="left z20s">
+                        <div class="health-container">
+                            <div class="game-over">
+                                <div class="container">
+                                    <div class="sentence" data-font-size="2">
+                                        <div class="dot-game" style="color: #ff1f1f;">
+                                            GAME OVER
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <button id="scrollTopButton">
+                            <span>PAGE TOP</span>
+                        </button>
+                        <button id="menuButton" aria-expanded="false">
+                            <div class="circle">
+                                <div class="line"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content" id="topPage">
+                    <!-- カット -->
+                    <div class="container-left" style="padding: 8vw 8vw 4vw 8vw;">
+                        <div class="container-vertical">
+                            <div class="title z2s" style="font-weight: bold;" data-block-object="1.5">酔っ払いダーツ</div>
+                        </div>
+                    </div>
+                    <!-- トップ -->
+                    <div class="plane-image-container" style="padding: 0 8vw 4vw 8vw;">
+                        <img src="/figs/darts.gif" class="border" alt="darts">
+                    </div>
+
+                    <!-- ジャンプボタン -->
+                    <div class="plate" style="padding: 0 4vw;">
+                        <div class="justify-center">
+                            <div class="vertical-zoom-box" default-height="50dvh">
+                                <div class="pythagoras-container">
+
+                                    <div class="summary-box">
+                                        <button class="button" onclick="scrollToSection('intro')" data-block-object="2.5">
+                                            <img src="/figs/dot_icons/mike.png" alt="作品アイコン" class="button-icon z2s">
+                                            <span class="button-text z2s">
+                                                <div class="text-sub"> 概要 </div>
+                                                <div class="text-main"> INTRO </div>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="summary-box">
+                                        <button class="button" onclick="scrollToSection('effort')" data-block-object="2.5">
+                                            <img src="/figs/dot_icons/speaker.png" alt="自己紹介アイコン" class="button-icon z2s">
+                                            <span class="button-text z2s">
+                                                <div class="text-sub"> アピールポイント </div>
+                                                <div class="text-main"> EFFORT </div>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="summary-box">
+                                        <button class="button" onclick="scrollToSection('detail')" data-block-object="2.5">
+                                            <img src="/figs/dot_icons/detail.png" alt="扱った言語アイコン" class="button-icon z2s">
+                                            <span class="button-text z2s">
+                                                <div class="text-sub"> 詳細 </div>
+                                                <div class="text-main"> DETAIL </div>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- カット -->
+                    <div class="container-left" style="padding: 8vw 8vw 0vw 8vw;">
+                        <div class="container-vertical">
+                            <div class="title z2s" data-block-object="1.5">Introduction</div>
+                        </div>
+                    </div>
+                    <!-- イントロ -->
+                    
+                    <!-- カット -->
+                    <div class="container-left" style="padding: 8vw 8vw 0vw 8vw;">
+                        <div class="title z2s" data-block-object="1.5">effort</div>
+                    </div>
+                    <!-- アピールポイント -->
+
+                    <!-- カット -->
+                    <div class="container-left" style="padding: 8vw 8vw 0vw 8vw;">
+                        <div class="title z2s" data-block-object="1.5">detail</div>
+                    </div>
+                    <!-- 詳細 -->
+
+                    <!-- フッター -->
+                    <div class="footer">
+                        <div class="earth">
+                            <div class="social-icons z2s">
+                                <a href="https://www.google.co.jp" target="_blank" aria-label="Google">
+                                    <img src="/figs/summary-icons/google.png" alt="Google" class="social-icon">
+                                </a>
+                                <a href="mailto:j241a007@gunma-u.ac.jp" aria-label="Mail">
+                                    <img src="/figs/summary-icons/mail.png" alt="E-mail" class="social-icon">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main-scene>
 
+    <script type="importmap">
+    {
+        "imports": {
+        "three": "https://unpkg.com/three@0.144.0/build/three.module.js"
+        }
+    }
+    </script>
     <script type="module" src="../src/main.js"></script>
 </body>
 
