@@ -1023,8 +1023,10 @@ function openMainPage() {
                 mainScene.classList.add("active");
                 
                 // スライダーバーを生成
-                const sliderBarObject = new SliderBarObject('slider1');
-                sliderBarObject.initSlideContainer();
+                if (document.getElementById('slider1')) {
+                    const sliderBarObject = new SliderBarObject('slider1');
+                    sliderBarObject.initSlideContainer();
+                }
             }, 100);
         }, 100);
     }, 100);
