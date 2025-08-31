@@ -340,23 +340,24 @@ sup {
 }
 
 a {
-  color: rgba(233, 86, 32, 0);
+  color: currentColor;
   text-decoration: none;
   background-color: transparent;
+  cursor: none;
 }
 
 a:hover {
-  color: rgba(172, 56, 17, 0);
+  color: currentColor;
   text-decoration: underline;
 }
 
 a:not([href]):not([class]) {
-  color: inherit;
+  color: currentColor;
   text-decoration: none;
 }
 
 a:not([href]):not([class]):hover {
-  color: inherit;
+  color: currentColor;
   text-decoration: none;
 }
 
@@ -991,7 +992,20 @@ main-scene.active {
  * @desc 汎用性のありそうなボックスレイアウト
  */
 .sentence {
+  position: inherit;
   font-size: calc(var(--font-size-base) * var(--font-size-multiplier, 1));
+}
+.sentence ul, .sentence li {
+  position: inherit;
+}
+.sentence a {
+  position: inherit;
+  cursor: none;
+}
+.sentence a:focus {
+  outline: none;
+  cursor: none;
+  color: currentColor;
 }
 
 .sentence-fixed-size {
@@ -1061,6 +1075,90 @@ main-scene.active {
   font-family: "Kiwi Maru", "sans-serif";
   color: var(--color-black);
   line-height: 1.5;
+}
+
+.effort {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 0 var(--font-size-base);
+  gap: 4vw;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Kiwi Maru";
+  font-size: calc(var(--font-size-base) * 1);
+  background-color: rgba(255, 253, 164, 0);
+}
+.effort .container-flexible {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0 var(--font-size-base);
+}
+.effort .container-flexible .underline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  justify-content: center;
+  text-align: start;
+  padding: calc(var(--solid-line-weight) * 2);
+  gap: calc(var(--solid-line-weight) * 2);
+  border-bottom: var(--solid-line-weight) solid var(--color-black);
+  box-sizing: border-box;
+  background-color: rgba(235, 233, 230, 0);
+  overflow: hidden;
+}
+.effort .container-flexible .underline ul {
+  list-style-type: square;
+}
+.effort .container-flexible .underline ul ul {
+  list-style-type: disc;
+}
+.effort .container-flexible .underline ul ul li {
+  font-family: "Kiwi Maru";
+  font-weight: normal;
+  line-height: 1;
+  color: var(--color-black);
+}
+.effort .container-flexible .underline ul li {
+  margin: var(--solid-line-weight 0);
+  font-family: "Kiwi Maru";
+  font-weight: bold;
+  line-height: 1.5;
+  color: var(--color-blue);
+}
+.effort .container-flexible img, .effort .container-flexible video {
+  position: relative;
+  flex: 0;
+  width: 40%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0);
+  object-fit: scale-down;
+}
+.effort .container-flexible img source, .effort .container-flexible video source {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+@media (max-aspect-ratio: 1/1) {
+  .effort .container-flexible {
+    flex-direction: column;
+  }
+  .effort .container-flexible img, .effort .container-flexible video {
+    width: 80%;
+  }
+}
+
+.link {
+  position: inherit;
+  font-family: "Kiwi Maru";
+  color: var(--color-blue);
 }
 
 .whiteboard {

@@ -126,23 +126,24 @@ sup {
 }
 
 a {
-    color: #e9562000;
+    color: currentColor;
     text-decoration: none;
-    background-color: transparent
+    background-color: transparent;
+    cursor: none;
 }
 
 a:hover {
-    color: #ac381100;
+    color: currentColor;
     text-decoration: underline
 }
 
 a:not([href]):not([class]) {
-    color: inherit;
+    color: currentColor;
     text-decoration: none
 }
 
 a:not([href]):not([class]):hover {
-    color: inherit;
+    color: currentColor;
     text-decoration: none
 }
 
