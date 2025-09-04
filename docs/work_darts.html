@@ -242,7 +242,12 @@
                     <!-- イントロ -->
                     <div class="content z2s" id="intro" style="padding: 0 8vw;">
                         <div class="border whiteboard" style="padding: calc(var(--bar-font-size) * 0.25);">
-                            <div class="text">あいうえお</div>
+                            <div class="sentence" style="font-family: Kiwi maru;">
+                                【酔っ払いダーツ】は，私が初めて製作したマウス操作によるダーツゲームです．</br>
+                                ブル (的の中心) を狙うほど，カーソルが酔っ払いのように揺れて狙いにくくなり，イライラ棒のような操作感や気分でダーツをすることができます．</br>
+                                ブルを狙えば高得点だが，狙いにくいという，リスクとリターンを考慮した戦略性があります．</br>
+
+                            </div>
                         </div>
                     </div>
                     
@@ -253,7 +258,19 @@
                     <!-- アピールポイント -->
                     <div class="content z2s" id="effort" style="padding: 0 8vw;">
                         <div class="border whiteboard" style="padding: calc(var(--bar-font-size) * 0.25);">
-                            <div class="text">あいうえお</div>
+                            <div class="effort sentence">
+                                <div class="container-flexible">
+                                    <!-- <img src="/figs/.png" alt="" data-block-object="0.4"> -->
+                                    <div class="underline z2s">
+                                        <ul>
+                                            <li> 「酔っ払い」を表現するための物理シミュレーション </li>
+                                            実装としては，カーソルの位置を中心に，ランダムな方向にノイズを加えることで，カーソルが揺れるようにしました．</br>
+                                            また，ノイズの大きさは，ブルの距離に比例し，ノイズの方向のランダム性は，的の外側に多く分布するようにしました．</br>
+                                            このようにすることで，外側への抵抗が多い中でも，内側への抵抗もあるため，一方向のみの操作性になることを防ぎつつ，完全な制御が難しい「酔っ払い」の挙動を表現しました．
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -262,9 +279,46 @@
                         <div class="title z2s" data-block-object="1.5">detail</div>
                     </div>
                     <!-- 詳細 -->
-                    <div class="content z2s" id="detail" style="padding: 0 8vw;">
+                    <div class="content" id="detail" style="padding: 0 8vw;">
                         <div class="border whiteboard" style="padding: calc(var(--bar-font-size) * 0.25);">
-                            <div class="text">あいうえお</div>
+                            <div class="sentence z2s" style="font-family: 'kiwi maru';">
+                                <ul>
+                                    <li>制作の動機</li>
+                                    <ul>
+                                        <li>大学の講義で C を用いた自由課題が課せられたことがキッカケです．</li>
+                                    </ul>
+                                </ul>
+                                <ul>
+                                    <li>制作期間</li>
+                                    2022 年 8 月 ～ 2024 年 9 月
+                                    <ul>
+                                        <li>企画・設計: 約1週間</li>
+                                        <li>実装・研究: 約2か月</li>
+                                    </ul>
+                                </ul>
+                                <ul>
+                                    <li>制作人数</li>
+                                    1名 (個人開発)
+                                </ul>
+                                <ul>
+                                    <li>仕様</li>
+                                    マウス操作によるダーツゲームです．</br>
+                                    的の中心 (ブル) を狙うほど，カーソルが揺れて狙いにくくなります．</br>
+                                    的を射抜くとエフェクトが発生します．</br>
+                                </ul>
+                                <ul>
+                                    <li>制作環境</li>
+                                    <ul>
+                                        <li>開発言語 : C</li>
+                                        <li>ライブラリ : DXライブラリ</li>
+                                    </ul>
+                                </ul>
+                                <ul>
+                                    <li>実行環境</li>
+                                    Windows 10
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
 
