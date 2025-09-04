@@ -19,7 +19,20 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
         { path: `${svgFolder}object_mercury.svg`, weight: 10, scale: 0.38 * scaleFactor },
         { path: `${svgFolder}object_venus.svg`, weight: 6, scale: 0.95 * scaleFactor}
     ];
+    function loadDrawer() {
+        const container = document.getElementById('drawer-container');
+        if (!container) {
+            console.error("drawer-container が見つかりません");
+            return;
+        }
 
+        fetch("/docs/drawer.html")
+            .then(response => response.text())
+            .then(data => {
+                container.innerHTML = data;
+            })
+            .catch(err => console.error("drawer.html の読み込みエラー:", err));
+    }
 
     // カーソルを作成する関数
     function makeCursor() {
@@ -516,6 +529,7 @@ import { ThreeDScrollObject } from "./components/ThreeDScrollObject/ThreeDScroll
     }
 
     function initialize() {
+        loadDrawer();
         makeUniverseLayer();
         makeCursor();
         gameFieldAdministrator();
